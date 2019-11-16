@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5773061605514200696}
   - component: {fileID: 3460803157533284833}
   - component: {fileID: 1885767832005226465}
-  - component: {fileID: 1366970707691285106}
+  - component: {fileID: 5563101024213473695}
   m_Layer: 0
   m_Name: ChainBlock
   m_TagString: ChainBlock
@@ -93,7 +93,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1366970707691285106
+--- !u!114 &5563101024213473695
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,7 +102,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 262169443964599289}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a1a6914b04a7e1409c1ed4a70a5292c, type: 3}
+  m_Script: {fileID: 11500000, guid: fd5132bff100b3249ae2d03119325c37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secondsToDestroy: 0.5
+  secondsToDestroy: 1
+  blockID: 0

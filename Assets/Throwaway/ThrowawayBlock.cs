@@ -4,18 +4,15 @@ using UnityEngine;
 
 public class ThrowawayBlock : MonoBehaviour
 {
-    public float secondsToDestroy = 1;
+    public float secondsToDestroy;
 
     // Start is called before the first frame update
     void Start()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        if(secondsToDestroy < 0)
+        {
+            secondsToDestroy = 1;
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -23,15 +20,6 @@ public class ThrowawayBlock : MonoBehaviour
         if (collision.gameObject.tag.Equals("Player"))
         {
             Destroy(gameObject, secondsToDestroy);
-
-            if(gameObject.tag.Equals("ChainBlock"))
-            {
-                GameObject[] chainBlocks = GameObject.FindGameObjectsWithTag("ChainBlock");
-                foreach(GameObject chainBlock in chainBlocks)
-                {
-                    Destroy(chainBlock, secondsToDestroy);
-                }
-            }
         }
     }
 }

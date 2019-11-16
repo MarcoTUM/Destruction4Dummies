@@ -9,10 +9,13 @@ public class Throwaway_Player : MonoBehaviour
     [SerializeField] private float jumpVelocity = 5;
     new private Rigidbody rigidbody;
     private float distanceToGround;
+
+    private bool canDestroy { set; get; }
     public bool CanJump { set; get; }
 
     private void Awake()
     {
+        canDestroy = true;
         rigidbody = this.GetComponent<Rigidbody>();
         distanceToGround = this.GetComponent<Collider>().bounds.extents.y;
     }
