@@ -23,6 +23,15 @@ public class ThrowawayBlock : MonoBehaviour
         if (collision.gameObject.tag.Equals("Player"))
         {
             Destroy(gameObject, secondsToDestroy);
+
+            if(gameObject.tag.Equals("ChainBlock"))
+            {
+                GameObject[] chainBlocks = GameObject.FindGameObjectsWithTag("ChainBlock");
+                foreach(GameObject chainBlock in chainBlocks)
+                {
+                    Destroy(chainBlock, secondsToDestroy);
+                }
+            }
         }
     }
 }
