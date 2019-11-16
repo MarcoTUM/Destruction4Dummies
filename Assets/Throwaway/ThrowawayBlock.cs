@@ -17,7 +17,7 @@ public class ThrowawayBlock : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag.Equals("Player"))
+        if (collision.gameObject.tag.Equals("Player") && collision.gameObject.GetComponent<Throwaway_Player>().CanDestroy)
         {
             Destroy(gameObject, secondsToDestroy);
         }

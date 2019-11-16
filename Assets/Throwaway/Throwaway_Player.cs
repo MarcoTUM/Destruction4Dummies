@@ -10,12 +10,12 @@ public class Throwaway_Player : MonoBehaviour
     new private Rigidbody rigidbody;
     private float distanceToGround;
 
-    private bool canDestroy { set; get; }
+    public bool CanDestroy { set; get; }
     public bool CanJump { set; get; }
 
     private void Awake()
     {
-        canDestroy = true;
+        CanDestroy = true;
         rigidbody = this.GetComponent<Rigidbody>();
         distanceToGround = this.GetComponent<Collider>().bounds.extents.y;
     }
