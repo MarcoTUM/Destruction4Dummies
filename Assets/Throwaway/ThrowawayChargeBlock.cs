@@ -17,8 +17,10 @@ public class ThrowawayChargeBlock : ThrowawayBlock
     {
         if(!IsCharged && Time.time - startTime > 10.0f)
         {
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Throwaway_Player>().CanDestroy = true;
+            Throwaway_Player throwaway_Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Throwaway_Player>();
+            throwaway_Player.CanDestroy = true;
             Destroy(gameObject ,secondsToDestroy);
+            throwaway_Player.ForceOutbreak();
         }
     }
 

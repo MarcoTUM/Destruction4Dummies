@@ -767,6 +767,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   jumpVelocity: 6
+  radius: 5
+  forceOutbreak: {fileID: 4587728173211231487, guid: 4a8e52f819d1f9143a193be17f55b1d9,
+    type: 3}
 --- !u!114 &380417166
 MonoBehaviour:
   m_ObjectHideFlags: 0

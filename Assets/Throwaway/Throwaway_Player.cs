@@ -9,6 +9,8 @@ public class Throwaway_Player : MonoBehaviour
     [SerializeField] private float jumpVelocity = 5;
     new private Rigidbody rigidbody;
     private float distanceToGround;
+    public float radius;
+    public ParticleSystem forceOutbreak;
 
     public bool CanDestroy { set; get; }
     public bool CanJump { set; get; }
@@ -35,5 +37,19 @@ public class Throwaway_Player : MonoBehaviour
     {
         return rigidbody.velocity.y < jumpVelocity / 2f && //stops groundchecks if jump just started
             Physics.Raycast(this.transform.position, Vector3.down, distanceToGround + 0.01f);//added offset for irregularities in ground
+    }
+
+    public void ForceOutbreak()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius);
+
+        foreach(Collider hitCollider in hitColliders)
+        {
+            if (!hitCollider.gameObject.tag.Equals("Player"))
+            {
+                Instantiate(forceOutbreak, transform.position, Quaternion.identity);
+                Destroy(hitCollider.gameObject);
+            }
+        }
     }
 }
