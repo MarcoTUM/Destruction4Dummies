@@ -9,6 +9,7 @@ public class Throwaway_Player : MonoBehaviour
     [SerializeField] private float minY;
     [SerializeField] private float moveSpeed = 5;
     [SerializeField] private float jumpVelocity = 5;
+    
     new private Rigidbody rigidbody;
     private float distanceToGround;
     public float radius;
