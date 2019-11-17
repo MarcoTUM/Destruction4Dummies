@@ -1319,7 +1319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06336d4c3ddae5f4c98b5048d89f08ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextLevelName: 
+  nextLevelName: L3
 --- !u!1001 &610164224
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1570,6 +1570,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsToDestroy: 0
+  chargeTimer: 0
 --- !u!1001 &957434945
 PrefabInstance:
   m_ObjectHideFlags: 0
