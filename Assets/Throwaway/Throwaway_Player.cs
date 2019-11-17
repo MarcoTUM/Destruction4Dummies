@@ -9,6 +9,7 @@ public class Throwaway_Player : MonoBehaviour
     [SerializeField] private float minY;
     [SerializeField] private float moveSpeed = 5;
     [SerializeField] private float jumpVelocity = 5;
+    
     new private Rigidbody rigidbody;
     private float distanceToGround;
     public float radius;
@@ -19,7 +20,6 @@ public class Throwaway_Player : MonoBehaviour
 
     private void Awake()
     {
-        Physics.gravity *= 1.8f;
         CanDestroy = true;
         rigidbody = this.GetComponent<Rigidbody>();
         distanceToGround = this.GetComponent<Collider>().bounds.extents.y;
