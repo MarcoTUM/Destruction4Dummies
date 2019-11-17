@@ -35,7 +35,7 @@ public class Throwaway_Player : MonoBehaviour
     
     public bool IsGrounded()
     {
-        return rigidbody.velocity.y < jumpVelocity / 2f && //stops groundchecks if jump just started
+        return //rigidbody.velocity.y < jumpVelocity / 2f && //stops groundchecks if jump just started
             Physics.Raycast(this.transform.position, Vector3.down, distanceToGround + 0.01f);//added offset for irregularities in ground
     }
 
