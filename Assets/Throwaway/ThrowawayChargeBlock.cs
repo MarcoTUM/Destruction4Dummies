@@ -6,16 +6,20 @@ public class ThrowawayChargeBlock : ThrowawayBlock
 {
     public bool IsCharged { set; get; }
     private float startTime;
+    public float chargeTimer;
 
     // Start is called before the first frame update
     void Start()
     {
         IsCharged = true;
+
+        if (chargeTimer < 0)
+            chargeTimer = 5.0f;
     }
 
     private void Update()
     {
-        if(!IsCharged && Time.time - startTime > 10.0f)
+        if(!IsCharged && Time.time - startTime > chargeTimer)
         {
             Throwaway_Player throwaway_Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Throwaway_Player>();
             throwaway_Player.CanDestroy = true;
