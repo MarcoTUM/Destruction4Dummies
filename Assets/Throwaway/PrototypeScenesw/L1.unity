@@ -1569,7 +1569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d224efc52b08f54cb9fd4952a5aa444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secondsToDestroy: 0
+  secondsToDestroy: 3
   chargeTimer: 0
 --- !u!1001 &957434945
 PrefabInstance:
