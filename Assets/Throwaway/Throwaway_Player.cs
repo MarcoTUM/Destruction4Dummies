@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Throwaway_Player : MonoBehaviour
 {
+    [SerializeField] private float minY;
     [SerializeField] private float moveSpeed = 5;
     [SerializeField] private float jumpVelocity = 5;
     new private Rigidbody rigidbody;
@@ -22,6 +24,13 @@ public class Throwaway_Player : MonoBehaviour
         distanceToGround = this.GetComponent<Collider>().bounds.extents.y;
     }
 
+    private void Update()
+    {
+        if(this.transform.position.y < minY)
+        {
+            Restart();
+        }
+    }
     public void MoveTo(float horizontalDir)
     {
         rigidbody.velocity = new Vector3(horizontalDir * moveSpeed, rigidbody.velocity.y, 0);
@@ -51,5 +60,10 @@ public class Throwaway_Player : MonoBehaviour
                 Destroy(hitCollider.gameObject);
             }
         }
+    }
+
+    private void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

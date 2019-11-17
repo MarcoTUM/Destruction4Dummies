@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Throwaway/PrototypeScenesw/L1.unity
+    guid: 4241ea41b7bba7a4ea1ce26e80fc6831
+  - enabled: 1
+    path: Assets/Throwaway/PrototypeScenesw/L2.unity
+    guid: e56d287d5d7e39e49bf82582631d6c95
   m_configObjects: {}
