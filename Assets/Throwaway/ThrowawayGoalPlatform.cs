@@ -10,7 +10,8 @@ public class ThrowawayGoalPlatform : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player" && nextLevelName != "")
         {
-            SceneManager.LoadScene(nextLevelName);
+            if (collision.transform.position.y > this.transform.position.y)
+                SceneManager.LoadScene(nextLevelName);
         }
     }
 }
