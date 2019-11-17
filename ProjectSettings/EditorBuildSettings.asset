@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Throwaway/PrototypeScenesw/L1.unity
+    path: Assets/Throwaway/PrototypeScenesw/DontJump.unity
     guid: 4241ea41b7bba7a4ea1ce26e80fc6831
   - enabled: 1
     path: Assets/Throwaway/PrototypeScenesw/L2.unity

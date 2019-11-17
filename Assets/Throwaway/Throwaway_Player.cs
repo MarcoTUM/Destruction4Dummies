@@ -19,6 +19,7 @@ public class Throwaway_Player : MonoBehaviour
 
     private void Awake()
     {
+        Physics.gravity *= 1.8f;
         CanDestroy = true;
         rigidbody = this.GetComponent<Rigidbody>();
         distanceToGround = this.GetComponent<Collider>().bounds.extents.y;
