@@ -7,5 +7,5 @@ using UnityEngine;
 /// </summary>
 public static class TagDictionary
 {
-   
+    public const string Player = "Player";
 }
