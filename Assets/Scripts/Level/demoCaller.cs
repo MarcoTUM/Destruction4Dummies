@@ -10,5 +10,11 @@ public class demoCaller : MonoBehaviour
         Gamemaster.Instance.GetLevel().CreateNewLevel(8, 4, "testLevel");
         //Gamemaster.Instance.GetLevel().LoadLevelFromFile("testLevel", "TestLevels");
     }
-    
+
+    private void Update()
+    {
+        if(Input.GetKeyDown("a"))
+            Gamemaster.Instance.GetLevel().SetBlock(3, 3, new WoodBlock_Data());
+    }
+
 }

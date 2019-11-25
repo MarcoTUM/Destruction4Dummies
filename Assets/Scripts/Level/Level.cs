@@ -78,14 +78,19 @@ public class Level : MonoBehaviour
     #endregion
 
     #region LevelEditing
-    public void SetBlock(int x, int y, BlockType blockType)
+
+    public void SetBlock(int x, int y, Block_Data data)
     {
-        GameObject newBlock = Instantiate(blockPrefabs[(int)blockType]);
-        newBlock.transform.position = blockMap[x, y].transform.position;
+        GameObject newBlockObject = Instantiate(blockPrefabs[(int)data.BlockType]);
+        newBlockObject.transform.position = blockMap[x, y].transform.position;
         Destroy(blockMap[x, y]);//Could lead to performance problems
-        blockMap[x, y] = newBlock;
-        levelData.BlockMap[x, y] = newBlock.GetComponent<Block>().BlockData;
+        blockMap[x, y] = newBlockObject;
+
+        Block newBlock = newBlockObject.GetComponent<Block>();
+        newBlock.InitializeBlock(data);
+        levelData.BlockMap[x, y] = data;
     }
+    
     #endregion
     private void OnApplicationQuit()
     {
