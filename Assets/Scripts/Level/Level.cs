@@ -145,7 +145,8 @@ public class Level : MonoBehaviour
         newBlockObject.transform.position = blockMap[x, y].transform.position;
         Destroy(blockMap[x, y]);//Could lead to performance problems
         blockMap[x, y] = newBlockObject;
-
+        newBlockObject.name = "[" + x + "-" + y + "]";
+        newBlockObject.transform.SetParent(currentLevel.transform);
         Block newBlock = newBlockObject.GetComponent<Block>();
         newBlock.InitializeBlock(data);
         levelData.BlockMap[x, y] = data;
