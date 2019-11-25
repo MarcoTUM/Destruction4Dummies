@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BlockType { EmptyBlock = 0, WoodBlock = 1 };
+public enum BlockType { StartBlock = 0, GoalBlock = 1, EmptyBlock = 2, WoodBlock = 3 };
 
 public abstract class Block : MonoBehaviour
 {
@@ -42,7 +42,7 @@ public abstract class Block : MonoBehaviour
     /// <summary>
     /// Handles interaction when player begins touching a block
     /// </summary>
-    protected virtual void OnTouch()
+    protected virtual void OnTouch(GameObject player)
     {
         isTouchingPlayer = true;
         StartCoroutine(StartBlockDestruction());
@@ -51,7 +51,7 @@ public abstract class Block : MonoBehaviour
     /// <summary>
     /// Handles interacton when player stops touching a block
     /// </summary>
-    protected virtual void OnTouchEnd()
+    protected virtual void OnTouchEnd(GameObject player)
     {
         isTouchingPlayer = false;
     }
@@ -87,7 +87,7 @@ public abstract class Block : MonoBehaviour
     {
         if (collision.gameObject.tag == TagDictionary.Player)
         {
-            OnTouch();
+            OnTouch(collision.gameObject);
         }
     }
 
@@ -95,7 +95,7 @@ public abstract class Block : MonoBehaviour
     {
         if (collision.gameObject.tag == TagDictionary.Player)
         {
-            OnTouchEnd();
+            OnTouchEnd(collision.gameObject);
         }
     }
 

@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 
 public class Level : MonoBehaviour
 {
@@ -17,6 +17,7 @@ public class Level : MonoBehaviour
         Gamemaster.Instance.Register(this);
     }
     #endregion
+
     #region LevelCreation
     /// <summary>
     /// Create a new Level from scratch
@@ -28,8 +29,7 @@ public class Level : MonoBehaviour
     {
         this.width = width;
         this.height = height;
-        Block defaultBlock = blockPrefabs[(int)BlockType.EmptyBlock].GetComponent<EmptyBlock>();
-        levelData = new Level_Data(width, height, name, defaultBlock.BlockData);
+        levelData = new Level_Data(width, height, name);
         CreateLevel();
     }
 
@@ -51,7 +51,7 @@ public class Level : MonoBehaviour
     /// </summary>
     private void CreateLevel()
     {
-        if(currentLevel != null)
+        if (currentLevel != null)
         {
             Destroy(currentLevel);
         }
@@ -79,6 +79,66 @@ public class Level : MonoBehaviour
 
     #region LevelEditing
 
+    public void SetStartPlatform(int x, int y)
+    {
+        if (x == 0) x++;
+        else if (x == width - 1) x--;
+
+        int oldX = levelData.StartPlatformCoordinates.x;
+        int oldY = levelData.StartPlatformCoordinates.y;
+
+        if (oldX == x && oldY == y)
+            return;
+
+        //Remove old StartPlatform
+        EmptyBlock_Data emptyData = new EmptyBlock_Data();
+        for (int i = 0; i < 3; i++)
+        {
+            SetBlock((oldX - 1 + i), oldY, emptyData);
+        }
+
+        //Place new StartPlatform
+        StartBlock_Data startData = new StartBlock_Data();
+        for (int i = 0; i < 3; i++)
+        {
+            SetBlock((x - 1 + i), y, startData);
+        }
+        levelData.StartPlatformCoordinates = new Vector2Int(x, y);
+    }
+
+    public void SetGoalPlatform(int x, int y)
+    {
+        if (x == 0) x++;
+        else if (x == width - 1) x--;
+
+        int oldX = levelData.GoalPlatformCoordinates.x;
+        int oldY = levelData.GoalPlatformCoordinates.y;
+
+        if (oldX == x && oldY == y)
+            return;
+
+        //Remove old GoalPlatform
+        EmptyBlock_Data emptyData = new EmptyBlock_Data();
+        for (int i = 0; i < 3; i++)
+        {
+            SetBlock((oldX - 1 + i), oldY, emptyData);
+        }
+
+        //Place new GoalPlatform
+        GoalBlock_Data data = new GoalBlock_Data();
+        for (int i = 0; i < 3; i++)
+        {
+            SetBlock((x - 1 + i), y, data);
+        }
+
+        levelData.GoalPlatformCoordinates = new Vector2Int(x, y);
+    }
+
+    public void EmptyBlock(int x, int y)
+    {
+        SetBlock(x, y, new EmptyBlock_Data());
+    }
+
     public void SetBlock(int x, int y, Block_Data data)
     {
         GameObject newBlockObject = Instantiate(blockPrefabs[(int)data.BlockType]);
@@ -90,31 +150,14 @@ public class Level : MonoBehaviour
         newBlock.InitializeBlock(data);
         levelData.BlockMap[x, y] = data;
     }
-    
+
     #endregion
-    private void OnApplicationQuit()
-    {
-        LevelSaveLoad.Save(levelData, "TestLevels");
-    }
-}
 
-[System.Serializable]
-public class Level_Data
-{
-    public string Name;
-    public Block_Data[,] BlockMap;
-
-    public Level_Data(int width, int height, string name, Block_Data defaultBlock)
+    #region DebugMethods
+    public Level_Data GetLevelData()
     {
-        this.Name = name;
-        this.BlockMap = new Block_Data[width, height];
-        
-        for(int i=0; i<height; i++)
-        {
-            for(int j=0; j<width; j++)
-            {
-                BlockMap[j, i] = defaultBlock;
-            }
-        }
+        return levelData;
     }
+    #endregion
+
 }

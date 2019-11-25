@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EmptyBlock : Block
 {
-    Block_Data emptyBlockData = new EmptyBlock_Data();
+    private Block_Data emptyBlockData = new EmptyBlock_Data();
     public override Block_Data BlockData { get => emptyBlockData; set => emptyBlockData = value; }
 
     #region Initialization / Destruction

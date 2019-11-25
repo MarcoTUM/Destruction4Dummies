@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WoodBlock : Block
 {
-    Block_Data woodBlockData = new WoodBlock_Data();
+    private Block_Data woodBlockData = new WoodBlock_Data();
     public override Block_Data BlockData { get => woodBlockData; set => woodBlockData = value; }
 
 
@@ -28,14 +28,14 @@ public class WoodBlock : Block
 
     #region PlayerInteraction
 
-    protected override void OnTouch()
+    protected override void OnTouch(GameObject player)
     {
-        base.OnTouch();
+        base.OnTouch(player);
     }
 
-    protected override void OnTouchEnd()
+    protected override void OnTouchEnd(GameObject player)
     {
-        base.OnTouchEnd();
+        base.OnTouchEnd(player);
     }
 
     #endregion

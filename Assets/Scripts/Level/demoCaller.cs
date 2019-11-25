@@ -7,7 +7,7 @@ public class demoCaller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Gamemaster.Instance.GetLevel().CreateNewLevel(8, 4, "testLevel");
+        Gamemaster.Instance.GetLevel().CreateNewLevel(8, 7, "testLevel");
         //Gamemaster.Instance.GetLevel().LoadLevelFromFile("testLevel", "TestLevels");
     }
 
@@ -15,6 +15,11 @@ public class demoCaller : MonoBehaviour
     {
         if(Input.GetKeyDown("a"))
             Gamemaster.Instance.GetLevel().SetBlock(3, 3, new WoodBlock_Data());
+    }
+
+    private void OnApplicationQuit()
+    {
+        LevelSaveLoad.Save(Gamemaster.Instance.GetLevel().GetLevelData(), "TestLevels");
     }
 
 }
