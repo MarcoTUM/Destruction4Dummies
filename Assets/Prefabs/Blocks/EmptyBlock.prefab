@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 619085807600797883}
   - component: {fileID: 8423045944979356258}
   - component: {fileID: 6239593245971938118}
-  - component: {fileID: 428896575}
   m_Layer: 0
   m_Name: EmptyBlock
   m_TagString: Untagged
@@ -106,19 +105,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17122adc0b617c343b542ba824b9fd9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mat: {fileID: 2100000, guid: 3ef994acfbbf13241bc8a0f61d2e28d0, type: 2}
---- !u!114 &428896575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8549112416870566125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
-  m_EffectDistance: {x: 4.19, y: 0.71}
-  m_UseGraphicAlpha: 0
+  lifeTime: 0.3

@@ -7,18 +7,37 @@ public class WoodBlock : Block
     Block_Data woodBlockData = new WoodBlock_Data();
     public override Block_Data BlockData { get => woodBlockData; set => woodBlockData = value; }
 
-    protected override void OnTouch()
-    {
-        throw new System.NotImplementedException();
-    }
 
-    public override void ResetBlock()
-    {
-    }
-
+    #region Initialization / Destruction
     public override void InitializeBlock(Block_Data data)
     {
         base.InitializeBlock(data);
     }
+
+    protected virtual void DestroyBlock()
+    {
+        base.DestroyBlock();
+    }
+
+    public override void ResetBlock()
+    {
+        base.ResetBlock();
+    }
+
+    #endregion
+
+    #region PlayerInteraction
+
+    protected override void OnTouch()
+    {
+        base.OnTouch();
+    }
+
+    protected override void OnTouchEnd()
+    {
+        base.OnTouchEnd();
+    }
+    #endregion
+
 
 }
