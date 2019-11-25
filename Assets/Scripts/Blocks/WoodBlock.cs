@@ -14,7 +14,7 @@ public class WoodBlock : Block
         base.InitializeBlock(data);
     }
 
-    protected virtual void DestroyBlock()
+    protected override void DestroyBlock()
     {
         base.DestroyBlock();
     }
@@ -37,6 +37,7 @@ public class WoodBlock : Block
     {
         base.OnTouchEnd();
     }
+
     #endregion
 
 
