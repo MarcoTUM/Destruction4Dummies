@@ -58,7 +58,7 @@ public class Level : MonoBehaviour
         currentLevel = new GameObject();
         currentLevel.name = levelData.Name;
         currentLevel.transform.SetParent(this.transform);
-        this.transform.position = new Vector3(-height * Block_Data.BlockSize / 2f, -width * Block_Data.BlockSize / 2f, 0); //To do maybe change posiiton of level
+        //this.transform.position = new Vector3(-height * Block_Data.BlockSize / 2f, -width * Block_Data.BlockSize / 2f, 0); //To do maybe change posiiton of level
         blockMap = new GameObject[width, height];
 
         for (int i = 0; i < height; i++)
@@ -87,9 +87,6 @@ public class Level : MonoBehaviour
         int oldX = levelData.StartPlatformCoordinates.x;
         int oldY = levelData.StartPlatformCoordinates.y;
 
-        if (oldX == x && oldY == y)
-            return;
-
         //Remove old StartPlatform
         EmptyBlock_Data emptyData = new EmptyBlock_Data();
         for (int i = 0; i < 3; i++)
@@ -113,10 +110,6 @@ public class Level : MonoBehaviour
 
         int oldX = levelData.GoalPlatformCoordinates.x;
         int oldY = levelData.GoalPlatformCoordinates.y;
-
-        if (oldX == x && oldY == y)
-            return;
-
         //Remove old GoalPlatform
         EmptyBlock_Data emptyData = new EmptyBlock_Data();
         for (int i = 0; i < 3; i++)
@@ -144,21 +137,41 @@ public class Level : MonoBehaviour
     /// <param name="data"></param>
     public bool PlaceBlock(int x, int y, Block_Data data)
     {
-        BlockType oldBlockType = levelData.BlockMap[x, y].BlockType;
-        if ((oldBlockType == BlockType.Start || oldBlockType == BlockType.Goal))
-            return false;
-        if (oldBlockType == data.BlockType)
-            return false;
-
         if (data.BlockType == BlockType.Start)
-            SetStartPlatform(x, y);
+        {
+            if (levelData.StartPlatformCoordinates.x == x && levelData.StartPlatformCoordinates.y == y)
+                return false;
+            if (CollidesWithPlatform(levelData.GoalPlatformCoordinates, x, y))
+                return false;
+             SetStartPlatform(x, y);
+        }   
         else if (data.BlockType == BlockType.Goal)
+        {
+            if (levelData.GoalPlatformCoordinates.x == x && levelData.GoalPlatformCoordinates.y == y)
+                return false;
+            if (CollidesWithPlatform(levelData.StartPlatformCoordinates, x, y))
+                return false;
             SetGoalPlatform(x, y);
+        }
         else
+        {
+            BlockType oldBlockType = levelData.BlockMap[x, y].BlockType;
+            if (oldBlockType == BlockType.Start || oldBlockType == BlockType.Goal) //not allowed to replace start/goalBlocks
+                return false;
+            if (oldBlockType == data.BlockType) //no point in replacing block with themselves
+                return false;
+
             SetBlock(x, y, data);
+        }
 
         return true;
     }
+
+    private bool CollidesWithPlatform(Vector2Int platformCoord, int x, int y)
+    {
+        return platformCoord.y == y && platformCoord.x - 2 <= x && platformCoord.x + 2 >= x;
+    }
+
     private void SetBlock(int x, int y, Block_Data data)
     {
         GameObject newBlockObject = Instantiate(blockPrefabs[(int)data.BlockType]);

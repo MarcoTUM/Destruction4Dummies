@@ -8,7 +8,7 @@ public class demoCaller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Gamemaster.Instance.GetLevel().CreateNewLevel(8, 7, "testLevel");
+        Gamemaster.Instance.GetLevel().CreateNewLevel(20, 20, "testLevel");
         data = Gamemaster.Instance.GetLevel().GetLevelData();
         //Gamemaster.Instance.GetLevel().LoadLevelFromFile("testLevel", "TestLevels");
     }

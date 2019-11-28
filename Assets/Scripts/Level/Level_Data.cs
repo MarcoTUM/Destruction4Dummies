@@ -12,6 +12,11 @@ public struct Vector2Int
         this.x = x;
         this.y = y;
     }
+
+    public override string ToString()
+    {
+        return "(" + x + "," + y + ")";
+    }
 }
 
 [System.Serializable]

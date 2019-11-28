@@ -28,7 +28,7 @@ public class LevelEditor : MonoBehaviour
         }
 
         Vector2Int blockCoord = editorInput.GetBlockMouseIsOn();
-        if (blockCoord.x > 0 && blockCoord.y > 0)
+        if (blockCoord.x >= 0 && blockCoord.y >= 0)
         {
             level.PlaceBlock(blockCoord.x, blockCoord.y, currentBlockData);
         }
