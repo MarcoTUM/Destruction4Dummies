@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7303436771311594298}
   - component: {fileID: 7303436771311594299}
   - component: {fileID: 8791195037905155300}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GoalPlatform
   m_TagString: Block
   m_Icon: {fileID: 0}

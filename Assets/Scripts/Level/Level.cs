@@ -133,13 +133,33 @@ public class Level : MonoBehaviour
 
         levelData.GoalPlatformCoordinates = new Vector2Int(x, y);
     }
-
-    public void EmptyBlock(int x, int y)
+    
+    /// <summary>
+    /// Try placing a Block at the position (x,y) 
+    /// Filters platforms and normal blocks
+    /// Can fail if action currently not allowed
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <param name="data"></param>
+    public bool PlaceBlock(int x, int y, Block_Data data)
     {
-        SetBlock(x, y, new EmptyBlock_Data());
-    }
+        BlockType oldBlockType = levelData.BlockMap[x, y].BlockType;
+        if ((oldBlockType == BlockType.Start || oldBlockType == BlockType.Goal))
+            return false;
+        if (oldBlockType == data.BlockType)
+            return false;
 
-    public void SetBlock(int x, int y, Block_Data data)
+        if (data.BlockType == BlockType.Start)
+            SetStartPlatform(x, y);
+        else if (data.BlockType == BlockType.Goal)
+            SetGoalPlatform(x, y);
+        else
+            SetBlock(x, y, data);
+
+        return true;
+    }
+    private void SetBlock(int x, int y, Block_Data data)
     {
         GameObject newBlockObject = Instantiate(blockPrefabs[(int)data.BlockType]);
         newBlockObject.transform.position = blockMap[x, y].transform.position;

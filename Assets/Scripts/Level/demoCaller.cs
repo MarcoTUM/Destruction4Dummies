@@ -16,7 +16,7 @@ public class demoCaller : MonoBehaviour
     private void Update()
     {
         if(Input.GetKeyDown("j"))
-            Gamemaster.Instance.GetLevel().SetBlock(3, 3, new WoodBlock_Data());
+            Gamemaster.Instance.GetLevel().PlaceBlock(3, 3, new WoodBlock_Data());
         else
         if (Input.GetKeyDown("k"))
             Gamemaster.Instance.GetLevel().SetStartPlatform(0, 0);
