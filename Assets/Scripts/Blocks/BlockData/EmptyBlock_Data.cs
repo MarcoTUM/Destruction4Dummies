@@ -5,5 +5,5 @@ using UnityEngine;
 [System.Serializable]
 public class EmptyBlock_Data : Block_Data
 {
-    public override BlockType BlockType => BlockType.EmptyBlock;
+    public override BlockType BlockType => BlockType.Empty;
 }

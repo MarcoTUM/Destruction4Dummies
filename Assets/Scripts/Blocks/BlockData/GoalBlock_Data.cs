@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class GoalBlock_Data : Block_Data
 {
-    public override BlockType BlockType => BlockType.GoalBlock;
+    public override BlockType BlockType => BlockType.Goal;
     public string NextLevel;
 
     public GoalBlock_Data()

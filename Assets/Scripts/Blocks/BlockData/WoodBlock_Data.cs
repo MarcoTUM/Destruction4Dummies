@@ -5,5 +5,5 @@ using UnityEngine;
 [System.Serializable]
 public class WoodBlock_Data : Block_Data
 {
-    public override BlockType BlockType => BlockType.WoodBlock;
+    public override BlockType BlockType => BlockType.Wood;
 }
