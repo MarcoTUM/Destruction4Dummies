@@ -13,18 +13,6 @@ public class demoCaller : MonoBehaviour
         //Gamemaster.Instance.GetLevel().LoadLevelFromFile("testLevel", "TestLevels");
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown("j"))
-            Gamemaster.Instance.GetLevel().PlaceBlock(3, 3, new WoodBlock_Data());
-        else
-        if (Input.GetKeyDown("k"))
-            Gamemaster.Instance.GetLevel().SetStartPlatform(0, 0);
-
-        if (Input.GetKeyDown("l"))
-            Gamemaster.Instance.GetLevel().SetGoalPlatform(6, 6);
-    }
-
     private void OnApplicationQuit()
     {
         LevelSaveLoad.Save(data, "TestLevels");

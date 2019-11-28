@@ -10,17 +10,22 @@ using UnityEngine;
 public class LevelEditor : MonoBehaviour
 {
     [SerializeField] private EditorInput editorInput;
-    [SerializeField] private Level level;
     Block_Data[] blockDatas = new Block_Data[4] { new StartBlock_Data(), new GoalBlock_Data(), new EmptyBlock_Data(), new WoodBlock_Data() };
-    
+
     private Block_Data currentBlockData = new EmptyBlock_Data();
 
     #region Unity
-    void Update()
+    private void Awake()
+    {
+        Gamemaster.Instance.Register(this);
+    }
+
+    private void Update()
     {
         //toDo: Replace simple KeyInput
-        for (int i = 0; i < 4; i++) {
-            if (Input.GetKeyDown("" + (i+1)))
+        for (int i = 0; i < 4; i++)
+        {
+            if (Input.GetKeyDown("" + (i + 1)))
             {
                 currentBlockData = blockDatas[i];
                 break;
@@ -30,7 +35,7 @@ public class LevelEditor : MonoBehaviour
         Vector2Int blockCoord = editorInput.GetBlockMouseIsOn();
         if (blockCoord.x >= 0 && blockCoord.y >= 0)
         {
-            level.PlaceBlock(blockCoord.x, blockCoord.y, currentBlockData);
+            Gamemaster.Instance.GetLevel().PlaceBlock(blockCoord.x, blockCoord.y, currentBlockData);
         }
     }
 

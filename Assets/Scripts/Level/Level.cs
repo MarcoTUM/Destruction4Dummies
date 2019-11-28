@@ -126,7 +126,7 @@ public class Level : MonoBehaviour
 
         levelData.GoalPlatformCoordinates = new Vector2Int(x, y);
     }
-    
+
     /// <summary>
     /// Try placing a Block at the position (x,y) 
     /// Filters platforms and normal blocks
@@ -143,8 +143,8 @@ public class Level : MonoBehaviour
                 return false;
             if (CollidesWithPlatform(levelData.GoalPlatformCoordinates, x, y))
                 return false;
-             SetStartPlatform(x, y);
-        }   
+            SetStartPlatform(x, y);
+        }
         else if (data.BlockType == BlockType.Goal)
         {
             if (levelData.GoalPlatformCoordinates.x == x && levelData.GoalPlatformCoordinates.y == y)
