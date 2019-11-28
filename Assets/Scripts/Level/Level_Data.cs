@@ -18,6 +18,7 @@ public struct Vector2Int
 public class Level_Data
 {
     public string Name;
+    private const int minDimension = 7;
     public Block_Data[,] BlockMap;
     [SerializeField]
     public Vector2Int StartPlatformCoordinates, GoalPlatformCoordinates;
@@ -29,10 +30,10 @@ public class Level_Data
     /// <param name="name"></param>
     public Level_Data(int width, int height, string name)
     {
-        if (width < 7)
-            throw new InvalidOperationException($"Trying to create new {nameof(Level_Data)} with width of " + width + " but it must be at least 7!");
-        if (height < 7)
-            throw new InvalidOperationException($"Trying to create new {nameof(Level_Data)} with height of " + height + " but it must be at least 7!");
+        if (width < minDimension)
+            throw new InvalidOperationException($"Trying to create new {nameof(Level_Data)} with width of " + width + " but it must be at least " + minDimension + "!");
+        if (height < minDimension)
+            throw new InvalidOperationException($"Trying to create new {nameof(Level_Data)} with height of " + height + " but it must be at least " + minDimension + "!");
 
         this.Name = name;
         this.BlockMap = new Block_Data[width, height];
