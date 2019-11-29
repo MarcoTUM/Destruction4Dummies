@@ -30,7 +30,7 @@ public class Level : MonoBehaviour
         this.width = width;
         this.height = height;
         levelData = new Level_Data(width, height, name);
-        CreateLevel();
+        CreateLevel(false);
     }
 
     /// <summary>
@@ -43,13 +43,13 @@ public class Level : MonoBehaviour
         levelData = LevelSaveLoad.Load(levelName, subFolder);
         this.width = levelData.BlockMap.GetLength(0);
         this.height = levelData.BlockMap.GetLength(1);
-        CreateLevel();
+        CreateLevel(true);
     }
 
     /// <summary>
     /// Creates levelObjects and initializes them with the data in levelData
     /// </summary>
-    private void CreateLevel()
+    private void CreateLevel(bool deactivateEmptyBlocks)
     {
         if (currentLevel != null)
         {
@@ -65,6 +65,7 @@ public class Level : MonoBehaviour
         {
             for (int j = 0; j < width; j++)
             {
+
                 Block_Data blockData = levelData.BlockMap[j, i];
                 GameObject blockObject = Instantiate(blockPrefabs[(int)blockData.BlockType]);
                 blockObject.name = "[" + j + "-" + i + "]";
@@ -72,6 +73,10 @@ public class Level : MonoBehaviour
                 blockObject.transform.localPosition = new Vector3(j * Block_Data.BlockSize, i * Block_Data.BlockSize, 0);
                 blockMap[j, i] = blockObject;
                 blockObject.GetComponent<Block>().InitializeBlock(blockData);
+                if (deactivateEmptyBlocks && blockData.BlockType == BlockType.Empty)
+                {
+                    blockObject.SetActive(false);
+                }
             }
         }
     }
