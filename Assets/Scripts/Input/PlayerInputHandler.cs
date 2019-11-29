@@ -9,7 +9,7 @@ using UnityEngine;
 public class PlayerInputHandler : MonoBehaviour
 {
     private InputMethod input; //either Keyboard or XboxInput
-    private Throwaway_Player player; //toDo replace with proper PlayerScript
+    private Player player; //toDo replace with proper PlayerScript
 
     private void Awake()
     {
@@ -24,7 +24,7 @@ public class PlayerInputHandler : MonoBehaviour
             input = this.GetComponent<MouseAndKeyboardInput>();
         }
 
-        player = this.GetComponent<Throwaway_Player>();
+        player = this.GetComponent<Player>();
     }
 
     private void Update()
@@ -34,11 +34,11 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void HandlePlayerInput()
     {
-        player.MoveTo(input.GetHorizontalDirection());
-        if (player.IsGrounded() && input.PressedJump())
-        {
-            player.Jump();
-        }
-        
+        player.Run(input.GetHorizontalDirection());
+        //if (player.IsGrounded() && input.PressedJump())
+        //{
+        //    player.Jump();
+        //}
+
     }
 }
