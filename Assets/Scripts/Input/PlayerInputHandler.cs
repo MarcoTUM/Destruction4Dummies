@@ -39,6 +39,6 @@ public class PlayerInputHandler : MonoBehaviour
         //{
         //    player.Jump();
         //}
-
+        if (input.PressedJump()) { player.JumpAction(); }
     }
 }
