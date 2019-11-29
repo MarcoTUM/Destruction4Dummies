@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 619085807600797883}
   - component: {fileID: 8423045944979356258}
   - component: {fileID: 574280874282476247}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WoodBlockPrefab
   m_TagString: Block
   m_Icon: {fileID: 0}
