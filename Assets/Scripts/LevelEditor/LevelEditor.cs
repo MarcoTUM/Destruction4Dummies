@@ -11,7 +11,7 @@ using UnityEngine.UI;
 public class LevelEditor : MonoBehaviour
 {
     [SerializeField] private EditorInput editorInput;
-    Block_Data[] blockDatas = new Block_Data[4] { new StartBlock_Data(), new GoalBlock_Data(), new EmptyBlock_Data(), new WoodBlock_Data() };
+    Block_Data[] blockDatas = new Block_Data[5] { new StartBlock_Data(), new GoalBlock_Data(), new EmptyBlock_Data(), new WoodBlock_Data(), new StoneBlock_Data() };
 
     private Block_Data currentBlockData = new EmptyBlock_Data();
 
@@ -50,7 +50,7 @@ public class LevelEditor : MonoBehaviour
 
     public void SetBlockType(int blockType)
     {
-        if (blockType >= 0 && blockType < 4)
+        if (blockType >= 0 && blockType < blockDatas.Length)
         {
             currentBlockData = blockDatas[blockType];
         }
