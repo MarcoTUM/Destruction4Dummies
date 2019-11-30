@@ -20,14 +20,11 @@ public class EditorInput : MonoBehaviour
     /// <returns>Coordinate of block hit in grid; if nothing is hit returns (-1,-1)</returns>
     public Vector2Int GetBlockMouseIsOn()
     {
-        if (Input.GetMouseButton(0))
+        RaycastHit hit;
+        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit, layerMask))
         {
-            RaycastHit hit;
-            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, layerMask))
-            {
-                return BlockCoordinateFromName(hit.transform.gameObject.name);
-            }
+            return BlockCoordinateFromName(hit.transform.gameObject.name);
         }
         return new Vector2Int(-1,-1);
     }
