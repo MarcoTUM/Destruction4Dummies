@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /// <summary>
@@ -10,12 +11,20 @@ using UnityEngine.UI;
 /// 
 public class LevelEditor : MonoBehaviour
 {
-    [SerializeField] private EditorInput editorInput;
-    Block_Data[] blockDatas = new Block_Data[5] { new StartBlock_Data(), new GoalBlock_Data(), new EmptyBlock_Data(), new WoodBlock_Data(), new StoneBlock_Data() };
+    [SerializeField] 
+    private EditorInput editorInput;
+
+    private Block_Data[] blockDatas = new Block_Data[5] {   new StartBlock_Data(), 
+                                                            new GoalBlock_Data(), 
+                                                            new EmptyBlock_Data(), 
+                                                            new WoodBlock_Data(), 
+                                                            new StoneBlock_Data() };
 
     private Block_Data currentBlockData = new EmptyBlock_Data();
-
     private Level_Data data;
+
+    private const int LEVEL_WIDTH = 100;
+    private const int LEVEL_HEIGHT = 50;
 
     #region Unity
     private void Awake()
@@ -25,7 +34,7 @@ public class LevelEditor : MonoBehaviour
 
     void Start()
     {
-        Gamemaster.Instance.GetLevel().CreateNewLevel(20, 20, "testLevel");
+        Gamemaster.Instance.GetLevel().CreateNewLevel(LEVEL_WIDTH, LEVEL_HEIGHT, "testLevel");
         data = Gamemaster.Instance.GetLevel().GetLevelData();
     }
 
@@ -74,5 +83,10 @@ public class LevelEditor : MonoBehaviour
     public void LoadLevel()
     {
         Gamemaster.Instance.GetLevel().LoadLevelFromFile(data.Name, "TestLevels");
+    }
+
+    public void ExitLevelEditor()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }
