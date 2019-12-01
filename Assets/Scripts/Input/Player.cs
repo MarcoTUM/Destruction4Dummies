@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public class Player : MonoBehaviour
 {
+    #region Fields
 
     public float runningVelocity;
     public float fallVelocityLimit;
@@ -34,11 +35,16 @@ public class Player : MonoBehaviour
     public float topRayMargin;
     private float width;
     private float height;
+    #endregion
+
+    #region Start, Update
 
     private void Start()
     {
         height = transform.localScale.y;
         width = transform.localScale.x;
+        Gamemaster gamemaster = FindObjectOfType<Gamemaster>();
+        gamemaster.Register(this);
     }
 
     //Update is called once per frame
@@ -46,6 +52,8 @@ public class Player : MonoBehaviour
     {
         Move(xVelo,yVelo);
     }
+
+    #endregion
 
     #region Physics calculation and movement resolution
 
@@ -57,31 +65,40 @@ public class Player : MonoBehaviour
     /// <param name="yVelo">y axis velocity</param>
     private void Move(float xVelo, float yVelo)
     {
-        //detect collision with an above object
-        if (!grounded && yVelo > 0)
+        //if airborne
+        if (!grounded)
         {
-            if (CastRaysUp())
+            //and rising
+            if (yVelo > 0)
             {
-                cielingCollision = true;
+                //detect collision with above objects
+                if (CastRaysUp())
+                {
+                    cielingCollision = true;
+                }
+            }
+            //if falling, and jumpingGrace has passed
+            else if(!jumpingGrace)
+            {
+                //detect collision with the ground
+                if (CastRaysDown())
+                {
+                    Land();
+                    isLanding = true;
+                }
             }
         }
-        //finds ground to land on
-        if (!grounded && !jumpingGrace && yVelo < 0)
-        {
-            if (CastRaysDown())
-            {
-                Land();
-                isLanding = true;
-            }
-        }
-        //detects falling
+
+        //if on the ground, detect falling
         else if (!CastRaysDown())
         {
             grounded = false;
         }
 
+        //resolve movement
         transform.Translate(xVelo * Time.deltaTime, yVelo * Time.deltaTime, 0);
 
+        //post movement approximation here
         if (isLanding)
         {
             ApproximateYPosition();
@@ -98,7 +115,6 @@ public class Player : MonoBehaviour
             {
                 yVelo = -dropFromCielingVelocity;
                 cielingCollision = false;
-                Debug.Log("Boop");
                 return;
             }
             yVelo = yVelo + yAccel * Time.deltaTime;
