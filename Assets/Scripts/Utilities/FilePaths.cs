@@ -5,4 +5,5 @@ using UnityEngine;
 public static class FilePaths
 {
     public static string LevelFolder = Application.persistentDataPath + "/Levels/";
+    public const string TestLevelFolderName = "TestLevels/";
 }

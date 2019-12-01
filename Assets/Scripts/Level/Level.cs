@@ -192,6 +192,12 @@ public class Level : MonoBehaviour
 
     #endregion
 
+    #region PlayLevel
+    public Vector2Int GetLevelDimensions()
+    {
+        return new Vector2Int(width, height);
+    }
+    #endregion
     #region DebugMethods
     public Level_Data GetLevelData()
     {
