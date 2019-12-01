@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class demoCaller : MonoBehaviour
 {
+    public bool load;
+    public bool save;
     private Level_Data data;
     // Start is called before the first frame update
     void Start()
     {
-        Gamemaster.Instance.GetLevel().CreateNewLevel(20, 20, "testLevel");
+        if(load)
+            Gamemaster.Instance.GetLevel().LoadLevelFromFile("testLevel", "TestLevels");
+        else
+            Gamemaster.Instance.GetLevel().CreateNewLevel(20, 20, "testLevel");
         data = Gamemaster.Instance.GetLevel().GetLevelData();
-        //Gamemaster.Instance.GetLevel().LoadLevelFromFile("testLevel", "TestLevels");
     }
 
     private void OnApplicationQuit()
     {
-        LevelSaveLoad.Save(data, "TestLevels");
+        if(save)
+            LevelSaveLoad.Save(data, "TestLevels");
     }
 
 }
