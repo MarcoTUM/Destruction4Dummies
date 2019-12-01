@@ -8,6 +8,7 @@ public class Gamemaster : Singleton<Gamemaster>
     public bool ApplicationQuit { get => IsApplicationQuitting; }
     private Level level;
     private LevelEditor editor;
+    private Player player;
 
     #region Level
     public void Register(Level level)
@@ -31,5 +32,19 @@ public class Gamemaster : Singleton<Gamemaster>
     {
         return this.editor;
     }
+    #endregion
+
+    #region Player
+
+    public void Register(Player player)
+    {
+        this.player = player;
+    }
+
+    public Player GetPlayer()
+    {
+        return this.player;
+    }
+
     #endregion
 }
