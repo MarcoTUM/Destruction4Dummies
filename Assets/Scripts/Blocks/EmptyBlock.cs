@@ -8,7 +8,9 @@ public class EmptyBlock : Block
     public override Block_Data BlockData { get => emptyBlockData; set => emptyBlockData = value; }
 
     #region Initialization / Destruction
-
+    public override void ResetBlock()
+    {
+    }
     #endregion
 
     #region PlayerInteraction

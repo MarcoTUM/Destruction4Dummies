@@ -49,6 +49,24 @@ public class PlayCameraControl : MonoBehaviour
         cameraFollow = true;
     }
 
+    /// <summary>
+    /// Forces camera to move to playerPosition in time of duration
+    /// </summary>
+    /// <param name="duration"></param>
+    /// <returns></returns>
+    public IEnumerator FocusCameraOnPlayer(float duration)
+    {
+        cameraFollow = false;
+        float timer = 0;
+        while (timer < duration)
+        {
+            yield return new WaitForEndOfFrame();
+            timer += Time.deltaTime;
+            SmoothDampToPosition(player.transform.position - cameraDistance * Vector3.forward, duration - timer);
+        }
+        cameraFollow = true;
+    }
+
     private void Update()
     {
         if (cameraFollow)

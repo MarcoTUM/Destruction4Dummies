@@ -197,6 +197,14 @@ public class Level : MonoBehaviour
     {
         return new Vector2Int(width, height);
     }
+
+    public void ResetLevel()
+    {
+        foreach(GameObject block in blockMap)
+        {
+            block.GetComponent<Block>().ResetBlock();//maybe better to change blockmap to Block?
+        }
+    }
     #endregion
     #region DebugMethods
     public Level_Data GetLevelData()
