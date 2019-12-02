@@ -8,7 +8,7 @@ public class Gamemaster : Singleton<Gamemaster>
     public bool ApplicationQuit { get => IsApplicationQuitting; }
     private Level level;
     private PlayCameraControl playCamera;
-
+    private PlaySceneUI playSceneUI;
     private LevelEditor editor;
 
     private string nextLevelName = "testLevel";
@@ -63,6 +63,18 @@ public class Gamemaster : Singleton<Gamemaster>
     public PlayCameraControl GetCameraPlayControl()
     {
         return playCamera;
+    }
+    #endregion
+
+    #region PlaySceneUI
+    public void Register(PlaySceneUI playUI)
+    {
+        this.playSceneUI = playUI;
+    }
+
+    public PlaySceneUI GetPlaySceneUI()
+    {
+        return this.playSceneUI;
     }
     #endregion
 }

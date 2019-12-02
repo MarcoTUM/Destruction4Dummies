@@ -24,7 +24,8 @@ public class GoalBlock : Block
 
     private void ReachedGoal()
     {
-
+        //deactivate PlayerControl
+        Gamemaster.Instance.GetPlaySceneUI().OpenLevelCompleteWindow();
     }
 
     #endregion
