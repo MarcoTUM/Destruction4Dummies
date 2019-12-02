@@ -43,8 +43,11 @@ public class Player : MonoBehaviour
     {
         height = transform.localScale.y;
         width = transform.localScale.x;
-        Gamemaster gamemaster = FindObjectOfType<Gamemaster>();
-        gamemaster.Register(this);
+    }
+
+    private void Awake()
+    {
+        Gamemaster.Instance.Register(this);
     }
 
     //Update is called once per frame
