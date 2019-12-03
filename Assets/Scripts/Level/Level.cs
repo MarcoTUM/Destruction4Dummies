@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum LevelType { Main, Custom };
 public class Level : MonoBehaviour
 {
     [SerializeField] private GameObject[] blockPrefabs;
@@ -38,9 +39,9 @@ public class Level : MonoBehaviour
     /// </summary>
     /// <param name="levelName">Name of Level</param>
     /// <param name="subFolder">FolderName e.g. Custom</param>
-    public void LoadLevelFromFile(string levelName, string subFolder)
+    public void LoadLevelFromFile(string levelName, string directoryPath)
     {
-        levelData = LevelSaveLoad.Load(levelName, subFolder);
+        levelData = LevelSaveLoad.Load(levelName, directoryPath);
         this.width = levelData.BlockMap.GetLength(0);
         this.height = levelData.BlockMap.GetLength(1);
         CreateLevel(true);

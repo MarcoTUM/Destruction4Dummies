@@ -26,7 +26,8 @@ public class PlaySceneUI : MonoBehaviour
 
     public void NextLevel()
     {
-        Debug.Log("Next level");
+        Gamemaster.Instance.SetNextMainLevelToLoad();
+        SceneManager.LoadScene(SceneDictionary.Play);
     }
 
     #endregion

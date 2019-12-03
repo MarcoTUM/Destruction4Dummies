@@ -14,18 +14,19 @@ public class PlayScene : MonoBehaviour
     private Level level;
     private Vector3 spawnPosition;
     private bool running = true;
+
     private void Start()
     {
         level = Gamemaster.Instance.GetLevel();
         Gamemaster.Instance.CreatePlayLevel();
         StartCoroutine(Gamemaster.Instance.GetCameraPlayControl().PlayLevelOpening());
         Vector2Int startPlatformCoord = level.GetLevelData().StartPlatformCoordinates;
-        spawnPosition = new Vector3(startPlatformCoord.x, startPlatformCoord.y + 1f, 0) * Block_Data.BlockSize;//replace 1f with player.height
+        spawnPosition = new Vector3(startPlatformCoord.x, startPlatformCoord.y + 1f, 0) * Block_Data.BlockSize;//replace 1f with player.height/2
     }
 
     private void Update()
     {
-        if(running && player.position.y < level.transform.position.z - gameOverDistance)
+        if (running && player.position.y < level.transform.position.z - gameOverDistance)
         {
             StartCoroutine(PlayerDeath());
         }

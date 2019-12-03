@@ -11,15 +11,28 @@ public class Gamemaster : Singleton<Gamemaster>
     private PlaySceneUI playSceneUI;
     private LevelEditor editor;
 
-    private string nextLevelName = "testLevel";
-    private string nextLevelFolder = FilePaths.TestLevelFolderName;
+    private LevelType nextLevelType = LevelType.Main;
+    private string nextLevelName;
+    private int nextLevelId = 1;
+    
 
     #region Level
-
-    public void SetNextLevelToLoad(string levelName, string folder)
+    public void SetNextMainLevelToLoad()
     {
+        nextLevelType = LevelType.Main;
+        nextLevelId++;
+    }
+
+    public void SetNextMainLevelToLoad(int levelId)
+    {
+        nextLevelType = LevelType.Main;
+        nextLevelId = levelId;
+    }
+
+    public void SetNextCustomLevelToLoad(string levelName)
+    {
+        nextLevelType = LevelType.Custom;
         nextLevelName = levelName;
-        nextLevelFolder = folder;
     }
 
     public void CreatePlayLevel()
@@ -28,7 +41,10 @@ public class Gamemaster : Singleton<Gamemaster>
         {
             throw new InvalidOperationException("No level registered yet");
         }
-        level.LoadLevelFromFile(nextLevelName, nextLevelFolder);
+        if(nextLevelType == LevelType.Main)
+            level.LoadLevelFromFile("Level"+nextLevelId, FilePaths.MainLevelFolder);
+        else if(nextLevelType == LevelType.Custom)
+            level.LoadLevelFromFile(nextLevelName, FilePaths.CustomLevelFolder);
     }
 
     public void Register(Level level)
