@@ -13,8 +13,8 @@ public class Player : MonoBehaviour
     public float fallVelocityLimit;
     public float jumpVelocity;
 
-    public float yAccel;
-    private float yVelo = 0f;
+    public float yAcceleration;
+    private float yVelocity = 0f;
     private bool grounded = false;
     private bool jumpingGrace = false;
     public float jumpingGraceTime;
@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     private bool cielingCollision = false;
     public float dropFromCielingVelocity;
     
-    private float xVelo = 0f;
+    private float xVelocity = 0f;
 
     public float floatMargin;
     public float wallMargin;
@@ -50,12 +50,6 @@ public class Player : MonoBehaviour
         Gamemaster.Instance.Register(this);
     }
 
-    //Update is called once per frame
-    void Update()
-    {
-        Move(xVelo,yVelo);
-    }
-
     #endregion
 
     #region Physics calculation and movement resolution
@@ -64,15 +58,15 @@ public class Player : MonoBehaviour
     /// Interprets the movement of the player,
     /// uses raycast to resolve movement behaviour
     /// </summary>
-    /// <param name="xVelo">x axis velocity</param>
-    /// <param name="yVelo">y axis velocity</param>
-    private void Move(float xVelo, float yVelo)
+    /// <param name="xVelocity">x axis velocity</param>
+    /// <param name="yVelocity">y axis velocity</param>
+    private void Move(float xVelocity, float yVelocity)
     {
         //if airborne
         if (!grounded)
         {
             //and rising
-            if (yVelo > 0)
+            if (yVelocity > 0)
             {
                 //detect collision with above objects
                 if (CastRaysUp())
@@ -99,7 +93,7 @@ public class Player : MonoBehaviour
         }
 
         //resolve movement
-        transform.Translate(xVelo * Time.deltaTime, yVelo * Time.deltaTime, 0);
+        transform.Translate(xVelocity * Time.deltaTime, yVelocity * Time.deltaTime, 0);
 
         //post movement approximation here
         if (isLanding)
@@ -112,16 +106,17 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Move(xVelocity,yVelocity);
         if (!grounded)
         {
             if (cielingCollision)
             {
-                yVelo = -dropFromCielingVelocity;
+                yVelocity = -dropFromCielingVelocity;
                 cielingCollision = false;
                 return;
             }
-            yVelo = yVelo + yAccel * Time.deltaTime;
-            yVelo = Mathf.Clamp(yVelo, -fallVelocityLimit, jumpVelocity);
+            yVelocity = yVelocity + yAcceleration * Time.deltaTime;
+            yVelocity = Mathf.Clamp(yVelocity, -fallVelocityLimit, jumpVelocity);
         }
     }
     #endregion
@@ -132,11 +127,11 @@ public class Player : MonoBehaviour
     {
         if (CastHoriRays(direction))
         {
-            xVelo = 0;
+            xVelocity = 0;
             ApproximateXPosition(direction);
         }
         else
-            xVelo = direction * runningVelocity;
+            xVelocity = direction * runningVelocity;
 
     }
 
@@ -144,7 +139,7 @@ public class Player : MonoBehaviour
     {
         if (grounded)
         {
-            yVelo += jumpVelocity;
+            yVelocity += jumpVelocity;
             grounded = false;
             jumpingGrace = true;
             StartCoroutine("HandleJumpGrace");
@@ -158,7 +153,7 @@ public class Player : MonoBehaviour
     private void Land()
     {
         grounded = true;
-        yVelo = 0;
+        yVelocity = 0;
     }
 
     IEnumerator HandleJumpGrace()
