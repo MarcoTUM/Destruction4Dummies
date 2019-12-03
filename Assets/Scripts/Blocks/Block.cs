@@ -83,19 +83,19 @@ public abstract class Block : MonoBehaviour
         currentLifeTime = lifeTime;
     }
 
-    protected void OnCollisionEnter(Collision collision)
+    protected void OnTriggerEnter(Collider collider)
     {
-        if (collision.gameObject.tag == TagDictionary.Player)
+        if(collider.gameObject.tag == TagDictionary.Player)
         {
-            OnTouch(collision.gameObject);
+            OnTouch(collider.gameObject);
         }
     }
 
-    protected void OnCollisionExit(Collision collision)
+    protected void OnTriggerExit(Collider collider)
     {
-        if (collision.gameObject.tag == TagDictionary.Player)
+        if(collider.gameObject.tag == TagDictionary.Player)
         {
-            OnTouchEnd(collision.gameObject);
+            OnTouchEnd(collider.gameObject);
         }
     }
 
