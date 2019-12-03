@@ -15,7 +15,7 @@ public class demoCaller : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        LevelSaveLoad.Save(data, "TestLevels");
+        LevelSaveLoad.Save(data, FilePaths.CustomLevelFolder);
     }
 
 }
