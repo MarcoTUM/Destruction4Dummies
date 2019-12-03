@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BlockType { Start = 0, Goal = 1, Empty = 2, Wood = 3 };
+public enum BlockType { Start = 0, Goal = 1, Empty = 2, Wood = 3, Stone = 4 };
 
 public abstract class Block : MonoBehaviour
 {
