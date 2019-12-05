@@ -16,23 +16,16 @@ public class Player : MonoBehaviour
     public float yAcceleration;
     private float yVelocity = 0f;
     private bool grounded = false;
-    private bool jumpingGrace = false;
-    public float jumpingGraceTime;
-    private bool isLanding = false;
     private bool cielingCollision = false;
     public float dropFromCielingVelocity;
     
     private float xVelocity = 0f;
 
-    public float floatMargin;
-    public float wallMargin;
-
     //ray tracing
-    public float horizRayMargin;
-    public float downRayMargin;
-    public float upRayMargin;
-    public float bottomRayMargin;
-    public float topRayMargin;
+    public float horizRayMargin; //Margin: additional length to the ray (beyond the perpendicular surface of the player)
+    public float horizRayPadding; //Padding: The distance between the non central rays and the parallel surface of the player object
+    public float vertiRayMargin;
+    public float vertiRayPadding;
     private float width;
     private float height;
     #endregion
@@ -62,51 +55,17 @@ public class Player : MonoBehaviour
     /// <param name="yVelocity">y axis velocity</param>
     private void Move(float xVelocity, float yVelocity)
     {
-        //if airborne
-        if (!grounded)
-        {
-            //and rising
-            if (yVelocity > 0)
-            {
-                //detect collision with above objects
-                if (CastRaysUp())
-                {
-                    cielingCollision = true;
-                }
-            }
-            //if falling, and jumpingGrace has passed
-            else if(!jumpingGrace)
-            {
-                //detect collision with the ground
-                if (CastRaysDown())
-                {
-                    Land();
-                    isLanding = true;
-                }
-            }
-        }
+        float xDistance = ResolveXDistance(xVelocity);
+        float yDistance = ResolveYDistance(yVelocity);
 
-        //if on the ground, detect falling
-        else if (!CastRaysDown())
-        {
-            grounded = false;
-        }
-
-        //resolve movement
-        transform.Translate(xVelocity * Time.deltaTime, yVelocity * Time.deltaTime, 0);
-
-        //post movement approximation here
-        if (isLanding)
-        {
-            ApproximateYPosition();
-            isLanding = false;
-        }
-            
+        transform.Translate(xDistance, yDistance, 0);  
     }
 
     private void FixedUpdate()
     {
         Move(xVelocity,yVelocity);
+        if (grounded)
+            grounded = CheckGrounded();
         if (!grounded)
         {
             if (cielingCollision)
@@ -122,93 +81,98 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Run and jump
-
+    /// <summary>
+    /// Converts input axis from the input handler to player velocity.x
+    /// </summary>
+    /// <param name="direction"> The direction of the input axis, raw. -1 for left, 1 for right</param>
     public void Run(float direction)
     {
-        if (CastHoriRays(direction))
-        {
-            xVelocity = 0;
-            ApproximateXPosition(direction);
-        }
-        else
-            xVelocity = direction * runningVelocity;
-
+        xVelocity = direction * runningVelocity;
     }
-
+    /// <summary>
+    /// Jump
+    /// </summary>
     public void JumpAction()
     {
         if (grounded)
         {
             yVelocity += jumpVelocity;
             grounded = false;
-            jumpingGrace = true;
-            StartCoroutine("HandleJumpGrace");
         }
             
     }
     #endregion
 
-    #region Auxiliry and approximation methods
-
+    #region Auxiliry
+    /// <summary>
+    /// Performs landing actions
+    /// </summary>
     private void Land()
     {
         grounded = true;
         yVelocity = 0;
     }
-
-    IEnumerator HandleJumpGrace()
-    {
-        yield return new WaitForSeconds(jumpingGraceTime);
-        jumpingGrace = false;
-    }
-
-    private void ApproximateYPosition()
-    {
-        float yValue = Mathf.Floor(transform.position.y) + 0.5f - (2 - height)/2;
-        yValue += floatMargin;
-        transform.position = new Vector3(transform.position.x, yValue, transform.position.z);
-    }
-
-    private void ApproximateXPosition(float direction)
-    {
-        float xValue = Mathf.Round(transform.position.x);
-        xValue += -1f * direction * wallMargin;
-        transform.position = new Vector3(xValue, transform.position.y, transform.position.z);
-    }
+ 
     #endregion
 
     #region Ray cast collider detecion
+    /// <summary>
+    /// Checks if the player is still standing on ground, to be used only when the player is grounded (rest is handeld by ResolveYDistance)
+    /// </summary>
+    /// <returns></returns>
+    private bool CheckGrounded()
+    {
+        return (
+            Physics.Raycast(transform.position, new Vector3(0, -1, 0), height / 2 + vertiRayMargin) ||
+            Physics.Raycast(transform.position - new Vector3(width / 2f + vertiRayPadding, 0, 0), new Vector3(0, -1, 0), height / 2 + vertiRayMargin) ||
+            Physics.Raycast(transform.position + new Vector3(width / 2f - vertiRayPadding, 0, 0), new Vector3(0, -1, 0), height / 2 + vertiRayMargin)
+            );
+    }
 
     /// <summary>
-    /// Ray cast collision check for down direction of player movement
+    /// Movement resolution using ray cast collision check for vertical movement
     /// </summary>
-    /// <returns></returns>
-    private bool CastRaysDown()
+    /// <param name="yVelocity">The current player velocity.y</param>
+    /// <returns>Returns the distance player travels with respect to the collisions</returns>
+    private float ResolveYDistance(float yVelocity)
     {
-        return (Physics.Raycast(transform.position, new Vector3(0, -1, 0) , height / 2 + downRayMargin) ||
-                Physics.Raycast(transform.position - new Vector3(width / 2f, 0, 0), new Vector3(0, -1, 0) , height / 2 + downRayMargin) ||
-                Physics.Raycast(transform.position + new Vector3(width / 2f, 0, 0), new Vector3(0, -1, 0) , height / 2 + downRayMargin));
+        if (yVelocity == 0)
+            return 0;
+        float direction = yVelocity > 0 ? 1f : -1f;
+        RaycastHit hit;
+        for (int i = -1; i <= 1; i++)
+        {
+            if (Physics.Raycast(transform.position + i * new Vector3(width / 2f - vertiRayPadding, 0, 0), new Vector3(0, direction, 0), out hit, height / 2f + vertiRayMargin))
+            {
+                if (yVelocity > 0)
+                    cielingCollision = true;
+                else
+                {
+                    Land();
+                    return (hit.distance - height / 2) * direction;
+                }
+            }
+        }
+        return yVelocity * Time.deltaTime;
     }
+
     /// <summary>
-    /// Ray cast collision check for the up direction of player movement
+    /// Movement resolution using ray cast collision check for horizontal movement
     /// </summary>
-    /// <returns></returns>
-    private bool CastRaysUp()
+    /// <param name="xVelocity">The current player velocity.x</param>
+    /// <returns>Returns the distance player travels with respect to the collisions</returns>
+    private float ResolveXDistance(float xVelocity)
     {
-        return (Physics.Raycast(transform.position, new Vector3(0, 1 , 0), height / 2 + upRayMargin) ||
-                Physics.Raycast(transform.position - new Vector3(width / 2f, 0, 0), new Vector3(0, 1 , 0), height / 2 + upRayMargin) ||
-                Physics.Raycast(transform.position + new Vector3(width / 2f, 0, 0), new Vector3(0, 1 , 0), height / 2 + upRayMargin));
-    }
-    /// <summary>
-    /// Ray cast collision check for horizontal player movement
-    /// </summary>
-    /// <param name="direction">the raw direction as it is given from the input handler</param>
-    /// <returns></returns>
-    private bool CastHoriRays(float direction)
-    {
-        return (Physics.Raycast(transform.position, new Vector3(direction, 0, 0), width / 2f + horizRayMargin) ||
-            Physics.Raycast(transform.position - new Vector3(0, height / 2f  - bottomRayMargin, 0), new Vector3(direction, 0, 0), width / 2f + horizRayMargin) ||
-            Physics.Raycast(transform.position + new Vector3(0, height / 2f - topRayMargin, 0), new Vector3(direction, 0, 0), width / 2f + horizRayMargin));
+        if (xVelocity == 0)
+            return 0;
+        float direction = xVelocity > 0 ? 1f : -1f;
+        RaycastHit hit;
+        for (int i = -1; i <= 1; i++)
+        {
+            if (Physics.Raycast(transform.position + i * new Vector3(0, height / 2f - horizRayPadding,0) , new Vector3(direction, 0, 0), out hit, width / 2f + horizRayMargin))
+                return (hit.distance -width/2) * direction;
+        }
+        return xVelocity * Time.deltaTime;
     }
     #endregion
 
