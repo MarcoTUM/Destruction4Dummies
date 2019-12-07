@@ -9,7 +9,7 @@ public class MouseAndKeyboardInput : InputMethod
 
     public override float GetHorizontalDirection()
     {
-        return Input.GetAxis(InputDictionary.Horizontal);
+        return Input.GetAxisRaw(InputDictionary.Horizontal);
     }
 
     public override bool PressedJump()

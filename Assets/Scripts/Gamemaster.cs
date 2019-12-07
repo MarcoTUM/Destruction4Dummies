@@ -10,6 +10,7 @@ public class Gamemaster : Singleton<Gamemaster>
     private PlayCameraControl playCamera;
     private PlaySceneUI playSceneUI;
     private LevelEditor editor;
+    private Player player;
 
     private LevelType nextLevelType = LevelType.Main;
     private string nextLevelName;
@@ -92,5 +93,19 @@ public class Gamemaster : Singleton<Gamemaster>
     {
         return this.playSceneUI;
     }
+	#endregion
+	
+    #region Player
+
+    public void Register(Player player)
+    {
+        this.player = player;
+    }
+
+    public Player GetPlayer()
+    {
+        return this.player;
+    }
+
     #endregion
 }
