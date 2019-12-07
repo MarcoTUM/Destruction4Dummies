@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     private bool grounded = false;
     private bool cielingCollision = false;
     public float dropFromCielingVelocity;
-    
+
     private float xVelocity = 0f;
 
     //ray tracing
@@ -28,24 +28,28 @@ public class Player : MonoBehaviour
     public float vertiRayPadding;
     private float width;
     private float height;
-
-    [SerializeField] private float respawnDuration = 1f;
-    private Vector3 spawnPosition;
-    private new Renderer[] renderers;
     #endregion
+
+    //animation
+    private Animator animator;
+    public float jumpToFallAnimationTime;
+    private float lookRight = 100;
+    private float lookLeft = 270;
+    private bool isLookingRight = true;
+
 
     #region Start, Update
 
     private void Start()
     {
+        height = transform.localScale.y;
+        width = transform.localScale.x;
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void Awake()
     {
-        renderers = this.GetComponentsInChildren<Renderer>();
         Gamemaster.Instance.Register(this);
-        height = transform.localScale.y;
-        width = transform.localScale.x;
     }
 
     #endregion
@@ -63,12 +67,12 @@ public class Player : MonoBehaviour
         float xDistance = ResolveXDistance(xVelocity);
         float yDistance = ResolveYDistance(yVelocity);
 
-        transform.Translate(xDistance, yDistance, 0);  
+        transform.Translate(xDistance, yDistance, 0);
     }
 
     private void FixedUpdate()
     {
-        Move(xVelocity,yVelocity);
+        Move(xVelocity, yVelocity);
         if (grounded)
             grounded = CheckGrounded();
         if (!grounded)
@@ -77,6 +81,8 @@ public class Player : MonoBehaviour
             {
                 yVelocity = -dropFromCielingVelocity;
                 cielingCollision = false;
+                StopCoroutine("AnimateJump");
+                AnimateJumpToFall();
                 return;
             }
             yVelocity = yVelocity + yAcceleration * Time.deltaTime;
@@ -93,6 +99,16 @@ public class Player : MonoBehaviour
     public void Run(float direction)
     {
         xVelocity = direction * runningVelocity;
+        if (direction == 0)
+            animator.SetBool("isRunning", false);
+        else if (grounded)
+            animator.SetBool("isRunning", true);
+
+        if (direction > 0 && !isLookingRight)
+            SetModelRightDirection(true);
+        else if (direction < 0 && isLookingRight)
+            SetModelRightDirection(false);
+
     }
     /// <summary>
     /// Jump
@@ -102,9 +118,10 @@ public class Player : MonoBehaviour
         if (grounded)
         {
             yVelocity += jumpVelocity;
+            StartCoroutine("AnimateJump");
             grounded = false;
         }
-            
+
     }
     #endregion
 
@@ -115,8 +132,10 @@ public class Player : MonoBehaviour
     private void Land()
     {
         grounded = true;
+        animator.SetBool("isFalling", false);
         yVelocity = 0;
     }
+
     #endregion
 
     #region Ray cast collider detecion
@@ -126,11 +145,14 @@ public class Player : MonoBehaviour
     /// <returns></returns>
     private bool CheckGrounded()
     {
-        return (
+        bool result = (
             Physics.Raycast(transform.position, new Vector3(0, -1, 0), height / 2 + vertiRayMargin) ||
             Physics.Raycast(transform.position - new Vector3(width / 2f + vertiRayPadding, 0, 0), new Vector3(0, -1, 0), height / 2 + vertiRayMargin) ||
             Physics.Raycast(transform.position + new Vector3(width / 2f - vertiRayPadding, 0, 0), new Vector3(0, -1, 0), height / 2 + vertiRayMargin)
             );
+        if (!result)
+            animator.SetBool("isFalling", true);
+        return result;
     }
 
     /// <summary>
@@ -173,44 +195,38 @@ public class Player : MonoBehaviour
         RaycastHit hit;
         for (int i = -1; i <= 1; i++)
         {
-            if (Physics.Raycast(transform.position + i * new Vector3(0, height / 2f - horizRayPadding,0) , new Vector3(direction, 0, 0), out hit, width / 2f + horizRayMargin))
-                return (hit.distance -width/2) * direction;
+            if (Physics.Raycast(transform.position + i * new Vector3(0, height / 2f - horizRayPadding, 0), new Vector3(direction, 0, 0), out hit, width / 2f + horizRayMargin))
+                return (hit.distance - width / 2) * direction;
         }
         return xVelocity * Time.deltaTime;
     }
     #endregion
 
-    #region Spawn and Death
-    public void SetSpawnPosition(Vector3 spawnPosition)
+    #region Animation
+
+    private IEnumerator AnimateJump()
     {
-        this.spawnPosition = spawnPosition + Vector3.up * height/2f;
-    }
-    
-    public void SpawnAtStartPlatform()
-    {
-        this.transform.position = spawnPosition;
-        StartCoroutine(PlayerFadeIn());
-    }
-    private IEnumerator PlayerFadeIn() //test when playerModel available
-    {
-        float timer = 0;
-        Color playerColor = Color.grey;
-        while (timer < respawnDuration)
-        {
-            yield return new WaitForEndOfFrame();
-            timer += Time.deltaTime;
-            playerColor.a = timer / respawnDuration;
-            SetColor(playerColor);
-        }
-        SetColor(Color.white);
+        animator.SetBool("isJumping", true);
+        yield return new WaitForSeconds(jumpToFallAnimationTime);
+        AnimateJumpToFall();
     }
 
-    private void SetColor(Color color)
+    private void AnimateJumpToFall()
     {
-        foreach(Renderer renderer in renderers)
-        {
-            renderer.material.color = color;
-        }
+        animator.SetBool("isJumping", false);
+        animator.SetBool("isFalling", true);
+        animator.SetBool("isRunning", false);
     }
+
+    private void SetModelRightDirection(bool right)
+    {
+        if(right)
+            transform.GetChild(0).transform.eulerAngles = new Vector3(0, lookRight, 0);
+        else
+            transform.GetChild(0).transform.eulerAngles = new Vector3(0, lookLeft, 0);
+        isLookingRight = right;
+    }
+
     #endregion
+
 }
