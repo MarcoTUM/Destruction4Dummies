@@ -18,6 +18,11 @@ public class Gamemaster : Singleton<Gamemaster>
     
 
     #region Level
+    public LevelType GetLevelType()
+    {
+        return nextLevelType;
+    }
+
     public void SetNextMainLevelToLoad()
     {
         nextLevelType = LevelType.Main;

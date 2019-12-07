@@ -256,6 +256,7 @@ public class Player : MonoBehaviour
 
     /// <summary>
     /// Animation where player walks to center of goalPlatform and jumps
+    /// Jumping can be removed if it hinders level design
     /// </summary>
     /// <returns></returns>
     private IEnumerator GoalAnimation()

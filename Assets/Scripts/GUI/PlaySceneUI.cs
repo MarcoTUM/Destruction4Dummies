@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class PlaySceneUI : MonoBehaviour
 {
     [SerializeField] private float windowResizeTime = 1f;
-    [SerializeField] private RectTransform levelCompleteWindow;
+    [SerializeField] private RectTransform mainLevelCompleteWindow;
+    [SerializeField] private RectTransform customLevelCompleteWindow;
     private void Awake()
     {
         Gamemaster.Instance.Register(this);
@@ -16,7 +17,11 @@ public class PlaySceneUI : MonoBehaviour
     #region LevelCompleteWindow
     public void OpenLevelCompleteWindow()
     {
-        StartCoroutine(ResizeWindow(levelCompleteWindow, Vector3.zero, Vector3.one));
+        if(Gamemaster.Instance.GetLevelType() == LevelType.Main)
+            StartCoroutine(ResizeWindow(mainLevelCompleteWindow, Vector3.zero, Vector3.one));
+        else if (Gamemaster.Instance.GetLevelType() == LevelType.Custom)
+            StartCoroutine(ResizeWindow(customLevelCompleteWindow, Vector3.zero, Vector3.one));
+
     }
 
     public void BackToMenu()
