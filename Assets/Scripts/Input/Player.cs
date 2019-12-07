@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
     private Animator animator;
     public float jumpToFallAnimationTime;
     private float lookRight = 100;
-    private float lookLeft = 225;
+    private float lookLeft = 270;
     private bool isLookingRight = true;
 
 
