@@ -218,7 +218,7 @@ public class Player : MonoBehaviour
         animator.SetBool("isRunning", false);
     }
 
-    private void SetModelDirection(bool right)
+    private void SetModelRightDirection(bool right)
     {
         if(right)
             transform.GetChild(0).transform.eulerAngles = new Vector3(0, lookRight, 0);
