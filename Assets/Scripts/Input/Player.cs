@@ -28,19 +28,24 @@ public class Player : MonoBehaviour
     public float vertiRayPadding;
     private float width;
     private float height;
+
+    [SerializeField] private float respawnDuration = 1f;
+    private Vector3 spawnPosition;
+    private new Renderer[] renderers;
     #endregion
 
     #region Start, Update
 
     private void Start()
     {
-        height = transform.localScale.y;
-        width = transform.localScale.x;
     }
 
     private void Awake()
     {
+        renderers = this.GetComponentsInChildren<Renderer>();
         Gamemaster.Instance.Register(this);
+        height = transform.localScale.y;
+        width = transform.localScale.x;
     }
 
     #endregion
@@ -112,7 +117,6 @@ public class Player : MonoBehaviour
         grounded = true;
         yVelocity = 0;
     }
- 
     #endregion
 
     #region Ray cast collider detecion
@@ -176,4 +180,37 @@ public class Player : MonoBehaviour
     }
     #endregion
 
+    #region Spawn and Death
+    public void SetSpawnPosition(Vector3 spawnPosition)
+    {
+        this.spawnPosition = spawnPosition + Vector3.up * height/2f;
+    }
+    
+    public void SpawnAtStartPlatform()
+    {
+        this.transform.position = spawnPosition;
+        StartCoroutine(PlayerFadeIn());
+    }
+    private IEnumerator PlayerFadeIn() //test when playerModel available
+    {
+        float timer = 0;
+        Color playerColor = Color.grey;
+        while (timer < respawnDuration)
+        {
+            yield return new WaitForEndOfFrame();
+            timer += Time.deltaTime;
+            playerColor.a = timer / respawnDuration;
+            SetColor(playerColor);
+        }
+        SetColor(Color.white);
+    }
+
+    private void SetColor(Color color)
+    {
+        foreach(Renderer renderer in renderers)
+        {
+            renderer.material.color = color;
+        }
+    }
+    #endregion
 }

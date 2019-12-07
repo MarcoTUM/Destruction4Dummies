@@ -5,12 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class PlayCameraControl : MonoBehaviour
 {
-    [SerializeField] Transform player; //Change to player registered in Gamemaster after Jonathan merge
+    
     [SerializeField] private float smoothTime = .5f;
     [SerializeField] private float cameraDistance = 10f;
     [SerializeField] private float openingDuration = 2f;
     [SerializeField] private Vector2 openingMargin = new Vector2(5,5); //margin from level border to camera view frustum border
     private new Camera camera;
+    private Player player;
     private Vector3 velocity = Vector3.zero;
     private bool cameraFollow = true;
 
@@ -20,11 +21,16 @@ public class PlayCameraControl : MonoBehaviour
         Gamemaster.Instance.Register(this);
     }
 
+    private void Start()
+    {
+        player = Gamemaster.Instance.GetPlayer();
+    }
+
     /// <summary>
     /// Shows the whole level and zooms in on Player on startPlatform => activates Player
     /// </summary>
     /// <returns></returns>
-    public IEnumerator PlayLevelOpening()
+    public IEnumerator PlayLevelOpening(Player player)
     {
         cameraFollow = false;
         Vector2Int dim = Gamemaster.Instance.GetLevel().GetLevelDimensions();
@@ -38,14 +44,12 @@ public class PlayCameraControl : MonoBehaviour
         this.transform.position = new Vector3(dim.x / 2f * Block_Data.BlockSize, dim.y / 2f * Block_Data.BlockSize, -startDistance);
         
         float timer = 0;
-        player.gameObject.SetActive(false);
         while(timer < openingDuration)
         {
             yield return new WaitForEndOfFrame();
             timer += Time.deltaTime;
             SmoothDampToPosition(player.transform.position - cameraDistance * Vector3.forward, openingDuration - timer);
         }
-        player.gameObject.SetActive(true);
         cameraFollow = true;
     }
 

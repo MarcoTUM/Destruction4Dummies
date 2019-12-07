@@ -9,24 +9,25 @@ public class PlayScene : MonoBehaviour
     [SerializeField] private float gameOverDistance = 5;
     [SerializeField] private AudioSource sfxSource;
     [SerializeField] private AudioClip deathSound;
-    [SerializeField] private Transform player; //change to Gamemaster.Instance
     [SerializeField] private GameObject deathAnim;
+
+    private Player player;
     private Level level;
     private Vector3 spawnPosition;
     private bool running = true;
 
     private void Start()
     {
+        player = Gamemaster.Instance.GetPlayer();
         level = Gamemaster.Instance.GetLevel();
         Gamemaster.Instance.CreatePlayLevel();
-        StartCoroutine(Gamemaster.Instance.GetCameraPlayControl().PlayLevelOpening());
-        Vector2Int startPlatformCoord = level.GetLevelData().StartPlatformCoordinates;
-        spawnPosition = new Vector3(startPlatformCoord.x, startPlatformCoord.y + 1f, 0) * Block_Data.BlockSize;//replace 1f with player.height/2
+        StartCoroutine(Gamemaster.Instance.GetCameraPlayControl().PlayLevelOpening(player));
+        Gamemaster.Instance.GetPlayer().SpawnAtStartPlatform();
     }
 
     private void Update()
     {
-        if (running && player.position.y < level.transform.position.z - gameOverDistance)
+        if (running && player.transform.position.y < level.transform.position.z - gameOverDistance)
         {
             StartCoroutine(PlayerDeath());
         }
@@ -50,18 +51,6 @@ public class PlayScene : MonoBehaviour
         running = true;
     }
 
-    private IEnumerator PlayerFadeIn() //test when playerModel available
-    {
-        float timer = 0;
-        Color playerColor = Color.grey;
-        while (timer < respawnDuration)
-        {
-            yield return new WaitForEndOfFrame();
-            timer += Time.deltaTime;
-            playerColor.a = timer / respawnDuration;
-            player.GetComponent<Renderer>().material.color = playerColor;
-        }
-        player.GetComponent<Renderer>().material.color = Color.white;
-    }
+  
 
 }
