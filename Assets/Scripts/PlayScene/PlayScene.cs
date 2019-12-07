@@ -7,8 +7,6 @@ public class PlayScene : MonoBehaviour
     [SerializeField] private float gameOverDuration = 1f;
     [SerializeField] private float respawnDuration = 1f;
     [SerializeField] private float gameOverDistance = 5;
-    [SerializeField] private AudioSource sfxSource;
-    [SerializeField] private AudioClip deathSound;
     [SerializeField] private GameObject deathAnim;
 
     private Player player;
@@ -22,7 +20,9 @@ public class PlayScene : MonoBehaviour
         level = Gamemaster.Instance.GetLevel();
         Gamemaster.Instance.CreatePlayLevel();
         StartCoroutine(Gamemaster.Instance.GetCameraPlayControl().PlayLevelOpening(player));
-        Gamemaster.Instance.GetPlayer().SpawnAtStartPlatform();
+        Vector2Int startCoord = level.GetLevelData().StartPlatformCoordinates;
+        player.SetStartPlatform(new Vector3(startCoord.x, startCoord.y, 0));
+        player.SpawnAtSpawnPlatform();
     }
 
     private void Update()
@@ -39,17 +39,16 @@ public class PlayScene : MonoBehaviour
         player.gameObject.SetActive(false);
         GameObject deathAnimInstance = Instantiate(deathAnim);
         deathAnimInstance.transform.position = player.transform.position;
-        sfxSource.clip = deathSound;
-        sfxSource.Play();
         yield return new WaitForSeconds(gameOverDuration);
         level.ResetLevel();
-        player.transform.position = spawnPosition;
+
+        player.SpawnAtSpawnPlatform();
         StartCoroutine(Gamemaster.Instance.GetCameraPlayControl().FocusCameraOnPlayer(respawnDuration));
         yield return new WaitForSeconds(respawnDuration);
         player.gameObject.SetActive(true);
-
         running = true;
     }
+    
 
   
 

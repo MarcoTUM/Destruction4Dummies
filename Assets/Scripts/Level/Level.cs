@@ -41,8 +41,6 @@ public class Level : MonoBehaviour
     public void LoadLevelFromFile(string levelName, string directoryPath)
     {
         levelData = LevelSaveLoad.Load(levelName, directoryPath);
-        Vector2Int startCoordinates = levelData.StartPlatformCoordinates;
-        Gamemaster.Instance.GetPlayer()?.SetSpawnPosition(new Vector3(startCoordinates.x, startCoordinates.y, 0));
         this.width = levelData.BlockMap.GetLength(0);
         this.height = levelData.BlockMap.GetLength(1);
         CreateLevel(true);

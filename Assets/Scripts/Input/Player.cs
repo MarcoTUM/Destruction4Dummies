@@ -37,18 +37,19 @@ public class Player : MonoBehaviour
     private float lookLeft = 270;
     private bool isLookingRight = true;
 
-
+    [HideInInspector] public bool IsOnGoal = false;
+    private Renderer[] renderers;
+    private Vector3 spawnPosition, goalPosition;
+    
+    
     #region Start, Update
-
-    private void Start()
-    {
-        height = transform.localScale.y;
-        width = transform.localScale.x;
-        animator = GetComponentInChildren<Animator>();
-    }
 
     private void Awake()
     {
+        renderers = this.GetComponentsInChildren<Renderer>();
+        height = transform.localScale.y;
+        width = transform.localScale.x;
+        animator = GetComponentInChildren<Animator>();
         Gamemaster.Instance.Register(this);
     }
 
@@ -85,7 +86,7 @@ public class Player : MonoBehaviour
                 AnimateJumpToFall();
                 return;
             }
-            yVelocity = yVelocity + yAcceleration * Time.deltaTime;
+            yVelocity = yVelocity + yAcceleration * Time.fixedDeltaTime;
             yVelocity = Mathf.Clamp(yVelocity, -fallVelocityLimit, jumpVelocity);
         }
     }
@@ -135,7 +136,7 @@ public class Player : MonoBehaviour
         animator.SetBool("isFalling", false);
         yVelocity = 0;
     }
-
+    
     #endregion
 
     #region Ray cast collider detecion
@@ -179,7 +180,7 @@ public class Player : MonoBehaviour
                 }
             }
         }
-        return yVelocity * Time.deltaTime;
+        return yVelocity * Time.fixedDeltaTime;
     }
 
     /// <summary>
@@ -198,7 +199,7 @@ public class Player : MonoBehaviour
             if (Physics.Raycast(transform.position + i * new Vector3(0, height / 2f - horizRayPadding, 0), new Vector3(direction, 0, 0), out hit, width / 2f + horizRayMargin))
                 return (hit.distance - width / 2) * direction;
         }
-        return xVelocity * Time.deltaTime;
+        return xVelocity * Time.fixedDeltaTime;
     }
     #endregion
 
@@ -229,4 +230,56 @@ public class Player : MonoBehaviour
 
     #endregion
 
+    #region Start End Level
+    
+    public void SetStartPlatform(Vector3 startPlatformPosition)
+    {
+        spawnPosition = startPlatformPosition + Vector3.up * (Block_Data.BlockSize + height) / 2f;
+    }
+
+    public void SpawnAtSpawnPlatform()
+    {
+        this.transform.position = spawnPosition;
+    }
+
+    /// <summary>
+    /// Event called by GoalBlock that player reached the goal
+    /// </summary>
+    public void ReachGoalPlatform()
+    {
+        Vector2Int goalPlatformPosition = Gamemaster.Instance.GetLevel().GetLevelData().GoalPlatformCoordinates;
+        this.GetComponent<Collider>().enabled = false;
+        IsOnGoal = true;
+        goalPosition = new Vector3(goalPlatformPosition.x, goalPlatformPosition.y + (Block_Data.BlockSize + height) / 2f, 0);
+        StartCoroutine(GoalAnimation());
+    }
+
+    /// <summary>
+    /// Animation where player walks to center of goalPlatform and jumps
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator GoalAnimation()
+    {
+        float xDistance = this.transform.position.x - goalPosition.x;
+        int sign = (int)Mathf.Sign(-xDistance);
+        while (IsOnGoal)
+        {
+            //prevent Player from falling to death after reaching goal
+            if (this.transform.position.y - goalPosition.y < 0)
+                this.transform.position = new Vector3(this.transform.position.x, goalPosition.y, this.transform.position.z);
+            xDistance = this.transform.position.x - goalPosition.x;
+            if (Mathf.Abs(xDistance) > Mathf.Epsilon && Mathf.Sign(-xDistance) == sign)
+            {
+                Run(sign/2f);
+            }
+            else
+            {
+                Run(0);
+                JumpAction();
+            }
+            yield return new WaitForEndOfFrame();
+        }
+    }
+    
+    #endregion
 }
