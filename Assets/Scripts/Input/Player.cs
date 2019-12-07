@@ -105,9 +105,9 @@ public class Player : MonoBehaviour
             animator.SetBool("isRunning", true);
 
         if (direction > 0 && !isLookingRight)
-            SetModelDirection(true);
+            SetModelRightDirection(true);
         else if (direction < 0 && isLookingRight)
-            SetModelDirection(false);
+            SetModelRightDirection(false);
 
     }
     /// <summary>
