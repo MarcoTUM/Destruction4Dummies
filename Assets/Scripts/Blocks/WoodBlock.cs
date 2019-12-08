@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WoodBlock : Block
 {
-    private Block_Data woodBlockData = new WoodBlock_Data();
+    private Block_Data woodBlockData = new ChainBlock_Data();
     public override Block_Data BlockData { get => woodBlockData; set => woodBlockData = value; }
 
 

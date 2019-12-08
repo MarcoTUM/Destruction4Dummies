@@ -2,7 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BlockType { Start = 0, Goal = 1, Empty = 2, Wood = 3, Stone = 4 };
+public enum BlockType
+{ 
+    Start   = 0, 
+    Goal    = 1, 
+    Empty   = 2, 
+    Wood    = 3, 
+    Stone   = 4, 
+    Chain   = 5 
+};
 
 public abstract class Block : MonoBehaviour
 {
@@ -11,6 +19,9 @@ public abstract class Block : MonoBehaviour
     [SerializeField] private float lifeTime;
     protected float currentLifeTime;
     protected bool isTouchingPlayer = false;
+
+    [SerializeField]
+    protected Color blockColorGUI;
 
     #region Initialization / Destruction
     /// <summary>

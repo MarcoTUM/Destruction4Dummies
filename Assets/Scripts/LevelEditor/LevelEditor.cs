@@ -14,11 +14,12 @@ public class LevelEditor : MonoBehaviour
     [SerializeField] 
     private EditorInput editorInput;
 
-    private Block_Data[] blockDatas = new Block_Data[5] {   new StartBlock_Data(), 
+    private Block_Data[] blockDatas = new Block_Data[6] {   new StartBlock_Data(), 
                                                             new GoalBlock_Data(), 
-                                                            new EmptyBlock_Data(), 
-                                                            new WoodBlock_Data(), 
-                                                            new StoneBlock_Data() };
+                                                            new EmptyBlock_Data(),
+                                                            new WoodBlock_Data(),
+                                                            new StoneBlock_Data(), 
+                                                            new ChainBlock_Data() };
 
     private Block_Data currentBlockData = new EmptyBlock_Data();
     private Level_Data data;
