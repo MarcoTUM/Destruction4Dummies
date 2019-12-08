@@ -1457,7 +1457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35942e53c021c7a4e8ffb06997df16ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windowResizeTime: 1
+  windowResizeTime: 0.4
   mainLevelCompleteWindow: {fileID: 1926591311}
   customLevelCompleteWindow: {fileID: 1315723410}
 --- !u!1 &1671169927
