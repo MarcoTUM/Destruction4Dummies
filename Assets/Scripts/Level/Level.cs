@@ -204,7 +204,7 @@ public class Level : MonoBehaviour
     public void UpdateBlockPrefabWithSliderValue(float sliderValue)
     {
         // 5 -> Chain Block
-        blockPrefabs[5].GetComponent<ChainBlock>().SetChainID((uint)sliderValue);
+        blockPrefabs[5].GetComponent<ChainBlock>().SetBlockID((uint)sliderValue);
     }
 
     #endregion

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -41,7 +42,8 @@ public class LevelEditor : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButton(0))
+        // Check if the mouse was clicked over a UI element
+        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             Vector2Int blockCoord = editorInput.GetBlockMouseIsOn();
             if (blockCoord.x >= 0 && blockCoord.y >= 0)
