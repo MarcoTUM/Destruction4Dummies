@@ -15,6 +15,8 @@ public class Gamemaster : Singleton<Gamemaster>
     private LevelType nextLevelType = LevelType.Main;
     private string nextLevelName;
     private int nextLevelId = 1;
+
+    public GameObject blockDestrctionFX;
     
 
     #region Level
@@ -113,4 +115,9 @@ public class Gamemaster : Singleton<Gamemaster>
     }
 
     #endregion
+
+    public GameObject getBlockDestructionFX()
+    {
+        return blockDestrctionFX;
+    }
 }

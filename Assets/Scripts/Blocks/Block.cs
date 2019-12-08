@@ -80,6 +80,7 @@ public abstract class Block : MonoBehaviour
             lifeTime -= Time.deltaTime;
         }
         DestroyBlock();
+        Instantiate(Gamemaster.Instance.getBlockDestructionFX(), transform.position, Quaternion.identity);
     }
     #endregion
 
