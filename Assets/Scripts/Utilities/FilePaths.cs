@@ -4,5 +4,6 @@ using UnityEngine;
 
 public static class FilePaths
 {
-    public static string LevelFolder = Application.persistentDataPath + "/Levels/";
+    public static string CustomLevelFolder = Application.persistentDataPath + "/CustomLevels/";
+    public static string MainLevelFolder = Application.streamingAssetsPath + "/Levels/";
 }

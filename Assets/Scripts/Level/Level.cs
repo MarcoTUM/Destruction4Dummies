@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum LevelType { Main, Custom };
 public class Level : MonoBehaviour
 {
     [SerializeField] private GameObject[] blockPrefabs;
@@ -10,7 +11,6 @@ public class Level : MonoBehaviour
     private GameObject[,] blockMap; //Contains all the Block gameObjects in the current level
     private Level_Data levelData; //Contains all the information used to save and load the levels
     private int width, height;
-
     #region Unity
     private void Awake()
     {
@@ -38,9 +38,9 @@ public class Level : MonoBehaviour
     /// </summary>
     /// <param name="levelName">Name of Level</param>
     /// <param name="subFolder">FolderName e.g. Custom</param>
-    public void LoadLevelFromFile(string levelName, string subFolder)
+    public void LoadLevelFromFile(string levelName, string directoryPath)
     {
-        levelData = LevelSaveLoad.Load(levelName, subFolder);
+        levelData = LevelSaveLoad.Load(levelName, directoryPath);
         this.width = levelData.BlockMap.GetLength(0);
         this.height = levelData.BlockMap.GetLength(1);
         CreateLevel(true);
@@ -192,6 +192,20 @@ public class Level : MonoBehaviour
 
     #endregion
 
+    #region PlayLevel
+    public Vector2Int GetLevelDimensions()
+    {
+        return new Vector2Int(width, height);
+    }
+
+    public void ResetLevel()
+    {
+        foreach(GameObject block in blockMap)
+        {
+            block.GetComponent<Block>().ResetBlock();//maybe better to change blockmap to Block?
+        }
+    }
+    #endregion
     #region DebugMethods
     public Level_Data GetLevelData()
     {

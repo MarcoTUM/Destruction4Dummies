@@ -29,7 +29,8 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Update()
     {
-        HandlePlayerInput();
+        if (!player.IsOnGoal)
+            HandlePlayerInput();
     }
 
     private void HandlePlayerInput()
