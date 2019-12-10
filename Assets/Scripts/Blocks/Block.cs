@@ -11,6 +11,7 @@ public abstract class Block : MonoBehaviour
     [SerializeField] private float lifeTime;
     protected float currentLifeTime;
     protected bool isTouchingPlayer = false;
+    [SerializeField] private GameObject destructionAnimation;
 
     #region Initialization / Destruction
     /// <summary>
@@ -69,7 +70,7 @@ public abstract class Block : MonoBehaviour
             lifeTime -= Time.deltaTime;
         }
         DestroyBlock();
-        Instantiate(Gamemaster.Instance.getBlockDestructionFX(), transform.position, Quaternion.identity);
+        Instantiate(destructionAnimation, transform.position, Quaternion.identity);
     }
     #endregion
 
