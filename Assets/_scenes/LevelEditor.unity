@@ -653,8 +653,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1503453630}
-        m_MethodName: UpdateBlockPrefabWithSliderValue
+      - m_Target: {fileID: 1269974282}
+        m_MethodName: SetChainID
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1936,6 +1936,7 @@ GameObject:
   - component: {fileID: 1269974281}
   - component: {fileID: 1269974280}
   - component: {fileID: 1269974279}
+  - component: {fileID: 1269974282}
   m_Layer: 5
   m_Name: Chain
   m_TagString: Untagged
@@ -2007,9 +2008,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 546434566}
-        m_MethodName: SetBlockType
-        m_Mode: 3
+      - m_Target: {fileID: 1269974282}
+        m_MethodName: ClickOnButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2054,6 +2055,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1269974277}
   m_CullTransparentMesh: 0
+--- !u!114 &1269974282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269974277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e08ef1d30e433654490dc489516fe0d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 648788496}
 --- !u!1 &1315612916
 GameObject:
   m_ObjectHideFlags: 0
@@ -2326,18 +2340,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1491981989}
   m_CullTransparentMesh: 0
---- !u!114 &1503453630 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5988535959708033104, guid: bea09e08f189ea3458f787469821e08c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1714829287}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea6989044fd2e0f4da9e56644d41e42a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1507724817
 GameObject:
   m_ObjectHideFlags: 0
@@ -2877,6 +2879,23 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level
       objectReference: {fileID: 0}
+    - target: {fileID: 5988535959708033104, guid: bea09e08f189ea3458f787469821e08c,
+        type: 3}
+      propertyPath: blockPrefabs.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5988535959708033104, guid: bea09e08f189ea3458f787469821e08c,
+        type: 3}
+      propertyPath: blockPrefabs.Array.data[4]
+      value: 
+      objectReference: {fileID: 7828119636902567112, guid: 8cd7c6319cbd808498d2a155dd1a6d65,
+        type: 3}
+    - target: {fileID: 5988535959708033104, guid: bea09e08f189ea3458f787469821e08c,
+        type: 3}
+      propertyPath: blockPrefabs.Array.data[5]
+      value: 
+      objectReference: {fileID: 7473324077665764595, guid: b251bf2aa1125cf4598781f7b99c12d3,
+        type: 3}
     - target: {fileID: 5988535959708033105, guid: bea09e08f189ea3458f787469821e08c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2932,23 +2951,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5988535959708033104, guid: bea09e08f189ea3458f787469821e08c,
-        type: 3}
-      propertyPath: blockPrefabs.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5988535959708033104, guid: bea09e08f189ea3458f787469821e08c,
-        type: 3}
-      propertyPath: blockPrefabs.Array.data[4]
-      value: 
-      objectReference: {fileID: 7828119636902567112, guid: 8cd7c6319cbd808498d2a155dd1a6d65,
-        type: 3}
-    - target: {fileID: 5988535959708033104, guid: bea09e08f189ea3458f787469821e08c,
-        type: 3}
-      propertyPath: blockPrefabs.Array.data[5]
-      value: 
-      objectReference: {fileID: 7473324077665764595, guid: b251bf2aa1125cf4598781f7b99c12d3,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bea09e08f189ea3458f787469821e08c, type: 3}
 --- !u!1 &1790617669

@@ -198,14 +198,5 @@ public class Level : MonoBehaviour
         return levelData;
     }
     #endregion
-
-    #region SyncGUIwithBlockData
-
-    public void UpdateBlockPrefabWithSliderValue(float sliderValue)
-    {
-        // 5 -> Chain Block
-        blockPrefabs[5].GetComponent<ChainBlock>().SetBlockID((uint)sliderValue);
-    }
-
-    #endregion
+    
 }

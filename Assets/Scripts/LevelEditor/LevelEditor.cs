@@ -12,14 +12,14 @@ using UnityEngine.UI;
 /// 
 public class LevelEditor : MonoBehaviour
 {
-    [SerializeField] 
+    [SerializeField]
     private EditorInput editorInput;
 
-    private Block_Data[] blockDatas = new Block_Data[6] {   new StartBlock_Data(), 
-                                                            new GoalBlock_Data(), 
+    private Block_Data[] blockDatas = new Block_Data[6] {   new StartBlock_Data(),
+                                                            new GoalBlock_Data(),
                                                             new EmptyBlock_Data(),
                                                             new WoodBlock_Data(),
-                                                            new StoneBlock_Data(), 
+                                                            new StoneBlock_Data(),
                                                             new ChainBlock_Data() };
 
     private Block_Data currentBlockData = new EmptyBlock_Data();

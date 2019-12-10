@@ -8,6 +8,15 @@ public class ChainBlock_Data : Block_Data
     public override BlockType BlockType => BlockType.Chain;
 
     private uint blockID = 0;
+    public ChainBlock_Data()
+    {
+
+    }
+
+    public ChainBlock_Data(uint blockID)
+    {
+        this.blockID = blockID;
+    }
 
     public void SetChainID(uint blockID)
     {

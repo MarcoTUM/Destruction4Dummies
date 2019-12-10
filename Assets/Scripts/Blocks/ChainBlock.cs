@@ -14,7 +14,7 @@ public class ChainBlock : Block
     public override void InitializeBlock(Block_Data data)
     {
         base.InitializeBlock(data);
-        //SetBlockID(((ChainBlock_Data)data).GetChainID());
+        this.blockID = ((ChainBlock_Data)data).GetChainID();
     }
 
     protected override void DestroyBlock()
@@ -26,12 +26,7 @@ public class ChainBlock : Block
     {
         base.ResetBlock();
     }
-
-    public void SetBlockID(uint blockID)
-    {
-        this.blockID = blockID;
-        ((ChainBlock_Data)BlockData).SetChainID(blockID);
-    }
+    
 
     #endregion
 
