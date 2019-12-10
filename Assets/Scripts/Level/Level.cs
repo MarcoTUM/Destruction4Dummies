@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum LevelType { Main, Custom };
 public class Level : MonoBehaviour
@@ -30,7 +31,7 @@ public class Level : MonoBehaviour
         this.width = width;
         this.height = height;
         levelData = new Level_Data(width, height, name);
-        CreateLevel(false);
+        CreateLevel();
     }
 
     /// <summary>
@@ -43,14 +44,15 @@ public class Level : MonoBehaviour
         levelData = LevelSaveLoad.Load(levelName, directoryPath);
         this.width = levelData.BlockMap.GetLength(0);
         this.height = levelData.BlockMap.GetLength(1);
-        CreateLevel(true);
+        CreateLevel();
     }
 
     /// <summary>
     /// Creates levelObjects and initializes them with the data in levelData
     /// </summary>
-    private void CreateLevel(bool deactivateEmptyBlocks)
+    private void CreateLevel()
     {
+        bool deactivateEmptyBlocks = SceneManager.GetActiveScene().name != SceneDictionary.LevelEditor;
         if (currentLevel != null)
         {
             Destroy(currentLevel);

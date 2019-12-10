@@ -86,6 +86,7 @@ public class LevelEditor : MonoBehaviour
     public void LoadLevel()
     {
         Gamemaster.Instance.GetLevel().LoadLevelFromFile(data.Name, FilePaths.CustomLevelFolder);
+        data = Gamemaster.Instance.GetLevel().GetLevelData();
     }
 
     public void ExitLevelEditor()
