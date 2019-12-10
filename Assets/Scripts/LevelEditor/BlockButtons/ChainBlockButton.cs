@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ChainBlockButton : MonoBehaviour
 {
-    [SerializeField] UnityEngine.UI.Slider slider;
+    [SerializeField] Slider slider;
     private ChainBlock_Data[] chainBlockData;
     private uint chainID = 0;
 
