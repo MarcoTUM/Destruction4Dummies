@@ -80,12 +80,12 @@ public class LevelEditor : MonoBehaviour
 
     public void SaveLevel()
     {
-        LevelSaveLoad.Save(data, "TestLevels");
+        LevelSaveLoad.Save(data, FilePaths.CustomLevelFolder);
     }
 
     public void LoadLevel()
     {
-        Gamemaster.Instance.GetLevel().LoadLevelFromFile(data.Name, "TestLevels");
+        Gamemaster.Instance.GetLevel().LoadLevelFromFile(data.Name, FilePaths.CustomLevelFolder);
     }
 
     public void ExitLevelEditor()
