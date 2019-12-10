@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -11,14 +12,15 @@ using UnityEngine.UI;
 /// 
 public class LevelEditor : MonoBehaviour
 {
-    [SerializeField] 
+    [SerializeField]
     private EditorInput editorInput;
 
-    private Block_Data[] blockDatas = new Block_Data[5] {   new StartBlock_Data(), 
-                                                            new GoalBlock_Data(), 
-                                                            new EmptyBlock_Data(), 
-                                                            new WoodBlock_Data(), 
-                                                            new StoneBlock_Data() };
+    private Block_Data[] blockDatas = new Block_Data[6] {   new StartBlock_Data(),
+                                                            new GoalBlock_Data(),
+                                                            new EmptyBlock_Data(),
+                                                            new WoodBlock_Data(),
+                                                            new StoneBlock_Data(),
+                                                            new ChainBlock_Data() };
 
     private Block_Data currentBlockData = new EmptyBlock_Data();
     private Level_Data data;
@@ -40,7 +42,8 @@ public class LevelEditor : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButton(0))
+        // Check if the mouse was clicked over a UI element
+        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             Vector2Int blockCoord = editorInput.GetBlockMouseIsOn();
             if (blockCoord.x >= 0 && blockCoord.y >= 0)

@@ -106,3 +106,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 0.3
+  blockColorGUI: {r: 0.39215687, g: 0.19607843, b: 0, a: 0}
