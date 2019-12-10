@@ -26,11 +26,19 @@ public class LevelSaveLoad
 
     public static Level_Data Load(string levelName, string directoryPath)
     {
-        string filePath = directoryPath + levelName + ".dat";
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Open(filePath, FileMode.Open);
-        Level_Data level = (Level_Data)bf.Deserialize(file);
-        file.Close();
+        Level_Data level = null;
+        try
+        {
+            string filePath = directoryPath + levelName + ".dat";
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(filePath, FileMode.Open);
+            level = (Level_Data)bf.Deserialize(file);
+            file.Close();
+        }
+        catch (FileNotFoundException)
+        {
+            
+        }
         return level;
     }
 

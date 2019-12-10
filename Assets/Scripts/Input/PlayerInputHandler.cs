@@ -9,7 +9,7 @@ using UnityEngine;
 public class PlayerInputHandler : MonoBehaviour
 {
     private InputMethod input; //either Keyboard or XboxInput
-    private Player player; //toDo replace with proper PlayerScript
+    private Player player;
 
     private void Awake()
     {

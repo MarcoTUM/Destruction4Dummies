@@ -32,7 +32,7 @@ public class MainMenuGUI : MonoBehaviour
 
     public void StartGame()
     {
-        Gamemaster.Instance.SetNextMainLevelToLoad(0);
+        Gamemaster.Instance.SetNextMainLevelToLoad(1);
         LoadScene(SceneDictionary.Play);
     }
 
