@@ -41,7 +41,11 @@ public class Level : MonoBehaviour
     /// <param name="subFolder">FolderName e.g. Custom</param>
     public void LoadLevelFromFile(string levelName, string directoryPath)
     {
-        levelData = LevelSaveLoad.Load(levelName, directoryPath);
+        Level_Data loadResult = LevelSaveLoad.Load(levelName, directoryPath);
+        if (loadResult != null)
+            levelData = loadResult;
+        else
+            return;
         this.width = levelData.BlockMap.GetLength(0);
         this.height = levelData.BlockMap.GetLength(1);
         CreateLevel();
