@@ -12,9 +12,19 @@ public class MouseAndKeyboardInput : InputMethod
         return Input.GetAxisRaw(InputDictionary.Horizontal);
     }
 
+    public override bool PressedExitButton()
+    {
+        return Input.GetKeyDown(KeyCode.Escape);
+    }
+
     public override bool PressedJump()
     {
         return Input.GetButtonDown(InputDictionary.Jump) || (Input.GetButtonDown(InputDictionary.Vertical) && Input.GetAxis(InputDictionary.Vertical) > 0);
+    }
+
+    public override bool PressedRestartButton()
+    {
+        return Input.GetKeyDown(KeyCode.R);
     }
 }
 

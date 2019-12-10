@@ -10,7 +10,17 @@ public class XboxInput : InputMethod
         throw new System.NotImplementedException();
     }
 
+    public override bool PressedExitButton()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public override bool PressedJump()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override bool PressedRestartButton()
     {
         throw new System.NotImplementedException();
     }

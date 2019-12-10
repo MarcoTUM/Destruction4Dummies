@@ -33,6 +33,13 @@ public class PlayScene : MonoBehaviour
         }
     }
 
+    public void KillPlayer()
+    {
+        if (!running)
+            return;
+        StartCoroutine(PlayerDeath());
+    }
+
     private IEnumerator PlayerDeath()
     {
         running = false;
