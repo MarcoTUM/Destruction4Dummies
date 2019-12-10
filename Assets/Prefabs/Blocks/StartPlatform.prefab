@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c12d5fd950f71604b8537068d2f6b79e, type: 2}
+  - {fileID: 2100000, guid: aedc12757de9a5a439de2da54dad01e1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -106,4 +106,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 0
-  blockColorGUI: {r: 0, g: 1, b: 0, a: 0}
+  destructionAnimation: {fileID: 2332873758741114213, guid: 1339bcac7587eb74098e445f64e79f7e,
+    type: 3}
