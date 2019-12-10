@@ -36,14 +36,14 @@ public class ChainBlock : Block
     {
         base.OnTouch(player);
 
-        if (player.gameObject.tag.Equals("Player") && player.gameObject.GetComponent<Throwaway_Player>().CanDestroy)
+        if (player.gameObject.tag.Equals("Player"))
         {
             Destroy(gameObject, currentLifeTime);
 
             GameObject[] chainBlocks = GameObject.FindGameObjectsWithTag("ChainBlock");
             foreach (GameObject chainBlock in chainBlocks)
             {
-                if (chainBlock.GetComponent<ThrowawayChainBlock>().blockID == ((ChainBlock_Data)BlockData).GetChainID())
+                if (chainBlock.GetComponent<ChainBlock>().blockID == ((ChainBlock_Data)BlockData).GetChainID())
                 {
                     Destroy(chainBlock, currentLifeTime);
                 }
