@@ -106,4 +106,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 0
-  blockColorGUI: {r: 0, g: 0.39215687, b: 1, a: 0}
+  destructionAnimation: {fileID: 0}
