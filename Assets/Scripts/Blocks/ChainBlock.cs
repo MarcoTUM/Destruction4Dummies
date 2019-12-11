@@ -34,21 +34,19 @@ public class ChainBlock : Block
 
     protected override void OnTouch(GameObject player)
     {
-        base.OnTouch(player);
+        //base.OnTouch(player);
 
-        if (player.gameObject.tag.Equals("Player"))
+        GameObject[] chainBlocks = GameObject.FindGameObjectsWithTag("ChainBlock");
+        foreach (GameObject chainBlock in chainBlocks)
         {
-            Destroy(gameObject, currentLifeTime);
+            ChainBlock chainBlockScript = chainBlock.GetComponent<ChainBlock>();
 
-            GameObject[] chainBlocks = GameObject.FindGameObjectsWithTag("ChainBlock");
-            foreach (GameObject chainBlock in chainBlocks)
+            if (chainBlockScript.blockID == ((ChainBlock_Data)BlockData).GetChainID())
             {
-                if (chainBlock.GetComponent<ChainBlock>().blockID == ((ChainBlock_Data)BlockData).GetChainID())
-                {
-                    Destroy(chainBlock, currentLifeTime);
-                }
+                chainBlockScript.StartCoroutine("StartBlockDestruction");
             }
         }
+        
     }
 
     protected override void OnTouchEnd(GameObject player)
