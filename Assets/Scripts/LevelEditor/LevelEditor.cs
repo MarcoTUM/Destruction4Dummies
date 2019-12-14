@@ -43,7 +43,7 @@ public class LevelEditor : MonoBehaviour
     private void Update()
     {
         // Check if the mouse was clicked over a UI element
-        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
+        if (Input.GetMouseButton(InputDictionary.MouseLeftClick) && !EventSystem.current.IsPointerOverGameObject())
         {
             Vector2Int blockCoord = editorInput.GetBlockMouseIsOn();
             if (blockCoord.x >= 0 && blockCoord.y >= 0)

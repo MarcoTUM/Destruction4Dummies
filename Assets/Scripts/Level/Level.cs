@@ -196,6 +196,15 @@ public class Level : MonoBehaviour
         levelData.BlockMap[x, y] = data;
     }
 
+    public int GetWidth()
+    {
+        return width;
+    }
+
+    public int GetHeight()
+    {
+        return height;
+    }
     #endregion
 
     #region PlayLevel
@@ -212,6 +221,7 @@ public class Level : MonoBehaviour
         }
     }
     #endregion
+
     #region DebugMethods
     public Level_Data GetLevelData()
     {
