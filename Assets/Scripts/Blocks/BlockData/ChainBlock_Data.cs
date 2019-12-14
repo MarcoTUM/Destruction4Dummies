@@ -27,4 +27,9 @@ public class ChainBlock_Data : Block_Data
     {
         return blockID;
     }
+
+    public override bool Equals(Block_Data other)
+    {
+        return base.Equals(other) && this.blockID == ((ChainBlock_Data)other).GetChainID();
+    }
 }

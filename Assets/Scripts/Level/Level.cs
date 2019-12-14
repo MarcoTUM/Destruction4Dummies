@@ -169,7 +169,7 @@ public class Level : MonoBehaviour
             BlockType oldBlockType = levelData.BlockMap[x, y].BlockType;
             if (oldBlockType == BlockType.Start || oldBlockType == BlockType.Goal) //not allowed to replace start/goalBlocks
                 return false;
-            if (oldBlockType == data.BlockType) //no point in replacing block with themselves
+            if (levelData.BlockMap[x, y].Equals(data)) //no point in replacing block with themselves
                 return false;
 
             SetBlock(x, y, data);
