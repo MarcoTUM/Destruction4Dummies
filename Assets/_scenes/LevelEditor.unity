@@ -577,6 +577,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   editorInput: {fileID: 383877689}
+  levelNameInputField: {fileID: 756567811}
 --- !u!4 &546434567
 Transform:
   m_ObjectHideFlags: 0

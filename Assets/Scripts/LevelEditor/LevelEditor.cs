@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -12,9 +13,8 @@ using UnityEngine.UI;
 /// 
 public class LevelEditor : MonoBehaviour
 {
-    [SerializeField]
-    private EditorInput editorInput;
-
+    [SerializeField] private EditorInput editorInput;
+    [SerializeField] private InputField levelNameInputField;
     private Block_Data[] blockDatas = new Block_Data[6] {   new StartBlock_Data(),
                                                             new GoalBlock_Data(),
                                                             new EmptyBlock_Data(),
@@ -85,7 +85,17 @@ public class LevelEditor : MonoBehaviour
 
     public void LoadLevel()
     {
-        Gamemaster.Instance.GetLevel().LoadLevelFromFile(data.Name, FilePaths.CustomLevelFolder);
+        string path = EditorUtility.OpenFilePanel("Choose Level", FilePaths.CustomLevelFolder, "dat");
+        int splitIndex = path.LastIndexOf('/');
+        if (splitIndex == -1)
+            return;
+        string directoryPath = path.Substring(0, splitIndex+1);
+        string fileName = path.Substring(splitIndex+1);
+        if (directoryPath != FilePaths.CustomLevelFolder)
+            return;
+        fileName = fileName.Replace(".dat", "");
+        levelNameInputField.text = fileName;
+        Gamemaster.Instance.GetLevel().LoadLevelFromFile(fileName, FilePaths.CustomLevelFolder);
         data = Gamemaster.Instance.GetLevel().GetLevelData();
     }
 

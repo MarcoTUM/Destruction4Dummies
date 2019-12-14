@@ -20,7 +20,6 @@ public class ChainBlockButton : MonoBehaviour
 
     public void SetChainID(float value)
     {
-        Debug.Log((uint)value);
         chainID = (uint)value;
         ClickOnButton();
     }
