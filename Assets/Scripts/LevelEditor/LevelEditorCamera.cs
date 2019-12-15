@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Camera))]
 public class LevelEditorCamera : MonoBehaviour
 {
+    [SerializeField] private InputField nameInputField;
     [SerializeField] private RectTransform canvas, menuBar, blockSelection;
     [SerializeField] private float keyboardSpeedMultiplier = 1.2f, mouseSpeedMultiplier = 1.5f;
     [SerializeField] private float zoomSpeed = 1f;
@@ -16,7 +19,7 @@ public class LevelEditorCamera : MonoBehaviour
 
     private bool mouseScroll = false;
     private Vector3 mouseScrollStart;
-    [SerializeField] private float moveMarginInv = 0.8f, startMarginInv = 0.9f;// the smaller the margin the more margin there is; startMargin should be greater than moveMargin
+    [SerializeField] private float startMargin = 1.15f;
 
     private void Start()
     {
@@ -27,10 +30,11 @@ public class LevelEditorCamera : MonoBehaviour
     void Update()
     {
         //Zoom with mouseWheel
-        cam.orthographicSize = Mathf.Clamp(cam.orthographicSize - Input.mouseScrollDelta.y * zoomSpeed, minZoom, maxZoom);
+        if(!EventSystem.current.IsPointerOverGameObject())
+            cam.orthographicSize = Mathf.Clamp(cam.orthographicSize - Input.mouseScrollDelta.y * zoomSpeed, minZoom, maxZoom);
 
         //Get movement Values 
-        float horizontal, vertical;
+        float horizontal = 0, vertical = 0;
         if (Input.GetMouseButtonDown(InputDictionary.MouseRightClick))
         {
             mouseScroll = true;
@@ -46,19 +50,19 @@ public class LevelEditorCamera : MonoBehaviour
             horizontal = (Input.mousePosition.x - mouseScrollStart.x) / Screen.width * mouseSpeedMultiplier;
             vertical = (Input.mousePosition.y - mouseScrollStart.y) / Screen.height * mouseSpeedMultiplier;
         }
-        else
+        else if(!nameInputField.isFocused)
         {
             horizontal = Input.GetAxisRaw(InputDictionary.Horizontal) * keyboardSpeedMultiplier;
             vertical = Input.GetAxisRaw(InputDictionary.Vertical) * keyboardSpeedMultiplier;
         }
         //Check for boundaries
-        if (this.transform.position.x < moveMarginInv * cam.orthographicSize * cam.aspect)
+        if (this.transform.position.x < 0)
             horizontal = Mathf.Max(horizontal, 0);
-        else if (this.transform.position.x > level.GetWorldWidth() - moveMarginInv * cam.orthographicSize * cam.aspect)
+        else if (this.transform.position.x > level.GetWorldWidth())
             horizontal = Mathf.Min(horizontal, 0);
-        if (this.transform.position.y < moveMarginInv * cam.orthographicSize)
+        if (this.transform.position.y < 0)
             vertical = Mathf.Max(vertical, 0);
-        else if (this.transform.position.y > level.GetWorldHeight() - moveMarginInv * cam.orthographicSize)
+        else if (this.transform.position.y > level.GetWorldHeight())
             vertical = Mathf.Min(vertical, 0);
 
         //Translation
@@ -73,11 +77,11 @@ public class LevelEditorCamera : MonoBehaviour
 
         if (levelWidth > levelHeight * cam.aspect)
         {
-            cam.orthographicSize = levelWidth / startMarginInv / cam.aspect / 2f;
+            cam.orthographicSize = levelWidth * startMargin / cam.aspect / 2f;
         }
         else
         {
-            cam.orthographicSize = levelHeight / startMarginInv / 2f;
+            cam.orthographicSize = levelHeight * startMargin / 2f;
         }
         maxZoom = cam.orthographicSize;
         this.transform.position = new Vector3(levelWidth / 2f, levelHeight / 2f, this.transform.position.z);
