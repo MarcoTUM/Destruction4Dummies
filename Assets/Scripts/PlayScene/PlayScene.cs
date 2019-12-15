@@ -44,8 +44,9 @@ public class PlayScene : MonoBehaviour
     {
         running = false;
         player.gameObject.SetActive(false);
-        GameObject deathAnimInstance = Instantiate(deathAnim);
-        deathAnimInstance.transform.position = player.transform.position;
+        //GameObject deathAnimInstance = Instantiate(deathAnim);
+        //deathAnimInstance.transform.position = player.transform.position;
+        Instantiate(EffectManager.Instance.GetEffect(2),player.transform.position, Quaternion.identity);
         yield return new WaitForSeconds(gameOverDuration);
         level.ResetLevel();
 
