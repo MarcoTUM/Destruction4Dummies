@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-[RequireComponent(typeof(GridLayoutGroup), typeof(RectTransform))]
+[RequireComponent(typeof(GridLayoutGroup), typeof(RectTransform), typeof(ToggleGroup))]
 public class BlockSelection : MonoBehaviour
 {
     [SerializeField] private Toggle startBlock;
@@ -31,5 +31,6 @@ public class BlockSelection : MonoBehaviour
         }
         startBlock.isOn = true;
         startBlock.Select();
+        this.GetComponent<ToggleGroup>().allowSwitchOff = false;
     }
 }

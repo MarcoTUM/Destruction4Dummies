@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+[RequireComponent(typeof(Image))]
 public class ChainBlockButton : BlockButton
 {
     [SerializeField] Slider slider;
@@ -23,6 +23,7 @@ public class ChainBlockButton : BlockButton
         if ((uint)value == chainID)
             return;
         chainID = (uint)value;
+        this.GetComponent<Image>().color = ChainBlock_Data.ChainBlockColors[chainID];
         this.GetComponent<Toggle>().SetIsOnWithoutNotify(true);
         OnValueChanged(true);
     }

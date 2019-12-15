@@ -15,6 +15,7 @@ public class ChainBlock : Block
     {
         base.InitializeBlock(data);
         this.blockID = ((ChainBlock_Data)data).GetChainID();
+        this.GetComponent<Renderer>().material.color = ChainBlock_Data.ChainBlockColors[this.blockID - 1];
     }
 
     protected override void DestroyBlock()
