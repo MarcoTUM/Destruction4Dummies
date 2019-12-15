@@ -1559,7 +1559,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
+  m_BackGroundColor: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1571,7 +1571,7 @@ Camera:
     x: 0.1875
     y: 0.1875
     width: 0.8125
-    height: 0.8125
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -1625,7 +1625,8 @@ MonoBehaviour:
   mouseSpeedMultiplier: 3
   zoomSpeed: 1
   minZoom: 5
-  maxZoom: 15
+  moveMargin: 0.8
+  startMargin: 0.9
 --- !u!1 &1022902140
 GameObject:
   m_ObjectHideFlags: 0

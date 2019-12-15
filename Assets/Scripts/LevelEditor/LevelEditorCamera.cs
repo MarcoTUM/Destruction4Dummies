@@ -8,14 +8,16 @@ public class LevelEditorCamera : MonoBehaviour
     [SerializeField] private RectTransform canvas, menuBar, blockSelection;
     [SerializeField] private float keyboardSpeedMultiplier = 1.2f, mouseSpeedMultiplier = 1.5f;
     [SerializeField] private float zoomSpeed = 1f;
-    [SerializeField] private float minZoom = 5, maxZoom = 15;
+    [SerializeField] private float minZoom = 5;
+    private float maxZoom = 15;
 
     private Level level;
     private Camera cam;
 
     private bool mouseScroll = false;
     private Vector3 mouseScrollStart;
-    private float margin = 0.8f;
+    [SerializeField] private float moveMarginInv = 0.8f, startMarginInv = 0.9f;// the smaller the margin the more margin there is; startMargin should be greater than moveMargin
+
     private void Start()
     {
         level = Gamemaster.Instance.GetLevel();
@@ -51,18 +53,18 @@ public class LevelEditorCamera : MonoBehaviour
             vertical = Input.GetAxisRaw(InputDictionary.Vertical) * keyboardSpeedMultiplier;
         }
         //Check for boundaries
-        if (this.transform.position.x < margin * cam.orthographicSize * cam.aspect)
+        if (this.transform.position.x < moveMarginInv * cam.orthographicSize * cam.aspect)
             horizontal = Mathf.Max(horizontal, 0);
-        else if (this.transform.position.x > level.GetWorldWidth() - margin * cam.orthographicSize * cam.aspect)
+        else if (this.transform.position.x > level.GetWorldWidth() - moveMarginInv * cam.orthographicSize * cam.aspect)
             horizontal = Mathf.Min(horizontal, 0);
-        if (this.transform.position.y < margin * cam.orthographicSize)
+        if (this.transform.position.y < moveMarginInv * cam.orthographicSize)
             vertical = Mathf.Max(vertical, 0);
-        else if (this.transform.position.y > level.GetWorldHeight() - margin * cam.orthographicSize)
+        else if (this.transform.position.y > level.GetWorldHeight() - moveMarginInv * cam.orthographicSize)
             vertical = Mathf.Min(vertical, 0);
 
         //Translation
         this.transform.Translate(cam.orthographicSize * Time.deltaTime * new Vector3(horizontal, vertical, 0));
-        
+
     }
 
     public void InitializeCamera()
@@ -72,11 +74,11 @@ public class LevelEditorCamera : MonoBehaviour
 
         if (levelWidth > levelHeight * cam.aspect)
         {
-            cam.orthographicSize = levelWidth / margin / cam.aspect / 2f;
+            cam.orthographicSize = levelWidth / startMarginInv / cam.aspect / 2f;
         }
         else
         {
-            cam.orthographicSize = levelHeight / margin / 2f;
+            cam.orthographicSize = levelHeight / startMarginInv / 2f;
         }
         maxZoom = cam.orthographicSize;
         this.transform.position = new Vector3(levelWidth / 2f, levelHeight / 2f, this.transform.position.z);
