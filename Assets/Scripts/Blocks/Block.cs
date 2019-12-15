@@ -87,7 +87,7 @@ public abstract class Block : MonoBehaviour
             lifeTime -= Time.deltaTime;
         }
         DestroyBlock();
-        Instantiate(destructionAnimation, transform.position, Quaternion.identity);
+        Instantiate(EffectManager.Instance.GetEffect(0), transform.position, Quaternion.identity);
     }
     #endregion
 
