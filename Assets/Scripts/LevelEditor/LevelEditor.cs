@@ -77,10 +77,10 @@ public class LevelEditor : MonoBehaviour
 
     public void SetLevelName(string levelName)
     {
-        if (menu.NameAlreadyExists(levelName))
+        if (menu.NameAlreadyExists(levelName) || levelName == "")
         {
             levelNameInputField.text = data.Name;
-            Debug.Log("Name already exists");
+            Debug.Log("Name is empty or already exists");
             return;
         }
 
