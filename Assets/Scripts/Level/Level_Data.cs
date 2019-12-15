@@ -52,7 +52,9 @@ public class Level_Data
                 if (i == height / 2)
                 {
                     if (j < 3)
+                    {
                         BlockMap[j, i] = new StartBlock_Data();
+                    }
                     else if (j > width - 4)
                         BlockMap[j, i] = new GoalBlock_Data();
                     else
@@ -63,6 +65,15 @@ public class Level_Data
                     BlockMap[j, i] = emptyBlock;
                 }
 
+            }
+        }
+        Block_Data lockedEmptyBlock = new EmptyBlock_Data();
+        lockedEmptyBlock.IsReplaceable = false;
+        for (int j = 1; j < 3; j++)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                BlockMap[i, j + height / 2] = lockedEmptyBlock;
             }
         }
     }

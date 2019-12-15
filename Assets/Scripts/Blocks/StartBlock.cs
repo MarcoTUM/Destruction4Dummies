@@ -8,7 +8,7 @@ public class StartBlock : Block
     public override Block_Data BlockData { get => startBlockData; set => startBlockData = value; }
 
     #region PlayerInteraction
-
+    
     protected override void OnTouch(GameObject player)
     {
 
