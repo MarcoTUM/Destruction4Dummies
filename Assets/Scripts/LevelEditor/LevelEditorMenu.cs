@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LevelEditorMenu : LevelButtonGroup
@@ -165,4 +166,10 @@ public class LevelEditorMenu : LevelButtonGroup
         Destroy(button.gameObject);
     }
     #endregion
+
+
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }
