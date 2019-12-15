@@ -33,6 +33,7 @@ public class Level : MonoBehaviour
         this.height = height;
         levelData = new Level_Data(width, height, name);
         CreateLevel();
+        LevelSaveLoad.Save(this.levelData, FilePaths.CustomLevelFolder);
     }
 
     /// <summary>

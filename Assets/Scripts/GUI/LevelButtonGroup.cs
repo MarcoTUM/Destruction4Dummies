@@ -10,7 +10,7 @@ using UnityEngine.UI;
 /// Creates grid with levelSelectionButtons and initializes them
 /// </summary>
 [RequireComponent(typeof(GridLayoutGroup), typeof(RectTransform))]
-public abstract class LevelSelection : MonoBehaviour
+public abstract class LevelButtonGroup : MonoBehaviour
 {
     [SerializeField] protected GameObject buttonPrefab;
     protected int levelCount;

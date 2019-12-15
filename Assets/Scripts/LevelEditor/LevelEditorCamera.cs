@@ -22,7 +22,6 @@ public class LevelEditorCamera : MonoBehaviour
     {
         level = Gamemaster.Instance.GetLevel();
         cam = this.GetComponent<Camera>();
-        InitializeCamera();
     }
 
     void Update()

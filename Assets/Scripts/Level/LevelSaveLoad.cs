@@ -4,7 +4,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
-public class LevelSaveLoad
+public static class LevelSaveLoad
 {
     public static void Save(Level_Data level, string directoryPath)
     {
@@ -41,7 +41,16 @@ public class LevelSaveLoad
         }
         return level;
     }
+    
+    public static void Rename(string oldName, string newName, string directoryPath)
+    {
+        if (oldName == newName)
+            return;
+        File.Move(directoryPath + oldName + ".dat", directoryPath + newName + ".dat");
+    }
 
-
-
+    public static void Delete(string name, string directoryPath)
+    {
+        File.Delete(directoryPath + name + ".dat");
+    }
 }

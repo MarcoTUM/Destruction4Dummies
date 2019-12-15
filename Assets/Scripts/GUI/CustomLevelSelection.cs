@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(GridLayoutGroup), typeof(RectTransform))]
-public class CustomLevelSelection : LevelSelection
+public class CustomLevelSelection : LevelButtonGroup
 {
     protected override void Awake()
     {
