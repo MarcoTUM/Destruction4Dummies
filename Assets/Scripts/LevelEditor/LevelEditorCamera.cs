@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class LevelEditorCamera : MonoBehaviour
 {
-    [SerializeField] private RectTransform menuBar, blockSelection;
+    [SerializeField] private RectTransform canvas, menuBar, blockSelection;
     [SerializeField] private float keyboardSpeedMultiplier = 1.2f, mouseSpeedMultiplier = 1.5f;
     [SerializeField] private float zoomSpeed = 1f;
     [SerializeField] private float minZoom = 5, maxZoom = 15;
@@ -13,17 +13,14 @@ public class LevelEditorCamera : MonoBehaviour
     private Level level;
     private Camera cam;
 
-    private float uiLeftMargin, uiDownMargin;
     private bool mouseScroll = false;
     private Vector3 mouseScrollStart;
-
+    private float margin = 0.8f;
     private void Start()
     {
         level = Gamemaster.Instance.GetLevel();
         cam = this.GetComponent<Camera>();
-        //I think this calculation is wrong but still works
-        uiLeftMargin = Mathf.Abs(cam.ScreenToWorldPoint(new Vector3(0, 0, 0)).x - cam.ScreenToWorldPoint(new Vector3(menuBar.sizeDelta.x, 0, 0)).x);
-        uiDownMargin = Mathf.Abs(cam.ScreenToWorldPoint(new Vector3(0, 0, 0)).y - cam.ScreenToWorldPoint(new Vector3(0, blockSelection.sizeDelta.y, 0)).y);
+        InitializeCamera();
     }
 
     void Update()
@@ -53,21 +50,38 @@ public class LevelEditorCamera : MonoBehaviour
             horizontal = Input.GetAxisRaw(InputDictionary.Horizontal) * keyboardSpeedMultiplier;
             vertical = Input.GetAxisRaw(InputDictionary.Vertical) * keyboardSpeedMultiplier;
         }
-
         //Check for boundaries
-        if (this.transform.position.x < 0)
+        if (this.transform.position.x < margin * cam.orthographicSize * cam.aspect)
             horizontal = Mathf.Max(horizontal, 0);
-        else if (this.transform.position.x > level.GetWidth() * Block_Data.BlockSize - uiLeftMargin)
+        else if (this.transform.position.x > level.GetWorldWidth() - margin * cam.orthographicSize * cam.aspect)
             horizontal = Mathf.Min(horizontal, 0);
-        if (this.transform.position.y < 0)
+        if (this.transform.position.y < margin * cam.orthographicSize)
             vertical = Mathf.Max(vertical, 0);
-        else if (this.transform.position.y > level.GetHeight() * Block_Data.BlockSize - uiDownMargin)
+        else if (this.transform.position.y > level.GetWorldHeight() - margin * cam.orthographicSize)
             vertical = Mathf.Min(vertical, 0);
 
         //Translation
         this.transform.Translate(cam.orthographicSize * Time.deltaTime * new Vector3(horizontal, vertical, 0));
+        
     }
 
+    public void InitializeCamera()
+    {
+        float levelWidth = level.GetWorldWidth();
+        float levelHeight = level.GetWorldHeight();
+
+        if (levelWidth > levelHeight * cam.aspect)
+        {
+            cam.orthographicSize = levelWidth / margin / cam.aspect / 2f;
+        }
+        else
+        {
+            cam.orthographicSize = levelHeight / margin / 2f;
+        }
+        maxZoom = cam.orthographicSize;
+        this.transform.position = new Vector3(levelWidth / 2f, levelHeight / 2f, this.transform.position.z);
+
+    }
     /*
     private float movementSpeed;
     private const int LEFT = 12;

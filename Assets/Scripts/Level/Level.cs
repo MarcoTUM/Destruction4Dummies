@@ -196,14 +196,22 @@ public class Level : MonoBehaviour
         levelData.BlockMap[x, y] = data;
     }
 
-    public int GetWidth()
+    /// <summary>
+    /// Gets width of full levelObject in unity units
+    /// </summary>
+    /// <returns></returns>
+    public int GetWorldWidth()
     {
-        return width;
+        return width * Block_Data.BlockSize;
     }
 
-    public int GetHeight()
+    /// <summary>
+    /// Gets height of full levelObject in unity units
+    /// </summary>
+    /// <returns></returns>
+    public int GetWorldHeight()
     {
-        return height;
+        return height * Block_Data.BlockSize;
     }
     #endregion
 
