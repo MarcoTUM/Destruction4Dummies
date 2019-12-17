@@ -11,4 +11,6 @@ public abstract class InputMethod : MonoBehaviour
     public abstract bool PressedJump();
     public abstract bool PressedExitButton();
     public abstract bool PressedRestartButton();
+    public abstract bool HoldingSprintButton();
+
 }
