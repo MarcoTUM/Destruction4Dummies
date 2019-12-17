@@ -5,12 +5,12 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Image), typeof(Toggle))]
-public class BlockButton : MonoBehaviour
+public class BlockButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] protected int blockId; //only used when SetBlockType(id) is used
     [SerializeField] protected Texture2D tex;
     [SerializeField] protected Text descriptionText;
-
+    protected static string defaultDescriptionText = null;
     protected virtual void Start()
     {
         if (tex == null)
@@ -18,6 +18,8 @@ public class BlockButton : MonoBehaviour
         Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
         Image[] images = this.GetComponentsInChildren<Image>();
         this.GetComponent<Image>().sprite = sprite;
+        if (defaultDescriptionText == null)
+            defaultDescriptionText = descriptionText.text;
     }
 
 
@@ -36,16 +38,6 @@ public class BlockButton : MonoBehaviour
 
 
     #region BlockDescription
-    public virtual void OnPointerEnter()
-    {
-        descriptionText.text = BlockText();
-    }
-
-    public virtual void OnPointerExit()
-    {
-        descriptionText.text = "";
-    }
-
     /// <summary>
     /// Override with blockSpecific InformationText
     /// </summary>
@@ -53,6 +45,16 @@ public class BlockButton : MonoBehaviour
     protected virtual string BlockText()
     {
         return "<b>Block:</b>\nI am a block!";
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        descriptionText.text = BlockText();
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        descriptionText.text = defaultDescriptionText;
     }
     #endregion
 }
