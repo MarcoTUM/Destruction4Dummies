@@ -20,6 +20,8 @@ public abstract class Block : MonoBehaviour
     protected float currentLifeTime;
     protected bool isTouchingPlayer = false;
     [SerializeField] private GameObject destructionAnimation;
+    [SerializeField] public Texture destructionTexture;
+    private Texture recoveryTexture;
 
     [SerializeField]
     protected Color blockColorGUI;
@@ -32,12 +34,15 @@ public abstract class Block : MonoBehaviour
     public virtual void InitializeBlock(Block_Data data)
     {
         BlockData = data;
+        recoveryTexture = gameObject.GetComponent<Renderer>().material.mainTexture;
     }
 
     protected virtual void DestroyBlock()
     {
         //toDo add fancy destruction animations per Block
         this.gameObject.SetActive(false);
+        //recover texture
+        gameObject.GetComponent<Renderer>().material.mainTexture = recoveryTexture;
     }
 
     /// <summary>
@@ -75,6 +80,7 @@ public abstract class Block : MonoBehaviour
     /// <returns></returns>
     protected virtual IEnumerator StartBlockDestruction()
     {
+        gameObject.GetComponent<Renderer>().material.mainTexture = destructionTexture;
         while (lifeTime > 0)
         {
             yield return new WaitForEndOfFrame();
