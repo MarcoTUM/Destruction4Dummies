@@ -19,12 +19,9 @@ public abstract class Block : MonoBehaviour
     [SerializeField] private float lifeTime;
     protected float currentLifeTime;
     protected bool isTouchingPlayer = false;
-<<<<<<< HEAD
     [SerializeField] private GameObject destructionAnimation;
     [SerializeField] public Texture destructionTexture;
     private Texture recoveryTexture;
-=======
->>>>>>> animation_manager
 
     [SerializeField]
     protected Color blockColorGUI;
