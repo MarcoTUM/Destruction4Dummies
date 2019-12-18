@@ -108,5 +108,5 @@ MonoBehaviour:
   lifeTime: 0.3
   destructionAnimation: {fileID: 2332873758741114213, guid: 1339bcac7587eb74098e445f64e79f7e,
     type: 3}
-  destruction_texture: {fileID: 2800000, guid: f1eb954f769f7d24a986cceff7afbb8d, type: 3}
+  destructionTexture: {fileID: 2800000, guid: f1eb954f769f7d24a986cceff7afbb8d, type: 3}
   blockColorGUI: {r: 0, g: 0, b: 0, a: 0}
