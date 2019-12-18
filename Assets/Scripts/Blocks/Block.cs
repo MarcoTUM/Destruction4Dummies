@@ -20,7 +20,7 @@ public abstract class Block : MonoBehaviour
     protected float currentLifeTime;
     protected bool isTouchingPlayer = false;
     [SerializeField] private GameObject destructionAnimation;
-    [SerializeField] public Texture destruction_texture;
+    [SerializeField] public Texture destructionTexture;
     private Texture recoveryTexture;
 
     [SerializeField]
@@ -80,7 +80,7 @@ public abstract class Block : MonoBehaviour
     /// <returns></returns>
     protected virtual IEnumerator StartBlockDestruction()
     {
-        gameObject.GetComponent<Renderer>().material.mainTexture = destruction_texture;
+        gameObject.GetComponent<Renderer>().material.mainTexture = destructionTexture;
         while (lifeTime > 0)
         {
             yield return new WaitForEndOfFrame();
