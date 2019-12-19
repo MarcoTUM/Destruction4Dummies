@@ -10,7 +10,7 @@ public class XboxInput : InputMethod
         throw new System.NotImplementedException();
     }
 
-    public override bool HoldingSprintButton()
+    public override bool PressedSprintButton()
     {
         throw new System.NotImplementedException();
     }

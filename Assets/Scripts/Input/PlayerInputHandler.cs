@@ -38,6 +38,7 @@ public class PlayerInputHandler : MonoBehaviour
         player.Run(input.GetHorizontalDirection());
         if (input.PressedJump())
             player.JumpAction();
-        player.SetSprint(input.HoldingSprintButton());
+        if(input.PressedSprintButton())
+            player.ToggleSprint();
     }
 }

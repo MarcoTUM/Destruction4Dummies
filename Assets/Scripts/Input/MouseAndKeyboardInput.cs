@@ -27,9 +27,9 @@ public class MouseAndKeyboardInput : InputMethod
         return Input.GetKeyDown(KeyCode.R);
     }
 
-    public override bool HoldingSprintButton()
+    public override bool PressedSprintButton()
     {
-        return Input.GetKey(KeyCode.RightShift);
+        return Input.GetKeyDown(KeyCode.RightShift);
     }
 }
 

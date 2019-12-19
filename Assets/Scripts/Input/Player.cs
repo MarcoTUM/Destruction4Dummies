@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     public float dropFromCielingVelocity;
 
     private float xVelocity = 0f;
-    private bool holdingSprint = false;
+    private bool isSprinting = true;
 
     //ray tracing
     public float horizRayMargin; //Margin: additional length to the ray (beyond the perpendicular surface of the player)
@@ -108,7 +108,7 @@ public class Player : MonoBehaviour
     /// <param name="direction"> The direction of the input axis, raw. -1 for left, 1 for right</param>
     public void Run(float direction)
     {
-        if(holdingSprint)
+        if(isSprinting)
             xVelocity = direction * sprintVelocity;
         else
             xVelocity = direction * runningVelocity;
@@ -152,10 +152,9 @@ public class Player : MonoBehaviour
     /// <summary>
     /// Controls sprint modifier, called by input handler
     /// </summary>
-    /// <param name="input">The value of sprinting</param>
-    public void SetSprint(bool input)
+    public void ToggleSprint()
     {
-        holdingSprint = input;
+        isSprinting = !isSprinting;
     }
     
     #endregion
