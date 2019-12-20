@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public enum LevelType { Main, Custom };
 public class Level : MonoBehaviour
 {
+    private const int platformWidth = 3;
     [SerializeField] private GameObject[] blockPrefabs;
     GameObject currentLevel;
     private GameObject[,] blockMap; //Contains all the Block gameObjects in the current level
@@ -32,6 +33,7 @@ public class Level : MonoBehaviour
         this.height = height;
         levelData = new Level_Data(width, height, name);
         CreateLevel();
+        LevelSaveLoad.Save(this.levelData, FilePaths.CustomLevelFolder);
     }
 
     /// <summary>
@@ -64,7 +66,6 @@ public class Level : MonoBehaviour
         currentLevel = new GameObject();
         currentLevel.name = levelData.Name;
         currentLevel.transform.SetParent(this.transform);
-        //this.transform.position = new Vector3(-height * Block_Data.BlockSize / 2f, -width * Block_Data.BlockSize / 2f, 0); //To do maybe change posiiton of level
         blockMap = new GameObject[width, height];
 
         for (int i = 0; i < height; i++)
@@ -90,49 +91,73 @@ public class Level : MonoBehaviour
 
     #region LevelEditing
 
+    /// <summary>
+    /// Removes oldStartPlatform -> unlocks old locked Blocks -> Sets new startPlatform -> locks blocks above it
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
     public void SetStartPlatform(int x, int y)
     {
-        if (x == 0) x++;
-        else if (x == width - 1) x--;
+        x = Mathf.Clamp(x, platformWidth / 2, width - (platformWidth + 1) / 2);
 
         int oldX = levelData.StartPlatformCoordinates.x;
         int oldY = levelData.StartPlatformCoordinates.y;
 
+        int oldlockedHeight = Mathf.Min(height - oldY, 3);
+        int lockedHeight = Mathf.Min(height - y, 3);
         //Remove old StartPlatform
         EmptyBlock_Data emptyData = new EmptyBlock_Data();
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < platformWidth; i++)
         {
-            SetBlock((oldX - 1 + i), oldY, emptyData);
+            SetBlock((oldX - platformWidth / 2 + i), oldY, emptyData);
+        }
+        //Release lock on blocks above StartPlatform
+        for (int j = 1; j < oldlockedHeight; j++)
+        {
+            for (int i = 0; i < platformWidth; i++)
+            {
+                levelData.BlockMap[oldX - platformWidth / 2 + i, Mathf.Min(oldY + j, height - 1)].IsReplaceable = true;
+            }
         }
 
+        EmptyBlock_Data lockedEmptyData = new EmptyBlock_Data();
+        lockedEmptyData.IsReplaceable = false;
         //Place new StartPlatform
         StartBlock_Data startData = new StartBlock_Data();
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < platformWidth; i++)
         {
-            SetBlock((x - 1 + i), y, startData);
+            SetBlock((x - platformWidth / 2 + i), y, startData);
         }
+        //Lock blocks above startPlatform(empty or otherwise player stuck in block)
+        for (int j = 1; j < lockedHeight; j++)
+        {
+            for (int i = 0; i < platformWidth; i++)
+            {
+                SetBlock((x - platformWidth / 2 + i), Mathf.Min(y + j, height - 1), lockedEmptyData);
+            }
+        }
+
         levelData.StartPlatformCoordinates = new Vector2Int(x, y);
     }
 
     public void SetGoalPlatform(int x, int y)
     {
-        if (x == 0) x++;
-        else if (x == width - 1) x--;
+        x = Mathf.Clamp(x, platformWidth / 2, width - (platformWidth + 1) / 2);
 
         int oldX = levelData.GoalPlatformCoordinates.x;
         int oldY = levelData.GoalPlatformCoordinates.y;
         //Remove old GoalPlatform
         EmptyBlock_Data emptyData = new EmptyBlock_Data();
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < platformWidth; i++)
         {
-            SetBlock((oldX - 1 + i), oldY, emptyData);
+            SetBlock((oldX - platformWidth / 2 + i), oldY, emptyData);
         }
 
         //Place new GoalPlatform
         GoalBlock_Data data = new GoalBlock_Data();
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < platformWidth; i++)
         {
-            SetBlock((x - 1 + i), y, data);
+            SetBlock((x - platformWidth / 2 + i), y, data);
         }
 
         levelData.GoalPlatformCoordinates = new Vector2Int(x, y);
@@ -152,7 +177,7 @@ public class Level : MonoBehaviour
         {
             if (levelData.StartPlatformCoordinates.x == x && levelData.StartPlatformCoordinates.y == y)
                 return false;
-            if (CollidesWithPlatform(levelData.GoalPlatformCoordinates, x, y))
+            if (!CanStartPlatformBePlaced(x, y))
                 return false;
             SetStartPlatform(x, y);
         }
@@ -160,27 +185,45 @@ public class Level : MonoBehaviour
         {
             if (levelData.GoalPlatformCoordinates.x == x && levelData.GoalPlatformCoordinates.y == y)
                 return false;
-            if (CollidesWithPlatform(levelData.StartPlatformCoordinates, x, y))
+            if (!CanEndPlatformBePlaced(x, y))
                 return false;
             SetGoalPlatform(x, y);
         }
         else
         {
             BlockType oldBlockType = levelData.BlockMap[x, y].BlockType;
-            if (oldBlockType == BlockType.Start || oldBlockType == BlockType.Goal) //not allowed to replace start/goalBlocks
+            if (!levelData.BlockMap[x, y].IsReplaceable) //not allowed to replace certain blocks
                 return false;
-            if (oldBlockType == data.BlockType) //no point in replacing block with themselves
+            if (levelData.BlockMap[x, y].Equals(data)) //no point in replacing block with themselves
                 return false;
-
             SetBlock(x, y, data);
         }
 
         return true;
     }
 
-    private bool CollidesWithPlatform(Vector2Int platformCoord, int x, int y)
+    private bool CanEndPlatformBePlaced(int x, int y)
     {
-        return platformCoord.y == y && platformCoord.x - 2 <= x && platformCoord.x + 2 >= x;
+        for (int i = 0; i < platformWidth; i++)
+        {
+            if (!levelData.BlockMap[Mathf.Clamp(x + i - platformWidth / 2, 0, width - 1), y].IsReplaceable)
+                return false;
+        }
+        return true;
+    }
+
+    private bool CanStartPlatformBePlaced(int x, int y)
+    {
+        int lockedHeight = Mathf.Min(height - y, 3);
+        for (int j = 0; j < lockedHeight; j++)
+        {
+            for (int i = 0; i < platformWidth; i++)
+            {
+                if (levelData.BlockMap[Mathf.Clamp(x + i - platformWidth / 2, 0, width - 1), y + j].BlockType == BlockType.Goal)
+                    return false;
+            }
+        }
+        return true;
     }
 
     private void SetBlock(int x, int y, Block_Data data)
@@ -196,6 +239,23 @@ public class Level : MonoBehaviour
         levelData.BlockMap[x, y] = data;
     }
 
+    /// <summary>
+    /// Gets width of full levelObject in unity units
+    /// </summary>
+    /// <returns></returns>
+    public int GetWorldWidth()
+    {
+        return width * Block_Data.BlockSize;
+    }
+
+    /// <summary>
+    /// Gets height of full levelObject in unity units
+    /// </summary>
+    /// <returns></returns>
+    public int GetWorldHeight()
+    {
+        return height * Block_Data.BlockSize;
+    }
     #endregion
 
     #region PlayLevel
@@ -206,17 +266,18 @@ public class Level : MonoBehaviour
 
     public void ResetLevel()
     {
-        foreach(GameObject block in blockMap)
+        foreach (GameObject block in blockMap)
         {
             block.GetComponent<Block>().ResetBlock();//maybe better to change blockmap to Block?
         }
     }
     #endregion
+
     #region DebugMethods
     public Level_Data GetLevelData()
     {
         return levelData;
     }
     #endregion
-    
+
 }

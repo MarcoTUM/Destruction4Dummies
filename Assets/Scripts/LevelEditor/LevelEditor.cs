@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -12,9 +14,9 @@ using UnityEngine.UI;
 /// 
 public class LevelEditor : MonoBehaviour
 {
-    [SerializeField]
-    private EditorInput editorInput;
-
+    [SerializeField] private EditorInput editorInput;
+    [SerializeField] private InputField levelNameInputField;
+    [SerializeField] private LevelEditorMenu menu;
     private Block_Data[] blockDatas = new Block_Data[6] {   new StartBlock_Data(),
                                                             new GoalBlock_Data(),
                                                             new EmptyBlock_Data(),
@@ -24,9 +26,7 @@ public class LevelEditor : MonoBehaviour
 
     private Block_Data currentBlockData = new EmptyBlock_Data();
     private Level_Data data;
-
-    private const int LEVEL_WIDTH = 100;
-    private const int LEVEL_HEIGHT = 50;
+    
 
     #region Unity
     private void Awake()
@@ -34,16 +34,10 @@ public class LevelEditor : MonoBehaviour
         Gamemaster.Instance.Register(this);
     }
 
-    void Start()
-    {
-        Gamemaster.Instance.GetLevel().CreateNewLevel(LEVEL_WIDTH, LEVEL_HEIGHT, "testLevel");
-        data = Gamemaster.Instance.GetLevel().GetLevelData();
-    }
-
     private void Update()
     {
         // Check if the mouse was clicked over a UI element
-        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
+        if (Input.GetMouseButton(InputDictionary.MouseLeftClick) && !EventSystem.current.IsPointerOverGameObject())
         {
             Vector2Int blockCoord = editorInput.GetBlockMouseIsOn();
             if (blockCoord.x >= 0 && blockCoord.y >= 0)
@@ -54,6 +48,19 @@ public class LevelEditor : MonoBehaviour
     }
 
     #endregion
+
+    /// <summary>
+    /// Initializes Camera and sets correct levelData + name
+    /// </summary>
+    /// <param name="name"></param>
+    public void BeginEditLevel(string name)
+    {
+        if (name != "")
+            Gamemaster.Instance.GetLevel().LoadLevelFromFile(name, FilePaths.CustomLevelFolder);
+        Camera.main.GetComponent<LevelEditorCamera>().InitializeCamera();
+        data = Gamemaster.Instance.GetLevel().GetLevelData();
+        levelNameInputField.text = data.Name;
+    }
 
     public void SetCurrentBlock(Block_Data blockData)
     {
@@ -70,12 +77,18 @@ public class LevelEditor : MonoBehaviour
 
     public void SetLevelName(string levelName)
     {
-        data.Name = levelName;
-    }
+        if (menu.NameAlreadyExists(levelName) || levelName == "")
+        {
+            levelNameInputField.text = data.Name;
+            Debug.Log("Name is empty or already exists");
+            return;
+        }
 
-    public void SetLevelName(InputField levelNameInputField)
-    {
-        data.Name = levelNameInputField.text;
+        string oldName = data.Name;
+        data.Name = levelName;
+        LevelSaveLoad.Rename(oldName, data.Name, FilePaths.CustomLevelFolder);
+        SaveLevel();
+        menu.UpdateButtonName(oldName, data.Name);
     }
 
     public void SaveLevel()
@@ -83,14 +96,29 @@ public class LevelEditor : MonoBehaviour
         LevelSaveLoad.Save(data, FilePaths.CustomLevelFolder);
     }
 
+    /*
+     * //Can be removed i guess - if we load with menu
     public void LoadLevel()
     {
-        Gamemaster.Instance.GetLevel().LoadLevelFromFile(data.Name, FilePaths.CustomLevelFolder);
+        string path = EditorUtility.OpenFilePanel("Choose Level", FilePaths.CustomLevelFolder, "dat");
+        int splitIndex = path.LastIndexOf('/');
+        if (splitIndex == -1)
+            return;
+        string directoryPath = path.Substring(0, splitIndex + 1);
+        string fileName = path.Substring(splitIndex + 1);
+        if (directoryPath != FilePaths.CustomLevelFolder)
+            return;
+        fileName = fileName.Replace(".dat", "");
+        levelNameInputField.text = fileName;
+        Gamemaster.Instance.GetLevel().LoadLevelFromFile(fileName, FilePaths.CustomLevelFolder);
         data = Gamemaster.Instance.GetLevel().GetLevelData();
     }
-
-    public void ExitLevelEditor()
+    */
+    public void BackToMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        SaveLevel();
+        menu.OpenEditorMenu();
+        //SceneManager.LoadScene("MainMenu");
     }
+
 }

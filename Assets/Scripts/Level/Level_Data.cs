@@ -23,7 +23,7 @@ public struct Vector2Int
 public class Level_Data
 {
     public string Name;
-    private const int minDimension = 7;
+    public const int MinDimension = 7;
     public Block_Data[,] BlockMap;
     [SerializeField]
     public Vector2Int StartPlatformCoordinates, GoalPlatformCoordinates;
@@ -35,10 +35,10 @@ public class Level_Data
     /// <param name="name"></param>
     public Level_Data(int width, int height, string name)
     {
-        if (width < minDimension)
-            throw new InvalidOperationException($"Trying to create new {nameof(Level_Data)} with width of " + width + " but it must be at least " + minDimension + "!");
-        if (height < minDimension)
-            throw new InvalidOperationException($"Trying to create new {nameof(Level_Data)} with height of " + height + " but it must be at least " + minDimension + "!");
+        if (width < MinDimension)
+            throw new InvalidOperationException($"Trying to create new {nameof(Level_Data)} with width of " + width + " but it must be at least " + MinDimension + "!");
+        if (height < MinDimension)
+            throw new InvalidOperationException($"Trying to create new {nameof(Level_Data)} with height of " + height + " but it must be at least " + MinDimension + "!");
 
         this.Name = name;
         this.BlockMap = new Block_Data[width, height];
@@ -52,7 +52,9 @@ public class Level_Data
                 if (i == height / 2)
                 {
                     if (j < 3)
+                    {
                         BlockMap[j, i] = new StartBlock_Data();
+                    }
                     else if (j > width - 4)
                         BlockMap[j, i] = new GoalBlock_Data();
                     else
@@ -63,6 +65,15 @@ public class Level_Data
                     BlockMap[j, i] = emptyBlock;
                 }
 
+            }
+        }
+        Block_Data lockedEmptyBlock = new EmptyBlock_Data();
+        lockedEmptyBlock.IsReplaceable = false;
+        for (int j = 1; j < 3; j++)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                BlockMap[i, j + height / 2] = lockedEmptyBlock;
             }
         }
     }
