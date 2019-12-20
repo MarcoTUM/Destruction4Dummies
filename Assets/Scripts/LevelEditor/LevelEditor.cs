@@ -12,10 +12,12 @@ using UnityEngine.UI;
 /// Handles change of currentBlock + Saving etc.
 /// </summary>
 /// 
+[RequireComponent(typeof(LevelEditorLevelTester))]
 public class LevelEditor : MonoBehaviour
 {
     [SerializeField] private EditorInput editorInput;
     [SerializeField] private InputField levelNameInputField;
+    [SerializeField] private GameObject editorGUI;
     [SerializeField] private LevelEditorMenu menu;
     private Block_Data[] blockDatas = new Block_Data[6] {   new StartBlock_Data(),
                                                             new GoalBlock_Data(),
@@ -24,14 +26,18 @@ public class LevelEditor : MonoBehaviour
                                                             new StoneBlock_Data(),
                                                             new ChainBlock_Data() };
 
+    private Rect editRect = new Rect(0.1875f, 0.1875f, 0.8125f, 0.8125f);
+    private Rect playRect = new Rect(0, 0, 1, 1);
+
     private Block_Data currentBlockData = new EmptyBlock_Data();
     private Level_Data data;
-    
-
+    private LevelEditorLevelTester levelTester;
+    private bool editing = true;
     #region Unity
     private void Awake()
     {
         Gamemaster.Instance.Register(this);
+        levelTester = this.GetComponent<LevelEditorLevelTester>();
     }
 
     private void Update()
@@ -96,6 +102,18 @@ public class LevelEditor : MonoBehaviour
         LevelSaveLoad.Save(data, FilePaths.CustomLevelFolder);
     }
 
+    public void TestLevel()
+    {
+        editorGUI.SetActive(false);
+        editing = false;
+        Camera.main.rect = playRect;
+        levelTester.StartLevelTest();
+    }
+
+    public bool IsEditing()
+    {
+        return editing;
+    }
     /*
      * //Can be removed i guess - if we load with menu
     public void LoadLevel()

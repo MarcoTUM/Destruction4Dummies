@@ -256,6 +256,18 @@ public class Level : MonoBehaviour
     {
         return height * Block_Data.BlockSize;
     }
+
+    public void ShowEmptyBlocks(bool show)
+    {
+        foreach(GameObject obj in blockMap)
+        {
+            if(obj.GetComponent<Block>().BlockData.BlockType == BlockType.Empty)
+            {
+                obj.SetActive(show);
+            }
+        }
+    }
+
     #endregion
 
     #region PlayLevel
