@@ -9,7 +9,12 @@ public enum BlockType
     Empty   = 2, 
     Wood    = 3, 
     Stone   = 4, 
-    Chain   = 5 
+    Chain   = 5,
+    Death   = 6,
+    Lock    = 7,
+    Key     = 8,
+    Respawn = 9,
+    Charge  = 10
 };
 
 public abstract class Block : MonoBehaviour
@@ -21,9 +26,6 @@ public abstract class Block : MonoBehaviour
     protected bool isTouchingPlayer = false;
     [SerializeField] public Texture destructionTexture;
     private Texture recoveryTexture;
-
-    [SerializeField]
-    protected Color blockColorGUI;
 
     #region Initialization / Destruction
     /// <summary>
