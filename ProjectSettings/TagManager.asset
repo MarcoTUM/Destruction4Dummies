@@ -6,6 +6,8 @@ TagManager:
   tags:
   - ChainBlock
   - Block
+  - PlayScene
+  - LockBlock
   layers:
   - Default
   - TransparentFX
