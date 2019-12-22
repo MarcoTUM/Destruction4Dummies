@@ -32,6 +32,15 @@ public class LevelEditorMenu : LevelButtonGroup
         SpawnButtons(fileNames.ToArray());
     }
 
+    private void Start()
+    {
+        if (Gamemaster.Instance.GetLevelType() == LevelType.Test)
+        {
+            Gamemaster.Instance.SetDefaultLevelToLoad();
+            ContinueEdit();
+        }
+    }
+
     protected override void SpawnButtons(string[] fileNames)
     {
         for (int i = 0; i < levelCount; i++)
@@ -142,6 +151,14 @@ public class LevelEditorMenu : LevelButtonGroup
     public void OpenEditorMenu()
     {
         menuObject.SetActive(true);
+    }
+
+    public void ContinueEdit()
+    {
+        string name = Gamemaster.Instance.GetLevel().GetLevelData().Name;
+        selectedButton = buttons.Where(button => button.GetName() == name).FirstOrDefault();
+        menuObject.SetActive(false);
+        Gamemaster.Instance.GetLevelEditor().BeginEditLevel("");
     }
     #endregion
 

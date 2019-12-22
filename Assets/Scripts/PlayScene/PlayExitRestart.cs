@@ -27,7 +27,7 @@ public class PlayExitRestart : MonoBehaviour
     {
         if (input.PressedExitButton())
         {
-            SceneManager.LoadScene(SceneDictionary.MainMenu);
+            SceneManager.LoadScene(Gamemaster.Instance.GetLevelType() == LevelType.Test ? SceneDictionary.LevelEditor : SceneDictionary.MainMenu);
         }
         else if (input.PressedRestartButton())
         {

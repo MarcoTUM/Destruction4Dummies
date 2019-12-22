@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum LevelType { Main, Custom };
+public enum LevelType { Main, Custom, Test };
 public class Level : MonoBehaviour
 {
     private const int platformWidth = 3;
@@ -34,6 +34,17 @@ public class Level : MonoBehaviour
         levelData = new Level_Data(width, height, name);
         CreateLevel();
         LevelSaveLoad.Save(this.levelData, FilePaths.CustomLevelFolder);
+    }
+    /// <summary>
+    /// Copies data from level of previouse Scene(used for copying level for testing/exporting)
+    /// </summary>
+    /// <param name="oldLevel"></param>
+    public void CopyLevel(Level_Data oldLevel)
+    {
+        levelData = oldLevel;
+        this.width = levelData.BlockMap.GetLength(0);
+        this.height = levelData.BlockMap.GetLength(1);
+        CreateLevel();
     }
 
     /// <summary>

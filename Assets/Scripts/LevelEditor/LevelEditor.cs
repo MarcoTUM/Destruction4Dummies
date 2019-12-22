@@ -48,6 +48,7 @@ public class LevelEditor : MonoBehaviour
     }
 
     #endregion
+    
 
     /// <summary>
     /// Initializes Camera and sets correct levelData + name
