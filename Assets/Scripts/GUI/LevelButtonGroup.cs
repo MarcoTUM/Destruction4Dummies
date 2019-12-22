@@ -30,7 +30,7 @@ public abstract class LevelButtonGroup : MonoBehaviour
         string[] parts = filePath.Split('/');
         return parts[parts.Length - 1].Replace(".dat", "");
     }
-    
+
     protected void SetHeight()
     {
         GridLayoutGroup grid = this.GetComponent<GridLayoutGroup>();

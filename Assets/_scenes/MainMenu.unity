@@ -233,7 +233,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 250.05429}
+  m_AnchoredPosition: {x: 0, y: 250.08353}
   m_SizeDelta: {x: 0, y: 500}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &188073423
@@ -1128,8 +1128,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1306419605}
   m_HandleRect: {fileID: 1306419604}
   m_Direction: 2
-  m_Value: -0.00028113578
-  m_Size: 0.49961033
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2527,7 +2527,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 250.05432}
+  m_AnchoredPosition: {x: 0, y: 250.08356}
   m_SizeDelta: {x: 0, y: 500}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1041345722
@@ -2543,6 +2543,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonPrefab: {fileID: 7297629855884574591, guid: 0951ad765db46224baeae04a4afb85db,
+    type: 3}
+  deleteButtonPrefab: {fileID: 4731307468488488778, guid: 3d235d52d064dfb47a4a5d55008845fc,
     type: 3}
 --- !u!114 &1041345723
 MonoBehaviour:
@@ -4128,7 +4130,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 385794607}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4251,7 +4253,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1316629797}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4486,8 +4488,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 749017938}
   m_HandleRect: {fileID: 749017937}
   m_Direction: 2
-  m_Value: -0.00028113578
-  m_Size: 0.49820516
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
