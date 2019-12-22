@@ -5,19 +5,18 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class PlayCameraControl : MonoBehaviour
 {
-
+    
     [SerializeField] private float smoothTime = .5f;
     [SerializeField] private float cameraDistance = 10f;
     [SerializeField] private float openingDuration = 2f;
-    [SerializeField] private Vector2 openingMargin = new Vector2(5, 5); //margin from level border to camera view frustum border
+    [SerializeField] private Vector2 openingMargin = new Vector2(5,5); //margin from level border to camera view frustum border
     private new Camera camera;
     private Player player;
     private Vector3 velocity = Vector3.zero;
-    public bool CameraFollow { get; set; }
+    private bool cameraFollow = true;
 
     private void Awake()
     {
-        CameraFollow = true;
         camera = this.GetComponent<Camera>();
         Gamemaster.Instance.Register(this);
     }
@@ -33,7 +32,7 @@ public class PlayCameraControl : MonoBehaviour
     /// <returns></returns>
     public IEnumerator PlayLevelOpening(Player player)
     {
-        CameraFollow = false;
+        cameraFollow = false;
         Vector2Int dim = Gamemaster.Instance.GetLevel().GetLevelDimensions();
         float startFrustumValue = dim.y + openingMargin.y;
         if (dim.x > dim.y)
@@ -43,15 +42,15 @@ public class PlayCameraControl : MonoBehaviour
 
         float startDistance = startFrustumValue / 2f / Mathf.Tan(camera.fieldOfView * 0.5f * (Mathf.PI / 180f));
         this.transform.position = new Vector3(dim.x / 2f * Block_Data.BlockSize, dim.y / 2f * Block_Data.BlockSize, -startDistance);
-
+        
         float timer = 0;
-        while (timer < openingDuration)
+        while(timer < openingDuration)
         {
             yield return new WaitForEndOfFrame();
             timer += Time.deltaTime;
             SmoothDampToPosition(player.transform.position - cameraDistance * Vector3.forward, openingDuration - timer);
         }
-        CameraFollow = true;
+        cameraFollow = true;
     }
 
     /// <summary>
@@ -61,7 +60,7 @@ public class PlayCameraControl : MonoBehaviour
     /// <returns></returns>
     public IEnumerator FocusCameraOnPlayer(float duration)
     {
-        CameraFollow = false;
+        cameraFollow = false;
         float timer = 0;
         while (timer < duration)
         {
@@ -69,12 +68,12 @@ public class PlayCameraControl : MonoBehaviour
             timer += Time.deltaTime;
             SmoothDampToPosition(player.transform.position - cameraDistance * Vector3.forward, duration - timer);
         }
-        CameraFollow = true;
+        cameraFollow = true;
     }
 
     private void Update()
     {
-        if (CameraFollow)
+        if (cameraFollow)
             SmoothDampToPosition(player.transform.position - cameraDistance * Vector3.forward);
     }
 

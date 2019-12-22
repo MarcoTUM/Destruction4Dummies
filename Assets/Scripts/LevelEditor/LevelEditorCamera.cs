@@ -12,7 +12,6 @@ public class LevelEditorCamera : MonoBehaviour
     [SerializeField] private float keyboardSpeedMultiplier = 1.2f, mouseSpeedMultiplier = 1.5f;
     [SerializeField] private float zoomSpeed = 1f;
     [SerializeField] private float minZoom = 5;
-    private LevelEditor editor;
     private float maxZoom = 15;
 
     private Level level;
@@ -26,14 +25,10 @@ public class LevelEditorCamera : MonoBehaviour
     {
         level = Gamemaster.Instance.GetLevel();
         cam = this.GetComponent<Camera>();
-        editor = Gamemaster.Instance.GetLevelEditor();
     }
 
     void Update()
     {
-        if (!editor.IsEditing())
-            return;
-
         //Zoom with mouseWheel
         if(!EventSystem.current.IsPointerOverGameObject())
             cam.orthographicSize = Mathf.Clamp(cam.orthographicSize - Input.mouseScrollDelta.y * zoomSpeed, minZoom, maxZoom);
