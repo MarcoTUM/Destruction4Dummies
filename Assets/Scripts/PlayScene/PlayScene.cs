@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +7,6 @@ public class PlayScene : MonoBehaviour
     [SerializeField] private float gameOverDuration = 1f;
     [SerializeField] private float respawnDuration = 1f;
     [SerializeField] private float gameOverDistance = 5;
-    [SerializeField] private GameObject deathAnim;
 
     private Player player;
     private Level level;

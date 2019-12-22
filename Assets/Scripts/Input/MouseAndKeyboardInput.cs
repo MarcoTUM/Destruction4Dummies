@@ -26,5 +26,10 @@ public class MouseAndKeyboardInput : InputMethod
     {
         return Input.GetKeyDown(KeyCode.R);
     }
+
+    public override bool PressedSprintButton()
+    {
+        return Input.GetKeyDown(KeyCode.RightShift);
+    }
 }
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,16 +10,19 @@ public class Player : MonoBehaviour
     #region Fields
 
     public float runningVelocity;
+    public float sprintVelocity;
     public float fallVelocityLimit;
     public float jumpVelocity;
 
-    public float yAcceleration;
+    public float fallAccelaration;
+    public float riseAcceleration;
     private float yVelocity = 0f;
     private bool grounded = false;
     private bool cielingCollision = false;
     public float dropFromCielingVelocity;
 
     private float xVelocity = 0f;
+    private bool isSprinting = true;
 
     //ray tracing
     public float horizRayMargin; //Margin: additional length to the ray (beyond the perpendicular surface of the player)
@@ -86,7 +89,13 @@ public class Player : MonoBehaviour
                 AnimateJumpToFall();
                 return;
             }
-            yVelocity = yVelocity + yAcceleration * Time.fixedDeltaTime;
+            //case: rising
+            if(yVelocity > 0 && Input.GetButton("Jump"))
+                yVelocity = yVelocity + riseAcceleration * Time.fixedDeltaTime;
+            //case: falling
+            else 
+                yVelocity = yVelocity + fallAccelaration * Time.fixedDeltaTime;
+            //clamp
             yVelocity = Mathf.Clamp(yVelocity, -fallVelocityLimit, jumpVelocity);
         }
     }
@@ -99,7 +108,10 @@ public class Player : MonoBehaviour
     /// <param name="direction"> The direction of the input axis, raw. -1 for left, 1 for right</param>
     public void Run(float direction)
     {
-        xVelocity = direction * runningVelocity;
+        if(isSprinting)
+            xVelocity = direction * sprintVelocity;
+        else
+            xVelocity = direction * runningVelocity;
         if (direction == 0)
             animator.SetBool("isRunning", false);
         else if (grounded)
@@ -135,6 +147,14 @@ public class Player : MonoBehaviour
         grounded = true;
         animator.SetBool("isFalling", false);
         yVelocity = 0;
+    }
+
+    /// <summary>
+    /// Controls sprint modifier, called by input handler
+    /// </summary>
+    public void ToggleSprint()
+    {
+        isSprinting = !isSprinting;
     }
     
     #endregion
