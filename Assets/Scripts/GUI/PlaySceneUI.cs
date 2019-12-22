@@ -11,6 +11,7 @@ public class PlaySceneUI : MonoBehaviour
     [SerializeField] private RectTransform mainLevelCompleteWindow;
     [SerializeField] private RectTransform customLevelCompleteWindow;
     [SerializeField] private RectTransform testLevelCompleteWindow;
+    [SerializeField] private GameObject exportedText;
     private void Awake()
     {
         Gamemaster.Instance.Register(this);
@@ -54,7 +55,8 @@ public class PlaySceneUI : MonoBehaviour
 
     public void ExportLevel()
     {
-
+        LevelSaveLoad.Save(Gamemaster.Instance.GetLevel().GetLevelData(), FilePaths.CustomPlayLevelFolder);
+        exportedText.SetActive(true);
     }
 
     #endregion

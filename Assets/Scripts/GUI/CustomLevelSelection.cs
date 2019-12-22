@@ -13,8 +13,8 @@ public class CustomLevelSelection : LevelButtonGroup
     {
         if (buttonPrefab.GetComponent<CustomLevelButton>() == null)
             throw new InvalidOperationException($"ButtonPrefab does not have {nameof(CustomLevelButton)}");
-        TestDirectory(FilePaths.CustomLevelFolder);
-        string[] fileNames = Directory.GetFiles(FilePaths.CustomLevelFolder).
+        TestDirectory(FilePaths.CustomPlayLevelFolder);
+        string[] fileNames = Directory.GetFiles(FilePaths.CustomPlayLevelFolder).
             Where(filePath => filePath.EndsWith(".dat")). //ignore meta files
             OrderBy(filePath => new FileInfo(filePath).CreationTime). // sort fileNames by id 
             Select(filePath => ConvertFilePathToName(filePath)).ToArray<string>(); //cut filePath to fileName

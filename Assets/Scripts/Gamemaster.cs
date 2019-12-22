@@ -63,7 +63,7 @@ public class Gamemaster : Singleton<Gamemaster>
         if (nextLevelType == LevelType.Main)
             level.LoadLevelFromFile("Level" + nextLevelId, FilePaths.MainLevelFolder);
         else if (nextLevelType == LevelType.Custom)
-            level.LoadLevelFromFile(nextLevelName, FilePaths.CustomLevelFolder);
+            level.LoadLevelFromFile(nextLevelName, FilePaths.CustomPlayLevelFolder);
     }
 
     public void Register(Level level)

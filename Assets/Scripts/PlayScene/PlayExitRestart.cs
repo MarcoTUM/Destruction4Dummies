@@ -8,6 +8,7 @@ public class PlayExitRestart : MonoBehaviour
 {
     private InputMethod input; //either Keyboard or XboxInput
     private PlayScene playScene;
+
     void Start()
     {
         playScene = this.GetComponent<PlayScene>();

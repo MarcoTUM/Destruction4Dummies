@@ -35,7 +35,7 @@ public class PlayScene : MonoBehaviour
 
     public void KillPlayer()
     {
-        if (!running)
+        if (!running || player.IsOnGoal)
             return;
         StartCoroutine(PlayerDeath());
     }

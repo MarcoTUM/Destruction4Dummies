@@ -33,8 +33,9 @@ public class Level : MonoBehaviour
         this.height = height;
         levelData = new Level_Data(width, height, name);
         CreateLevel();
-        LevelSaveLoad.Save(this.levelData, FilePaths.CustomLevelFolder);
+        LevelSaveLoad.Save(this.levelData, FilePaths.CustomEditLevelFolder);
     }
+    
     /// <summary>
     /// Copies data from level of previouse Scene(used for copying level for testing/exporting)
     /// </summary>
