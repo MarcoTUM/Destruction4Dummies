@@ -210,7 +210,7 @@ public class Level : MonoBehaviour
                 return false;
             SetBlock(x, y, data);
         }
-
+        levelData.IsExportable = false;
         return true;
     }
 
