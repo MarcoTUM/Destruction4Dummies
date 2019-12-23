@@ -30,7 +30,8 @@ public class DeathBlock : Block
 
     protected override void OnTouch(GameObject player)
     {
-        GameObject.FindGameObjectWithTag(TagDictionary.PlayScene).GetComponent<PlayScene>().KillPlayer();
+        // GameObject.FindGameObjectWithTag(TagDictionary.PlayScene).GetComponent<PlayScene>().KillPlayer();
+        GameObject.FindObjectOfType<PlayScene>().KillPlayer();
     }
 
     protected override void OnTouchEnd(GameObject player)
