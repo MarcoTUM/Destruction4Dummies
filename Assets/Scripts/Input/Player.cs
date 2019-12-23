@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     private bool grounded = false;
     private bool cielingCollision = false;
     public float dropFromCielingVelocity;
+    private bool jumpRising = false;
 
     private float xVelocity = 0f;
     private bool isSprinting = true;
@@ -90,7 +91,7 @@ public class Player : MonoBehaviour
                 return;
             }
             //case: rising
-            if(yVelocity > 0 && Input.GetButton("Jump"))
+            if(yVelocity > 0 && jumpRising)
                 yVelocity = yVelocity + riseAcceleration * Time.fixedDeltaTime;
             //case: falling
             else 
@@ -130,6 +131,7 @@ public class Player : MonoBehaviour
     {
         if (grounded)
         {
+            jumpRising = true;
             yVelocity += jumpVelocity;
             StartCoroutine("AnimateJump");
             grounded = false;
@@ -144,6 +146,7 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Land()
     {
+        jumpRising = false;
         grounded = true;
         animator.SetBool("isFalling", false);
         yVelocity = 0;
@@ -155,6 +158,11 @@ public class Player : MonoBehaviour
     public void ToggleSprint()
     {
         isSprinting = !isSprinting;
+    }
+
+    public void SetJumpRising(bool isRising)
+    {
+        jumpRising = isRising;
     }
     
     #endregion

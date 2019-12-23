@@ -38,6 +38,8 @@ public class PlayerInputHandler : MonoBehaviour
         player.Run(input.GetHorizontalDirection());
         if (input.PressedJump())
             player.JumpAction();
+        if (input.ReleasedJump())
+            player.SetJumpRising(false);
         if(input.PressedSprintButton())
             player.ToggleSprint();
     }
