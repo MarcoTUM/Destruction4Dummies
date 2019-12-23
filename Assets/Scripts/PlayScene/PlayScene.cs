@@ -53,8 +53,19 @@ public class PlayScene : MonoBehaviour
         player.gameObject.SetActive(true);
         running = true;
     }
-    
 
-  
+    #region RespawnBlockHelperFunctions
 
+    public void RespawnRespawnBlocks(RespawnBlock respawnBlock, float respawnTime)
+    {
+        StartCoroutine(RespawnBlocks(respawnBlock, respawnTime));
+    }
+
+    private IEnumerator RespawnBlocks(RespawnBlock respawnBlock, float respawnTime)
+    {
+        yield return new WaitForSeconds(respawnTime);
+        respawnBlock.ResetBlock();
+    }
+
+    #endregion
 }
