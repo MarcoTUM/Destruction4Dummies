@@ -40,10 +40,17 @@ public abstract class Block : MonoBehaviour
 
     protected virtual void DestroyBlock()
     {
-        //toDo add fancy destruction animations per Block
+        // Set block inactive
         this.gameObject.SetActive(false);
-        //recover texture
+
+        // Recover texture
         gameObject.GetComponent<Renderer>().material.mainTexture = recoveryTexture;
+    }
+
+    public void StartBlockDestructionCoroutine()
+    {
+        // Start destruction coroutine
+        StartCoroutine(StartBlockDestruction());
     }
 
     /// <summary>

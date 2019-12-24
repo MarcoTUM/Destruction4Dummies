@@ -55,7 +55,7 @@ public class PlayScene : MonoBehaviour
         running = true;
     }
 
-    #region RespawnBlockHelperFunctions
+    #region BlockHelperFunctions
 
     public void RespawnRespawnBlocks(RespawnBlock respawnBlock, float respawnTime)
     {
@@ -66,6 +66,40 @@ public class PlayScene : MonoBehaviour
     {
         yield return new WaitForSeconds(respawnTime);
         respawnBlock.ResetBlock();
+    }
+
+    /// <summary>
+    /// Forces the player to outbreak power destroying all blocks in a certain radius.
+    /// </summary>
+    /// <param name="chargeTime">Chare time</param>
+    /// <param name="outbreakRadius">Outbreak radius</param>
+    /// <param name="forceOutbreak">Force outbreak partcile system</param>
+    public void StartForceOutbreak(float chargeTime, float outbreakRadius, ParticleSystem forceOutbreak)
+    {
+        StartCoroutine(ForceOutbreak(chargeTime, outbreakRadius, forceOutbreak));
+    }
+
+    private IEnumerator ForceOutbreak(float chargeTime, float outbreakRadius, ParticleSystem forceOutbreak)
+    {
+        yield return new WaitForSeconds(chargeTime);
+
+        // Get the player script (assuming there is always only one player in the scene)
+        Player player = GameObject.FindObjectOfType<Player>();
+
+        // Get all colliders that overlap a sphere of radius = outbreakRadius
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, outbreakRadius);
+
+        // Instantiate force outbreak particle effect
+        Instantiate(forceOutbreak, player.transform.position, Quaternion.identity);
+
+        // For each collider destroy the block
+        foreach (Collider hitCollider in hitColliders)
+        {
+            if (hitCollider.gameObject.CompareTag("Block"))
+            {
+                hitCollider.gameObject.GetComponent<Block>().StartBlockDestructionCoroutine();
+            }
+        }
     }
 
     #endregion
