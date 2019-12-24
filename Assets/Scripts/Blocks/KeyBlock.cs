@@ -44,7 +44,6 @@ public class KeyBlock : Block
             if (lockBlockData.GetID() == ((KeyBlock_Data)BlockData).GetID())
             {
                 blockScript.UnlockBlock();
-                // blockScript.StartCoroutine("StartBlockDestruction");
             }
         }
         base.OnTouch(player);

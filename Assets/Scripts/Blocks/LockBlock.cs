@@ -47,18 +47,10 @@ public class LockBlock : Block
 
     protected override void OnTouch(GameObject player)
     {
+        // If the the lockBlock is unlocked
         if (!((LockBlock_Data)BlockData).GetLock())
         {
-            GameObject[] blocks = GameObject.FindGameObjectsWithTag("LockBlock");
-            foreach (GameObject block in blocks)
-            {
-                LockBlock blockScript = block.GetComponent<LockBlock>();
-
-                if (blockScript.blockID == ((LockBlock_Data)BlockData).GetID())
-                {
-                    blockScript.StartCoroutine("StartBlockDestruction");
-                }
-            }
+            // Destroy the lockBlock
             base.OnTouch(player);
         }
     }

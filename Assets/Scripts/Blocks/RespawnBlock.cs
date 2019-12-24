@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,11 +11,13 @@ public class RespawnBlock : Block
     [SerializeField]
     private float respawnTime;
 
-    private float touchTime;
-
     #region Initialization / Destruction
     public override void InitializeBlock(Block_Data data)
     {
+        // Negative respawnTime makes no sence
+        if (respawnTime < 0)
+            throw new ArgumentOutOfRangeException("respawnTime", "Negative respawnTime makes no sence.");
+
         ((RespawnBlock_Data)BlockData).SetRespawnTime(respawnTime);
         base.InitializeBlock(data);
     }
@@ -32,21 +35,10 @@ public class RespawnBlock : Block
 
     #endregion
 
-    /*
-    private IEnumerator Respawn()
-    {
-        Debug.Log("Respawn coroutine 1! respawnTime: " + respawnTime);
-        yield return new WaitForSeconds(respawnTime);
-        Debug.Log("Respawn coroutine 2!");
-        ResetBlock();
-    }
-    */
-
     #region PlayerInteraction
 
     protected override void OnTouch(GameObject player)
     {
-        touchTime = Time.time;
         base.OnTouch(player);
     }
 
