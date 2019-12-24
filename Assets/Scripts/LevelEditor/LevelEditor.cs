@@ -17,7 +17,7 @@ public class LevelEditor : MonoBehaviour
     [SerializeField] private EditorInput editorInput;
     [SerializeField] private InputField levelNameInputField;
     [SerializeField] private LevelEditorMenu menu;
-    private Block_Data[] blockDatas = new Block_Data[10] {  new StartBlock_Data(),
+    private Block_Data[] blockDatas = new Block_Data[11] {  new StartBlock_Data(),
                                                             new GoalBlock_Data(),
                                                             new EmptyBlock_Data(),
                                                             new WoodBlock_Data(),
@@ -26,7 +26,8 @@ public class LevelEditor : MonoBehaviour
                                                             new DeathBlock_Data(),
                                                             new LockBlock_Data(),
                                                             new KeyBlock_Data(),
-                                                            new RespawnBlock_Data()};
+                                                            new RespawnBlock_Data(),
+                                                            new ChargeBlock_Data()};
 
     private Block_Data currentBlockData = new EmptyBlock_Data();
     private Level_Data data;
