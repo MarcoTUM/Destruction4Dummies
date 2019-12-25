@@ -4,17 +4,19 @@ using UnityEngine;
 
 public enum BlockType
 { 
-    Start   = 0, 
-    Goal    = 1, 
-    Empty   = 2, 
-    Wood    = 3, 
-    Stone   = 4, 
-    Chain   = 5,
-    Death   = 6,
-    Lock    = 7,
-    Key     = 8,
-    Respawn = 9,
-    Charge  = 10
+    Start       = 0, 
+    Goal        = 1, 
+    Empty       = 2, 
+    Wood        = 3, 
+    Stone       = 4, 
+    Chain       = 5,
+    Death       = 6,
+    Lock        = 7,
+    Key         = 8,
+    Respawn     = 9,
+    Charge      = 10,
+    Restoreable = 11,
+    Restore     = 12
 };
 
 public abstract class Block : MonoBehaviour

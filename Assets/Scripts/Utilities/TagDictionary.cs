@@ -12,4 +12,5 @@ public static class TagDictionary
     public const string PlayScene = "PlayScene";
     public const string BlockDescriptionText = "BlockDescriptionText";
     public const string LockBlock = "LockBlock";
+    public const string RestoreableBlock = "RestoreableBlock";
 }
