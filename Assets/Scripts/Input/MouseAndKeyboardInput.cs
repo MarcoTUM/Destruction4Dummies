@@ -47,5 +47,9 @@ public class MouseAndKeyboardInput : InputMethod
         return Input.GetKeyUp(InputDictionary.Zoom);
     }
 
+    public override bool PressedContinueButton()
+    {
+        return Input.GetKeyDown(KeyCode.Return);
+    }
 }
 

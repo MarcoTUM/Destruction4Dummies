@@ -9,11 +9,12 @@ public class PlayAdditionalInput : MonoBehaviour
     private InputMethod input; //either Keyboard or XboxInput
     private PlayScene playScene;
     private PlayCameraControl camControl;
-
+    private PlaySceneUI playUI;
     void Start()
     {
         playScene = this.GetComponent<PlayScene>();
         camControl = Camera.main.GetComponent<PlayCameraControl>();
+        playUI = Gamemaster.Instance.GetPlaySceneUI();
         if (Input.GetJoystickNames().Length > 0 && Input.GetJoystickNames()[0] != "")
         {
             Debug.Log("Xbox input");
@@ -44,6 +45,11 @@ public class PlayAdditionalInput : MonoBehaviour
         else if (input.PressedRestartButton())
         {
             playScene.KillPlayer();
+        }
+
+        if(playUI.IsOpen && Gamemaster.Instance.GetLevelType() == LevelType.Main && input.PressedContinueButton())
+        {
+            playUI.NextLevel();
         }
         
     }

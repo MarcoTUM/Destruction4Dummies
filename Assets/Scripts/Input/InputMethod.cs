@@ -15,4 +15,5 @@ public abstract class InputMethod : MonoBehaviour
     public abstract bool PressedSprintButton();
     public abstract bool PressedZoomButton();
     public abstract bool ReleasedZoomButton();
+    public abstract bool PressedContinueButton();
 }

@@ -12,8 +12,11 @@ public class PlaySceneUI : MonoBehaviour
     [SerializeField] private RectTransform customLevelCompleteWindow;
     [SerializeField] private RectTransform testLevelCompleteWindow;
     [SerializeField] private GameObject exportedText;
+    public bool IsOpen { private set; get; }
+
     private void Awake()
     {
+        IsOpen = false;
         Gamemaster.Instance.Register(this);
     }
 
@@ -77,8 +80,8 @@ public class PlaySceneUI : MonoBehaviour
         }
         EnDisableButtons(buttons, true);
         window.localScale = goalScale;
-        if (goalScale.x == 0 || goalScale.y == 0 || goalScale.z == 0)
-            window.gameObject.SetActive(false);
+        IsOpen = goalScale.x != 0 && goalScale.y != 0 && goalScale.z != 0;
+        window.gameObject.SetActive(IsOpen);
 
     }
 
