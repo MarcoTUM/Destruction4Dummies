@@ -80,7 +80,7 @@ public class Level : MonoBehaviour
         currentLevel.name = levelData.Name;
         currentLevel.transform.SetParent(this.transform);
         blockMap = new GameObject[width, height];
-        lastBlockRow = 0;
+        lastBlockRow = -1;
 
         for (int i = 0; i < height; i++)
         {
@@ -98,9 +98,9 @@ public class Level : MonoBehaviour
                 {
                     if(deactivateEmptyBlocks)
                         blockObject.SetActive(false);
-                    if (i > lastBlockRow)
-                        lastBlockRow = i;
                 }
+                else if (lastBlockRow == -1)
+                    lastBlockRow = i;
             }
         }
 
