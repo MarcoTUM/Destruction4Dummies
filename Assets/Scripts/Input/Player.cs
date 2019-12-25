@@ -32,7 +32,6 @@ public class Player : MonoBehaviour
     public float vertiRayPadding;
     private float width;
     private float height;
-    #endregion
 
     //animation
     private Animator animator;
@@ -44,8 +43,10 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool IsOnGoal = false;
     private Renderer[] renderers;
     private Vector3 spawnPosition, goalPosition;
-    
-    
+
+    #endregion
+
+
     #region Start, Update
 
     private void Awake()
