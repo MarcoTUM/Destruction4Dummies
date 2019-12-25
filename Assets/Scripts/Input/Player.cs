@@ -38,6 +38,7 @@ public class Player : MonoBehaviour
     public float jumpToFallAnimationTime;
     private float lookRight = 100;
     private float lookLeft = 270;
+    private float lookAtCrowd = 185;
     private bool isLookingRight = true;
 
     [HideInInspector] public bool IsOnGoal = false;
@@ -180,7 +181,7 @@ public class Player : MonoBehaviour
             Physics.Raycast(transform.position - new Vector3(width / 2f + vertiRayPadding, 0, 0), new Vector3(0, -1, 0), height / 2 + vertiRayMargin) ||
             Physics.Raycast(transform.position + new Vector3(width / 2f - vertiRayPadding, 0, 0), new Vector3(0, -1, 0), height / 2 + vertiRayMargin)
             );
-        if (!result)
+        if (!result && !animator.GetBool("isFalling"))
             animator.SetBool("isFalling", true);
         return result;
     }
@@ -263,7 +264,7 @@ public class Player : MonoBehaviour
     
     public void SetStartPlatform(Vector3 startPlatformPosition)
     {
-        spawnPosition = startPlatformPosition + Vector3.up * (Block_Data.BlockSize + height) / 2f;
+        spawnPosition = startPlatformPosition + Vector3.up * (Block_Data.BlockSize + height * 1.2f) / 2f;
     }
 
     public void SpawnAtSpawnPlatform()
@@ -305,7 +306,9 @@ public class Player : MonoBehaviour
             else
             {
                 Run(0);
-                JumpAction();
+                transform.GetChild(0).transform.eulerAngles = new Vector3(0, lookAtCrowd, 0);
+                animator.SetBool("isDancing", true);
+                break;
             }
             yield return new WaitForEndOfFrame();
         }
