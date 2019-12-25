@@ -36,5 +36,16 @@ public class MouseAndKeyboardInput : InputMethod
     {
         return Input.GetButtonUp(InputDictionary.Jump);
     }
+
+    public override bool PressedZoomButton()
+    {
+        return Input.GetKeyDown(InputDictionary.Zoom);
+    }
+
+    public override bool ReleasedZoomButton()
+    {
+        return Input.GetKeyUp(InputDictionary.Zoom);
+    }
+
 }
 

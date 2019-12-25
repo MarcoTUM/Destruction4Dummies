@@ -34,4 +34,14 @@ public class XboxInput : InputMethod
     {
         throw new System.NotImplementedException();
     }
+
+    public override bool PressedZoomButton()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override bool ReleasedZoomButton()
+    {
+        throw new System.NotImplementedException();
+    }
 }
