@@ -105,8 +105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e69a57c8c016b4eb63f25cfe95756f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeTime: 0.3
-  destructionAnimation: {fileID: 2332873758741114213, guid: 1339bcac7587eb74098e445f64e79f7e,
-    type: 3}
+  lifeTime: 0.5
   destructionTexture: {fileID: 2800000, guid: f1eb954f769f7d24a986cceff7afbb8d, type: 3}
   blockColorGUI: {r: 0, g: 0, b: 0, a: 0}

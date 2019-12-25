@@ -30,4 +30,8 @@ public class XboxInput : InputMethod
         throw new System.NotImplementedException();
     }
 
+    public override bool ReleasedJump()
+    {
+        throw new System.NotImplementedException();
+    }
 }

@@ -19,7 +19,7 @@ public class MouseAndKeyboardInput : InputMethod
 
     public override bool PressedJump()
     {
-        return Input.GetButtonDown(InputDictionary.Jump) || (Input.GetButtonDown(InputDictionary.Vertical) && Input.GetAxis(InputDictionary.Vertical) > 0);
+        return Input.GetButtonDown(InputDictionary.Jump);
     }
 
     public override bool PressedRestartButton()
@@ -30,6 +30,11 @@ public class MouseAndKeyboardInput : InputMethod
     public override bool PressedSprintButton()
     {
         return Input.GetKeyDown(KeyCode.RightShift);
+    }
+
+    public override bool ReleasedJump()
+    {
+        return Input.GetButtonUp(InputDictionary.Jump);
     }
 }
 
