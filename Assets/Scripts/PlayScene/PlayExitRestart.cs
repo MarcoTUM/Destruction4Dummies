@@ -8,6 +8,7 @@ public class PlayExitRestart : MonoBehaviour
 {
     private InputMethod input; //either Keyboard or XboxInput
     private PlayScene playScene;
+
     void Start()
     {
         playScene = this.GetComponent<PlayScene>();
@@ -27,7 +28,7 @@ public class PlayExitRestart : MonoBehaviour
     {
         if (input.PressedExitButton())
         {
-            SceneManager.LoadScene(SceneDictionary.MainMenu);
+            SceneManager.LoadScene(Gamemaster.Instance.GetLevelType() == LevelType.Test ? SceneDictionary.LevelEditor : SceneDictionary.MainMenu);
         }
         else if (input.PressedRestartButton())
         {

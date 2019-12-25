@@ -26,6 +26,8 @@ public class GoalBlock : Block
     {
         Gamemaster.Instance.GetPlayer().ReachGoalPlatform();
         Gamemaster.Instance.GetPlaySceneUI().OpenLevelCompleteWindow();
+        if (Gamemaster.Instance.GetLevelType() == LevelType.Test)
+            Gamemaster.Instance.GetLevel().GetLevelData(). IsExportable = true;
     }
 
     #endregion

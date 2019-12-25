@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,6 +10,8 @@ public class PlaySceneUI : MonoBehaviour
     [SerializeField] private float windowResizeTime = 1f;
     [SerializeField] private RectTransform mainLevelCompleteWindow;
     [SerializeField] private RectTransform customLevelCompleteWindow;
+    [SerializeField] private RectTransform testLevelCompleteWindow;
+    [SerializeField] private GameObject exportedText;
     private void Awake()
     {
         Gamemaster.Instance.Register(this);
@@ -17,11 +20,21 @@ public class PlaySceneUI : MonoBehaviour
     #region LevelCompleteWindow
     public void OpenLevelCompleteWindow()
     {
-        if(Gamemaster.Instance.GetLevelType() == LevelType.Main)
-            StartCoroutine(ResizeWindow(mainLevelCompleteWindow, Vector3.zero, Vector3.one));
-        else if (Gamemaster.Instance.GetLevelType() == LevelType.Custom)
-            StartCoroutine(ResizeWindow(customLevelCompleteWindow, Vector3.zero, Vector3.one));
-
+        LevelType type = Gamemaster.Instance.GetLevelType();
+        switch (type)
+        {
+            case LevelType.Main:
+                StartCoroutine(ResizeWindow(mainLevelCompleteWindow, Vector3.zero, Vector3.one));
+                break;
+            case LevelType.Custom:
+                StartCoroutine(ResizeWindow(customLevelCompleteWindow, Vector3.zero, Vector3.one));
+                break;
+            case LevelType.Test:
+                StartCoroutine(ResizeWindow(testLevelCompleteWindow, Vector3.zero, Vector3.one));
+                break;
+            default:
+                throw new InvalidOperationException("Leveltype case not defined for: " + type);
+        }
     }
 
     public void BackToMenu()
@@ -35,6 +48,17 @@ public class PlaySceneUI : MonoBehaviour
         SceneManager.LoadScene(SceneDictionary.Play);
     }
 
+    public void BackToEditor()
+    {
+        SceneManager.LoadScene(SceneDictionary.LevelEditor);
+    }
+
+    public void ExportLevel()
+    {
+        LevelSaveLoad.Save(Gamemaster.Instance.GetLevel().GetLevelData(), FilePaths.CustomPlayLevelFolder);
+        exportedText.SetActive(true);
+    }
+
     #endregion
 
     #region Helper
@@ -45,7 +69,7 @@ public class PlaySceneUI : MonoBehaviour
         window.gameObject.SetActive(true);
         float timer = 0;
         window.localScale = startScale;
-        while(timer < windowResizeTime)
+        while (timer < windowResizeTime)
         {
             yield return new WaitForEndOfFrame();
             timer += Time.deltaTime;
@@ -60,7 +84,7 @@ public class PlaySceneUI : MonoBehaviour
 
     private void EnDisableButtons(Button[] buttons, bool enable)
     {
-        foreach(Button button in buttons)
+        foreach (Button button in buttons)
         {
             button.interactable = enable;
         }
