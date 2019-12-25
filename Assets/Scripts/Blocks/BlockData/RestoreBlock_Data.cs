@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class KeyBlock_Data : Block_Data
+public class RestoreBlock_Data : Block_Data
 {
-    public static Color[] KeyBlockColors = new Color[5] { Color.white, Color.red, Color.green, Color.magenta, Color.blue };
-    public override BlockType BlockType => BlockType.Key;
+    public static Color[] RestoreBlockColors = new Color[5] { Color.white, Color.red, Color.green, Color.magenta, Color.blue };
+    public override BlockType BlockType => BlockType.Restore;
     private uint blockID = 0;
-    public KeyBlock_Data()
+    public RestoreBlock_Data()
     {
 
     }
 
-    public KeyBlock_Data(uint blockID)
+    public RestoreBlock_Data(uint blockID)
     {
         this.blockID = blockID;
     }
@@ -30,6 +30,6 @@ public class KeyBlock_Data : Block_Data
 
     public override bool Equals(Block_Data other)
     {
-        return base.Equals(other) && this.blockID == ((KeyBlock_Data)other).GetID();
+        return base.Equals(other) && this.blockID == ((RestoreBlock_Data)other).GetID();
     }
 }
