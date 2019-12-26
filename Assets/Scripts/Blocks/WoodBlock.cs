@@ -40,5 +40,14 @@ public class WoodBlock : Block
 
     #endregion
 
+    #region Helper
+
+    protected override void SpawnDestructionEffect()
+    {
+        Instantiate(EffectManager.Instance.GetEffect(3), transform.position, Quaternion.identity);
+    }
+
+    #endregion
+
 
 }
