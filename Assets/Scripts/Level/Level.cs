@@ -13,6 +13,7 @@ public class Level : MonoBehaviour
     private GameObject[,] blockMap; //Contains all the Block gameObjects in the current level
     private Level_Data levelData; //Contains all the information used to save and load the levels
     private int width, height;
+    private int lastBlockRow = 0;
     #region Unity
     private void Awake()
     {
@@ -79,6 +80,7 @@ public class Level : MonoBehaviour
         currentLevel.name = levelData.Name;
         currentLevel.transform.SetParent(this.transform);
         blockMap = new GameObject[width, height];
+        lastBlockRow = -1;
 
         for (int i = 0; i < height; i++)
         {
@@ -92,12 +94,16 @@ public class Level : MonoBehaviour
                 blockObject.transform.localPosition = new Vector3(j * Block_Data.BlockSize, i * Block_Data.BlockSize, 0);
                 blockMap[j, i] = blockObject;
                 blockObject.GetComponent<Block>().InitializeBlock(blockData);
-                if (deactivateEmptyBlocks && blockData.BlockType == BlockType.Empty)
+                if (blockData.BlockType == BlockType.Empty)
                 {
-                    blockObject.SetActive(false);
+                    if(deactivateEmptyBlocks)
+                        blockObject.SetActive(false);
                 }
+                else if (lastBlockRow == -1)
+                    lastBlockRow = i;
             }
         }
+
     }
     #endregion
 
@@ -276,6 +282,10 @@ public class Level : MonoBehaviour
         return new Vector2Int(width, height);
     }
 
+    public float GetFallBoundary()
+    {
+        return lastBlockRow * Block_Data.BlockSize;
+    }
     public void ResetLevel()
     {
         foreach (GameObject block in blockMap)

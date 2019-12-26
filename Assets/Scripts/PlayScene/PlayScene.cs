@@ -26,7 +26,7 @@ public class PlayScene : MonoBehaviour
 
     private void Update()
     {
-        if (running && player.transform.position.y < level.transform.position.z - gameOverDistance)
+        if (running && player.transform.position.y < level.GetFallBoundary() - gameOverDistance)
         {
             StartCoroutine(PlayerDeath());
         }
