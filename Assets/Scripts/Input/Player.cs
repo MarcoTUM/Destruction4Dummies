@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
     private float lookLeft = 270;
     private float lookAtCrowd = 185;
     private bool isLookingRight = true;
+    [SerializeField] public GameObject model;
 
     [HideInInspector] public bool IsOnGoal = false;
     private Renderer[] renderers;
@@ -252,9 +253,9 @@ public class Player : MonoBehaviour
     private void SetModelRightDirection(bool right)
     {
         if(right)
-            transform.GetChild(0).transform.eulerAngles = new Vector3(0, lookRight, 0);
+            model.transform.eulerAngles = new Vector3(0, lookRight, 0);
         else
-            transform.GetChild(0).transform.eulerAngles = new Vector3(0, lookLeft, 0);
+            model.transform.eulerAngles = new Vector3(0, lookLeft, 0);
         isLookingRight = right;
     }
 
@@ -305,13 +306,13 @@ public class Player : MonoBehaviour
             }
             else
             {
-                Run(0);
-                transform.GetChild(0).transform.eulerAngles = new Vector3(0, lookAtCrowd, 0);
-                animator.SetBool("isDancing", true);
                 break;
             }
             yield return new WaitForEndOfFrame();
         }
+        Run(0);
+        model.transform.eulerAngles = new Vector3(0, lookAtCrowd, 0);
+        animator.SetBool("isDancing", true);
     }
     
     #endregion
