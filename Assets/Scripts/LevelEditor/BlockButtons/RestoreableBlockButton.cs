@@ -19,7 +19,7 @@ public class RestoreableBlockButton : BlockButton
         }
     }
 
-    public void SetChainID(float value)
+    public void SetID(float value)
     {
         if ((uint)value == lockID)
             return;

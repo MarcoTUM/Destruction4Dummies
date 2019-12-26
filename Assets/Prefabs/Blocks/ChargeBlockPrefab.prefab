@@ -107,7 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifeTime: 0.8
   destructionTexture: {fileID: 2800000, guid: ab67effcae3ff8e46883c483717a8b20, type: 3}
-  outbreakRadius: 4
+  outbreakRadius: 3
   forceOutbreak: {fileID: 4587728173211231487, guid: 4a8e52f819d1f9143a193be17f55b1d9,
     type: 3}
   chargeTime: 5
