@@ -102,7 +102,6 @@ public class PlayScene : MonoBehaviour
                 if (block != null)
                 {
                     block.StartBlockDestructionCoroutine();
-                    Debug.Log(block.tag);
                 }
             }
         }
