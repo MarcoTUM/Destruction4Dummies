@@ -65,6 +65,8 @@ public class LockBlock : Block
     public void UnlockBlock()
     {
         ((LockBlock_Data)BlockData).SetLock(false);
+        Color tempColor = this.GetComponent<Renderer>().material.color;
         gameObject.GetComponent<Renderer>().material = unlockMaterial;
+        this.GetComponent<Renderer>().material.color = tempColor;
     }
 }
