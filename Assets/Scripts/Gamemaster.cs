@@ -15,12 +15,20 @@ public class Gamemaster : Singleton<Gamemaster>
     private LevelType nextLevelType = LevelType.Main;
     private string nextLevelName;
     private int nextLevelId = 1;
-    
+
 
     #region Level
     public LevelType GetLevelType()
     {
         return nextLevelType;
+    }
+
+    /// <summary>
+    /// SEts nextLevelType to default value(Main)
+    /// </summary>
+    public void SetDefaultLevelToLoad()
+    {
+        nextLevelType = LevelType.Main;
     }
 
     public void SetNextMainLevelToLoad()
@@ -41,20 +49,29 @@ public class Gamemaster : Singleton<Gamemaster>
         nextLevelName = levelName;
     }
 
+    public void SetNextTestLevelToLoad()
+    {
+        nextLevelType = LevelType.Test;
+    }
+
     public void CreatePlayLevel()
     {
-        if(level == null)
+        if (level == null)
         {
             throw new InvalidOperationException("No level registered yet");
         }
-        if(nextLevelType == LevelType.Main)
-            level.LoadLevelFromFile("Level"+nextLevelId, FilePaths.MainLevelFolder);
-        else if(nextLevelType == LevelType.Custom)
-            level.LoadLevelFromFile(nextLevelName, FilePaths.CustomLevelFolder);
+        if (nextLevelType == LevelType.Main)
+            level.LoadLevelFromFile("Level" + nextLevelId, FilePaths.MainLevelFolder);
+        else if (nextLevelType == LevelType.Custom)
+            level.LoadLevelFromFile(nextLevelName, FilePaths.CustomPlayLevelFolder);
     }
 
     public void Register(Level level)
     {
+        if (nextLevelType == LevelType.Test)
+        {
+            level.CopyLevel(this.level.GetLevelData());
+        }
         this.level = level;
     }
 
@@ -98,8 +115,8 @@ public class Gamemaster : Singleton<Gamemaster>
     {
         return this.playSceneUI;
     }
-	#endregion
-	
+    #endregion
+
     #region Player
 
     public void Register(Player player)

@@ -9,17 +9,20 @@ using UnityEngine.UI;
 [RequireComponent(typeof(GridLayoutGroup), typeof(RectTransform))]
 public class CustomLevelSelection : LevelButtonGroup
 {
+    private List<CustomLevelButton> buttons = new List<CustomLevelButton>();
+    [SerializeField] private GameObject deleteButtonPrefab;
+    private GameObject deleteButton;
     protected override void Awake()
     {
         if (buttonPrefab.GetComponent<CustomLevelButton>() == null)
             throw new InvalidOperationException($"ButtonPrefab does not have {nameof(CustomLevelButton)}");
-        TestDirectory(FilePaths.CustomLevelFolder);
-        string[] fileNames = Directory.GetFiles(FilePaths.CustomLevelFolder).
+        TestDirectory(FilePaths.CustomPlayLevelFolder);
+        string[] fileNames = Directory.GetFiles(FilePaths.CustomPlayLevelFolder).
             Where(filePath => filePath.EndsWith(".dat")). //ignore meta files
             OrderBy(filePath => new FileInfo(filePath).CreationTime). // sort fileNames by id 
             Select(filePath => ConvertFilePathToName(filePath)).ToArray<string>(); //cut filePath to fileName
-        
-        levelCount = fileNames.Length;
+
+        levelCount = fileNames.Length + 1;
         SetHeight();
         SpawnButtons(fileNames);
 
@@ -27,11 +30,41 @@ public class CustomLevelSelection : LevelButtonGroup
 
     protected override void SpawnButtons(string[] fileNames)
     {
-        for (int i = 0; i < levelCount; i++)
+        for (int i = 0; i < levelCount - 1; i++)
         {
             GameObject buttonObject = InstantiateButtonAsChild();
-            buttonObject.GetComponent<CustomLevelButton>().SetLevelName(fileNames[i]);
+            CustomLevelButton button = buttonObject.GetComponent<CustomLevelButton>();
+            button.SetLevelName(fileNames[i]);
+            button.SetLevelSelection(this);
+            buttons.Add(button);
         }
+
+        if (buttons.Count > 0)
+        {
+            deleteButton = Instantiate(deleteButtonPrefab);
+            deleteButton.transform.SetParent(this.transform);
+            deleteButton.transform.localScale = Vector3.one;
+            deleteButton.GetComponent<Button>().onClick.AddListener(SwitchDeleteMode);
+        }
+    }
+
+    public void SwitchDeleteMode()
+    {
+        foreach (CustomLevelButton button in buttons)
+        {
+            button.SwitchDeleteMode();
+        }
+    }
+
+    /// <summary>
+    /// Remove button from list
+    /// </summary>
+    /// <param name="button"></param>
+    public void RemoveLevel(CustomLevelButton button)
+    {
+        buttons.Remove(button);
+        if (buttons.Count == 0)
+            deleteButton.SetActive(false);
     }
 
 }

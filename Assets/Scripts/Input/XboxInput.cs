@@ -10,6 +10,11 @@ public class XboxInput : InputMethod
         throw new System.NotImplementedException();
     }
 
+    public override bool PressedSprintButton()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public override bool PressedExitButton()
     {
         throw new System.NotImplementedException();
@@ -21,6 +26,26 @@ public class XboxInput : InputMethod
     }
 
     public override bool PressedRestartButton()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override bool ReleasedJump()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override bool PressedZoomButton()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override bool ReleasedZoomButton()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override bool PressedContinueButton()
     {
         throw new System.NotImplementedException();
     }

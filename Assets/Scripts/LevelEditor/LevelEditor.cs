@@ -55,6 +55,7 @@ public class LevelEditor : MonoBehaviour
     }
 
     #endregion
+    
 
     /// <summary>
     /// Initializes Camera and sets correct levelData + name
@@ -63,7 +64,7 @@ public class LevelEditor : MonoBehaviour
     public void BeginEditLevel(string name)
     {
         if (name != "")
-            Gamemaster.Instance.GetLevel().LoadLevelFromFile(name, FilePaths.CustomLevelFolder);
+            Gamemaster.Instance.GetLevel().LoadLevelFromFile(name, FilePaths.CustomEditLevelFolder);
         Camera.main.GetComponent<LevelEditorCamera>().InitializeCamera();
         data = Gamemaster.Instance.GetLevel().GetLevelData();
         levelNameInputField.text = data.Name;
@@ -93,14 +94,14 @@ public class LevelEditor : MonoBehaviour
 
         string oldName = data.Name;
         data.Name = levelName;
-        LevelSaveLoad.Rename(oldName, data.Name, FilePaths.CustomLevelFolder);
+        LevelSaveLoad.Rename(oldName, data.Name, FilePaths.CustomEditLevelFolder);
         SaveLevel();
         menu.UpdateButtonName(oldName, data.Name);
     }
 
     public void SaveLevel()
     {
-        LevelSaveLoad.Save(data, FilePaths.CustomLevelFolder);
+        LevelSaveLoad.Save(data, FilePaths.CustomEditLevelFolder);
     }
 
     /*

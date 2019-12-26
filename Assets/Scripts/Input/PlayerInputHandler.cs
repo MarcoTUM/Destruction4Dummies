@@ -36,10 +36,11 @@ public class PlayerInputHandler : MonoBehaviour
     private void HandlePlayerInput()
     {
         player.Run(input.GetHorizontalDirection());
-        //if (player.IsGrounded() && input.PressedJump())
-        //{
-        //    player.Jump();
-        //}
-        if (input.PressedJump()) { player.JumpAction(); }
+        if (input.PressedJump())
+            player.JumpAction();
+        if (input.ReleasedJump())
+            player.SetJumpRising(false);
+        if(input.PressedSprintButton())
+            player.ToggleSprint();
     }
 }

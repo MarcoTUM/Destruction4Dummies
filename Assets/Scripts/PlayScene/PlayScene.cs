@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +7,6 @@ public class PlayScene : MonoBehaviour
     [SerializeField] private float gameOverDuration = 1f;
     [SerializeField] private float respawnDuration = 1f;
     [SerializeField] private float gameOverDistance = 5;
-    [SerializeField] private GameObject deathAnim;
 
     private Player player;
     private Level level;
@@ -27,7 +26,7 @@ public class PlayScene : MonoBehaviour
 
     private void Update()
     {
-        if (running && player.transform.position.y < level.transform.position.z - gameOverDistance)
+        if (running && player.transform.position.y < level.GetFallBoundary() - gameOverDistance)
         {
             StartCoroutine(PlayerDeath());
         }
@@ -35,7 +34,7 @@ public class PlayScene : MonoBehaviour
 
     public void KillPlayer()
     {
-        if (!running)
+        if (!running || player.IsOnGoal)
             return;
         StartCoroutine(PlayerDeath());
     }
