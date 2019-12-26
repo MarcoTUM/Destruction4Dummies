@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RestoreableBlock : Block
 {
@@ -18,7 +19,7 @@ public class RestoreableBlock : Block
     #region Initialization / Destruction
     public override void InitializeBlock(Block_Data data)
     {
-        gameObject.GetComponent<Collider>().enabled = false;
+        gameObject.GetComponent<Collider>().enabled = SceneManager.GetActiveScene().name != SceneDictionary.Play;
 
         base.InitializeBlock(data);
         this.blockID = ((RestoreableBlock_Data)data).GetID();

@@ -83,8 +83,8 @@ public class PlayScene : MonoBehaviour
     {
         yield return new WaitForSeconds(chargeTime);
 
-        // Get the player script (assuming there is always only one player in the scene)
-        Player player = GameObject.FindObjectOfType<Player>();
+        // Get the player
+        Player player = Gamemaster.Instance.GetPlayer();
 
         // Get all colliders that overlap a sphere of radius = outbreakRadius
         Collider[] hitColliders = Physics.OverlapSphere(player.transform.position, outbreakRadius);
@@ -97,9 +97,7 @@ public class PlayScene : MonoBehaviour
         {
             if (hitCollider != null && !hitCollider.gameObject.CompareTag("Player"))
             {
-                Block block = hitCollider.gameObject.GetComponent<Block>();
-
-                if (block != null)
+                if (hitCollider.TryGetComponent<Block>(out Block block))
                 {
                     block.StartBlockDestructionCoroutine();
                 }
