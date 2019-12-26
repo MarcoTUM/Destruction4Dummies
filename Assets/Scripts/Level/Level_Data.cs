@@ -22,6 +22,7 @@ public struct Vector2Int
 [System.Serializable]
 public class Level_Data
 {
+    public bool IsExportable;
     public string Name;
     public const int MinDimension = 7;
     public Block_Data[,] BlockMap;

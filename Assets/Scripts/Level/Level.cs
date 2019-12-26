@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum LevelType { Main, Custom };
+public enum LevelType { Main, Custom, Test };
 public class Level : MonoBehaviour
 {
     private const int platformWidth = 3;
@@ -13,6 +13,7 @@ public class Level : MonoBehaviour
     private GameObject[,] blockMap; //Contains all the Block gameObjects in the current level
     private Level_Data levelData; //Contains all the information used to save and load the levels
     private int width, height;
+    private int lastBlockRow = 0;
     #region Unity
     private void Awake()
     {
@@ -33,7 +34,19 @@ public class Level : MonoBehaviour
         this.height = height;
         levelData = new Level_Data(width, height, name);
         CreateLevel();
-        LevelSaveLoad.Save(this.levelData, FilePaths.CustomLevelFolder);
+        LevelSaveLoad.Save(this.levelData, FilePaths.CustomEditLevelFolder);
+    }
+    
+    /// <summary>
+    /// Copies data from level of previouse Scene(used for copying level for testing/exporting)
+    /// </summary>
+    /// <param name="oldLevel"></param>
+    public void CopyLevel(Level_Data oldLevel)
+    {
+        levelData = oldLevel;
+        this.width = levelData.BlockMap.GetLength(0);
+        this.height = levelData.BlockMap.GetLength(1);
+        CreateLevel();
     }
 
     /// <summary>
@@ -67,6 +80,7 @@ public class Level : MonoBehaviour
         currentLevel.name = levelData.Name;
         currentLevel.transform.SetParent(this.transform);
         blockMap = new GameObject[width, height];
+        lastBlockRow = -1;
 
         for (int i = 0; i < height; i++)
         {
@@ -80,12 +94,16 @@ public class Level : MonoBehaviour
                 blockObject.transform.localPosition = new Vector3(j * Block_Data.BlockSize, i * Block_Data.BlockSize, 0);
                 blockMap[j, i] = blockObject;
                 blockObject.GetComponent<Block>().InitializeBlock(blockData);
-                if (deactivateEmptyBlocks && blockData.BlockType == BlockType.Empty)
+                if (blockData.BlockType == BlockType.Empty)
                 {
-                    blockObject.SetActive(false);
+                    if(deactivateEmptyBlocks)
+                        blockObject.SetActive(false);
                 }
+                else if (lastBlockRow == -1)
+                    lastBlockRow = i;
             }
         }
+
     }
     #endregion
 
@@ -198,7 +216,7 @@ public class Level : MonoBehaviour
                 return false;
             SetBlock(x, y, data);
         }
-
+        levelData.IsExportable = false;
         return true;
     }
 
@@ -264,6 +282,10 @@ public class Level : MonoBehaviour
         return new Vector2Int(width, height);
     }
 
+    public float GetFallBoundary()
+    {
+        return lastBlockRow * Block_Data.BlockSize;
+    }
     public void ResetLevel()
     {
         foreach (GameObject block in blockMap)

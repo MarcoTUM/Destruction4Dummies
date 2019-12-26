@@ -20,8 +20,8 @@ public class LevelEditorMenu : LevelButtonGroup
         buttons = new List<LevelEditorLevelButton>();
         if (buttonPrefab.GetComponent<LevelEditorLevelButton>() == null)
             throw new InvalidOperationException($"ButtonPrefab does not have {nameof(LevelEditorLevelButton)}");
-        TestDirectory(FilePaths.CustomLevelFolder);
-        fileNames = Directory.GetFiles(FilePaths.CustomLevelFolder).
+        TestDirectory(FilePaths.CustomEditLevelFolder);
+        fileNames = Directory.GetFiles(FilePaths.CustomEditLevelFolder).
             Where(filePath => filePath.EndsWith(".dat")). //ignore meta files
             OrderBy(filePath => new FileInfo(filePath).CreationTime). // sort fileNames by id 
             Select(filePath => ConvertFilePathToName(filePath)).ToList<string>(); //cut filePath to fileName
@@ -30,6 +30,15 @@ public class LevelEditorMenu : LevelButtonGroup
         levelCount = fileNames.Count;
         SetHeight();
         SpawnButtons(fileNames.ToArray());
+    }
+
+    private void Start()
+    {
+        if (Gamemaster.Instance.GetLevelType() == LevelType.Test)
+        {
+            Gamemaster.Instance.SetDefaultLevelToLoad();
+            ContinueEdit();
+        }
     }
 
     protected override void SpawnButtons(string[] fileNames)
@@ -143,6 +152,14 @@ public class LevelEditorMenu : LevelButtonGroup
     {
         menuObject.SetActive(true);
     }
+
+    public void ContinueEdit()
+    {
+        string name = Gamemaster.Instance.GetLevel().GetLevelData().Name;
+        selectedButton = buttons.Where(button => button.GetName() == name).FirstOrDefault();
+        menuObject.SetActive(false);
+        Gamemaster.Instance.GetLevelEditor().BeginEditLevel("");
+    }
     #endregion
 
     #region DeleteLevel
@@ -160,7 +177,7 @@ public class LevelEditorMenu : LevelButtonGroup
     /// <param name="button"></param>
     public void DeleteLevel(LevelEditorLevelButton button)
     {
-        LevelSaveLoad.Delete(button.GetName(), FilePaths.CustomLevelFolder);
+        LevelSaveLoad.Delete(button.GetName(), FilePaths.CustomEditLevelFolder);
         buttons.Remove(button);
         fileNames.Remove(button.GetName());
         Destroy(button.gameObject);
