@@ -87,7 +87,7 @@ public class PlayScene : MonoBehaviour
         Player player = GameObject.FindObjectOfType<Player>();
 
         // Get all colliders that overlap a sphere of radius = outbreakRadius
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, outbreakRadius);
+        Collider[] hitColliders = Physics.OverlapSphere(player.transform.position, outbreakRadius);
 
         // Instantiate force outbreak particle effect
         Instantiate(forceOutbreak, player.transform.position, Quaternion.identity);
@@ -95,9 +95,15 @@ public class PlayScene : MonoBehaviour
         // For each collider destroy the block
         foreach (Collider hitCollider in hitColliders)
         {
-            if (hitCollider.gameObject.CompareTag("Block"))
+            if (hitCollider != null && !hitCollider.gameObject.CompareTag("Player"))
             {
-                hitCollider.gameObject.GetComponent<Block>().StartBlockDestructionCoroutine();
+                Block block = hitCollider.gameObject.GetComponent<Block>();
+
+                if (block != null)
+                {
+                    block.StartBlockDestructionCoroutine();
+                    Debug.Log(block.tag);
+                }
             }
         }
     }
