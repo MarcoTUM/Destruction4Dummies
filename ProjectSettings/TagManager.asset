@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ChainBlock
   - Block
+  - BlockDescriptionText
   layers:
   - Default
   - TransparentFX
