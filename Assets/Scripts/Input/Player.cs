@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
     private float lookLeft = 270;
     private float lookAtCrowd = 185;
     private bool isLookingRight = true;
-    [SerializeField] public GameObject model;
+    [SerializeField] private GameObject model;
 
     [HideInInspector] public bool IsOnGoal = false;
     private Renderer[] renderers;
