@@ -7,9 +7,9 @@ TagManager:
   - ChainBlock
   - Block
   - PlayScene
-  - BlockDescriptionText
   - LockBlock
   - RestoreableBlock
+  - BlockDescriptionText
   layers:
   - Default
   - TransparentFX
