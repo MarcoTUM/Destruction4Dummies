@@ -30,6 +30,6 @@ public class RestoreableBlock_Data : Block_Data
 
     public override bool Equals(Block_Data other)
     {
-        return base.Equals(other) && this.blockID == ((KeyBlock_Data)other).GetID();
+        return base.Equals(other) && this.blockID == ((RestoreableBlock_Data)other).GetID();
     }
 }
