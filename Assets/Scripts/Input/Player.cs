@@ -44,8 +44,9 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool IsOnGoal = false;
     private Renderer[] renderers;
     private Vector3 spawnPosition, goalPosition;
-    
-    
+    private Advisor advisor;
+    public bool IsInteractingWithAdvisor = false;
+    private int blockLayerMask;
     #region Start, Update
 
     private void Awake()
@@ -54,6 +55,8 @@ public class Player : MonoBehaviour
         height = transform.localScale.y;
         width = transform.localScale.x;
         animator = GetComponentInChildren<Animator>();
+        advisor = GameObject.FindObjectOfType<Advisor>();
+        blockLayerMask = LayerMask.GetMask(LayerDictionary.Block);
         Gamemaster.Instance.Register(this);
     }
 
@@ -175,9 +178,9 @@ public class Player : MonoBehaviour
     private bool CheckGrounded()
     {
         bool result = (
-            Physics.Raycast(transform.position, new Vector3(0, -1, 0), height / 2 + vertiRayMargin) ||
-            Physics.Raycast(transform.position - new Vector3(width / 2f + vertiRayPadding, 0, 0), new Vector3(0, -1, 0), height / 2 + vertiRayMargin) ||
-            Physics.Raycast(transform.position + new Vector3(width / 2f - vertiRayPadding, 0, 0), new Vector3(0, -1, 0), height / 2 + vertiRayMargin)
+            Physics.Raycast(transform.position, new Vector3(0, -1, 0), height / 2 + vertiRayMargin, blockLayerMask) ||
+            Physics.Raycast(transform.position - new Vector3(width / 2f + vertiRayPadding, 0, 0), new Vector3(0, -1, 0), height / 2 + vertiRayMargin, blockLayerMask) ||
+            Physics.Raycast(transform.position + new Vector3(width / 2f - vertiRayPadding, 0, 0), new Vector3(0, -1, 0), height / 2 + vertiRayMargin, blockLayerMask)
             );
         if (!result)
             animator.SetBool("isFalling", true);
@@ -197,7 +200,7 @@ public class Player : MonoBehaviour
         RaycastHit hit;
         for (int i = -1; i <= 1; i++)
         {
-            if (Physics.Raycast(transform.position + i * new Vector3(width / 2f - vertiRayPadding, 0, 0), new Vector3(0, direction, 0), out hit, height / 2f + vertiRayMargin))
+            if (Physics.Raycast(transform.position + i * new Vector3(width / 2f - vertiRayPadding, 0, 0), new Vector3(0, direction, 0), out hit, height / 2f + vertiRayMargin, blockLayerMask))
             {
                 if (yVelocity > 0)
                     cielingCollision = true;
@@ -224,7 +227,7 @@ public class Player : MonoBehaviour
         RaycastHit hit;
         for (int i = -1; i <= 1; i++)
         {
-            if (Physics.Raycast(transform.position + i * new Vector3(0, height / 2f - horizRayPadding, 0), new Vector3(direction, 0, 0), out hit, width / 2f + horizRayMargin))
+            if (Physics.Raycast(transform.position + i * new Vector3(0, height / 2f - horizRayPadding, 0), new Vector3(direction, 0, 0), out hit, width / 2f + horizRayMargin, blockLayerMask))
                 return (hit.distance - width / 2) * direction;
         }
         return xVelocity * Time.fixedDeltaTime;
@@ -259,7 +262,7 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Start End Level
-    
+
     public void SetStartPlatform(Vector3 startPlatformPosition)
     {
         spawnPosition = startPlatformPosition + Vector3.up * (Block_Data.BlockSize + height) / 2f;
@@ -309,6 +312,12 @@ public class Player : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
     }
-    
+
+    #endregion
+    #region Interaction
+    public void Interact()
+    {
+        advisor.HandlePlayerInteraction();
+    }
     #endregion
 }

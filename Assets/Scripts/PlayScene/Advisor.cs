@@ -6,10 +6,12 @@ using UnityEngine;
 public class Advisor : MonoBehaviour
 {
     private AdvisorAnimator animator;
+    private AdvisorDialogueCanvas dialogueCanvas;
 
     private void Awake()
     {
         animator = this.GetComponent<AdvisorAnimator>();
+        dialogueCanvas = this.GetComponentInChildren<AdvisorDialogueCanvas>();
     }
 
     private void Start()
@@ -41,4 +43,28 @@ public class Advisor : MonoBehaviour
         animator.BeDisappointed();
     }
 
+    public void HandlePlayerInteraction()
+    {
+        Debug.Log("Interact");
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == TagDictionary.Player)
+        {
+            other.GetComponent<Player>().IsInteractingWithAdvisor = true;
+            dialogueCanvas.EnableInteraction();
+            Debug.Log("Enter: " + other.gameObject.name);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == TagDictionary.Player)
+        {
+            other.GetComponent<Player>().IsInteractingWithAdvisor = false;
+            dialogueCanvas.DisableInteraction();
+            Debug.Log("Exit: " + other.gameObject.name);
+        }
+    }
 }
