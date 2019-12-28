@@ -342,6 +342,7 @@ MonoBehaviour:
   thinkingBubble: {fileID: 1083252807}
   speechBubble: {fileID: 1730627231}
   dialogueText: {fileID: 583216997}
+  showTextDuration: 5
 --- !u!1 &222820012010387405
 GameObject:
   m_ObjectHideFlags: 0

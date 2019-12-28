@@ -10,7 +10,8 @@ public class AdvisorDialogueCanvas : MonoBehaviour
     [SerializeField] private Text dialogueText;
 
     private string fullDialogue, leftoverDialogue;
-
+    private bool showTextSlowly = false;
+    [SerializeField] private float showTextDuration = 5f;
     private void Start()
     {
         DisableInteractionBubble();
@@ -50,10 +51,16 @@ public class AdvisorDialogueCanvas : MonoBehaviour
 
     /// <summary>
     /// tries to open next page of text
+    /// Or shows full dialogue when not fully shown yet
     /// </summary>
     /// <returns>true if next page exists otherwise false</returns>
     public bool NextPage()
     {
+        if (showTextSlowly)
+        {
+            showTextSlowly = false;
+            return true;
+        }
         if (leftoverDialogue == "")
         {
             DisableInteractionBubble();
@@ -70,11 +77,39 @@ public class AdvisorDialogueCanvas : MonoBehaviour
     {
         dialogueText.text = leftoverDialogue;
         Canvas.ForceUpdateCanvases();
-        if (dialogueText.cachedTextGenerator.characterCount > leftoverDialogue.Length)
+        int characterCount = dialogueText.cachedTextGenerator.characterCount;
+        if (characterCount > leftoverDialogue.Length)
         {
+            characterCount = leftoverDialogue.Length;
             leftoverDialogue = "";
         }
         else
-            leftoverDialogue = leftoverDialogue.Substring(dialogueText.cachedTextGenerator.characterCount);
+        {
+            leftoverDialogue = leftoverDialogue.Substring(characterCount);
+        }
+        string showText = dialogueText.text.Substring(0, characterCount - 1);
+        showTextSlowly = true;
+        StartCoroutine(ShowTextSlowly(showText));
+    }
+
+    /// <summary>
+    /// Prints text slowly onto speechBubble
+    /// </summary>
+    /// <param name="showText"></param>
+    /// <returns></returns>
+    private IEnumerator ShowTextSlowly(string showText)
+    {
+        string editedShowText = showText + "</color>";
+        string colorInsert = "<color=#00000000>";
+        float timePerChar = showTextDuration / showText.Length;
+        for (int i = 0; i < showText.Length; i++)
+        {
+            if (!showTextSlowly)
+                break;
+            dialogueText.text = editedShowText.Insert(i, colorInsert);
+            yield return new WaitForSeconds(timePerChar);
+        }
+        dialogueText.text = showText;
+        showTextSlowly = false;
     }
 }
