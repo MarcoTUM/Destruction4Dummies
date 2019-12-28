@@ -7,7 +7,7 @@ public class Advisor : MonoBehaviour
 {
     private AdvisorAnimator animator;
     private AdvisorDialogueCanvas dialogueCanvas;
-
+    private bool isTalking = false;
     private void Awake()
     {
         animator = this.GetComponent<AdvisorAnimator>();
@@ -45,7 +45,17 @@ public class Advisor : MonoBehaviour
 
     public void HandlePlayerInteraction()
     {
-        Debug.Log("Interact");
+        
+        if (!isTalking)
+        {
+            isTalking = true;
+            animator.StartTalking();
+            dialogueCanvas.ShowDialogue();
+        }
+        else{
+            dialogueCanvas.NextPage();
+        }
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -63,7 +73,9 @@ public class Advisor : MonoBehaviour
         if (other.tag == TagDictionary.Player)
         {
             other.GetComponent<Player>().IsInteractingWithAdvisor = false;
-            dialogueCanvas.DisableInteraction();
+            dialogueCanvas.DisableInteractionBubble();
+            animator.StopTalking();
+            isTalking = false;
             Debug.Log("Exit: " + other.gameObject.name);
         }
     }
