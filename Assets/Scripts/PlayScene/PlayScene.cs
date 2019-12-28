@@ -22,7 +22,7 @@ public class PlayScene : MonoBehaviour
         advisor = GameObject.FindObjectOfType<Advisor>();
 
         Gamemaster.Instance.CreatePlayLevel();
-        advisor.Initialize();
+        advisor.InitializePosition();
         StartCoroutine(Gamemaster.Instance.GetCameraPlayControl().PlayLevelOpening(player));
         Vector2Int startCoord = level.GetLevelData().StartPlatformCoordinates;
         player.SetStartPlatform(new Vector3(startCoord.x, startCoord.y, 0));

@@ -27,15 +27,15 @@ RectTransform:
   m_GameObject: {fileID: 583216995}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 1730627231}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 6}
-  m_SizeDelta: {x: 550, y: 280}
+  m_AnchoredPosition: {x: 0, y: 13}
+  m_SizeDelta: {x: 715.3, y: 290}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &583216998
 CanvasRenderer:
@@ -59,24 +59,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 70
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
-    m_MaxSize: 70
+    m_MaxSize: 50
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "sofsodfgjskdfgkjdfkgjsdfk\xF6lgsk\xF6dfngsdfngksdfkljfdgklsjdfklgjsdfg"
+  m_Text: "Halloe akjdlk iaeslkandklfa enlka klaj eka bueab kan eha bea lueh aje ka
+    ehabj enjah jaej hajlh ja ja veha bja hjah jdfsgf srd srd srsdrgsdrg srghsrgskrjgk\xF6s
+    jkjrskj ksr"
 --- !u!1 &1083252806
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,8 +187,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7.6, y: 19.5}
-  m_SizeDelta: {x: 75, y: 75}
+  m_AnchoredPosition: {x: 14.8, y: 45.6}
+  m_SizeDelta: {x: 200, y: 116.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1730627233
 CanvasRenderer:
@@ -216,7 +218,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 6657960cada0cb84e9b550a875a5f9ee, type: 3}
   m_Type: 0
-  m_PreserveAspect: 1
+  m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
   m_FillAmount: 1
@@ -1121,7 +1123,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 1, z: 3}
+  m_Size: {x: 1, y: 1, z: 3}
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &2806966524816322750
 GameObject:

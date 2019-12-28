@@ -23,6 +23,11 @@ public class Gamemaster : Singleton<Gamemaster>
         return nextLevelType;
     }
 
+    public int GetLevelIndex()
+    {
+        return nextLevelId - 1;
+    }
+
     /// <summary>
     /// SEts nextLevelType to default value(Main)
     /// </summary>

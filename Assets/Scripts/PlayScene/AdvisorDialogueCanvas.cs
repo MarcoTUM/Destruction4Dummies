@@ -14,20 +14,32 @@ public class AdvisorDialogueCanvas : MonoBehaviour
     private void Start()
     {
         DisableInteractionBubble();
-        fullDialogue = AdvisorDialogues.GetDialogues(0);
+        fullDialogue = AdvisorDialogues.GetDialogues(Gamemaster.Instance.GetLevelIndex());
+        if (fullDialogue == null)
+            this.transform.parent.gameObject.SetActive(false);
     }
 
-    public void EnableInteraction()
+    /// <summary>
+    /// Signalizes the player he can interact with Advisor
+    /// </summary>
+    public void EnableToughtBubble()
     {
+        speechBubble.gameObject.SetActive(false);
         thinkingBubble.gameObject.SetActive(true);
     }
 
+    /// <summary>
+    /// Player moves out of interaction range => bubbles dissapear
+    /// </summary>
     public void DisableInteractionBubble()
     {
         thinkingBubble.gameObject.SetActive(false);
         speechBubble.gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// Opens Speechbuble and shows first page of text
+    /// </summary>
     public void ShowDialogue()
     {
         thinkingBubble.gameObject.SetActive(false);
@@ -36,13 +48,24 @@ public class AdvisorDialogueCanvas : MonoBehaviour
         UpdateDialogueText();
     }
 
-    public void NextPage()
+    /// <summary>
+    /// tries to open next page of text
+    /// </summary>
+    /// <returns>true if next page exists otherwise false</returns>
+    public bool NextPage()
     {
         if (leftoverDialogue == "")
+        {
             DisableInteractionBubble();
+            return false;
+        }
         UpdateDialogueText();
+        return true;
     }
 
+    /// <summary>
+    /// Updates current textbox and leftover text
+    /// </summary>
     private void UpdateDialogueText()
     {
         dialogueText.text = leftoverDialogue;
