@@ -53,8 +53,56 @@ public class PlayScene : MonoBehaviour
         player.gameObject.SetActive(true);
         running = true;
     }
-    
 
-  
+    #region BlockHelperFunctions
 
+    public void RespawnRespawnBlocks(RespawnBlock respawnBlock, float respawnTime)
+    {
+        StartCoroutine(RespawnBlocks(respawnBlock, respawnTime));
+    }
+
+    private IEnumerator RespawnBlocks(RespawnBlock respawnBlock, float respawnTime)
+    {
+        yield return new WaitForSeconds(respawnTime);
+        respawnBlock.ResetBlock();
+    }
+
+    /// <summary>
+    /// Forces the player to outbreak power destroying all blocks in a certain radius.
+    /// </summary>
+    /// <param name="chargeTime">Chare time</param>
+    /// <param name="outbreakRadius">Outbreak radius</param>
+    /// <param name="forceOutbreak">Force outbreak partcile system</param>
+    public void StartForceOutbreak(float chargeTime, float outbreakRadius, ParticleSystem forceOutbreak)
+    {
+        StartCoroutine(ForceOutbreak(chargeTime, outbreakRadius, forceOutbreak));
+    }
+
+    private IEnumerator ForceOutbreak(float chargeTime, float outbreakRadius, ParticleSystem forceOutbreak)
+    {
+        yield return new WaitForSeconds(chargeTime);
+
+        // Get the player
+        Player player = Gamemaster.Instance.GetPlayer();
+
+        // Get all colliders that overlap a sphere of radius = outbreakRadius
+        Collider[] hitColliders = Physics.OverlapSphere(player.transform.position, outbreakRadius);
+
+        // Instantiate force outbreak particle effect
+        Instantiate(forceOutbreak, player.transform.position, Quaternion.identity);
+
+        // For each collider destroy the block
+        foreach (Collider hitCollider in hitColliders)
+        {
+            if (hitCollider != null && !hitCollider.gameObject.CompareTag("Player"))
+            {
+                if (hitCollider.TryGetComponent<Block>(out Block block))
+                {
+                    block.StartBlockDestructionCoroutine();
+                }
+            }
+        }
+    }
+
+    #endregion
 }

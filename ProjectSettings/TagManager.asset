@@ -6,6 +6,9 @@ TagManager:
   tags:
   - ChainBlock
   - Block
+  - PlayScene
+  - LockBlock
+  - RestoreableBlock
   - BlockDescriptionText
   layers:
   - Default

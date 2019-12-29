@@ -56,6 +56,4 @@ public class ChainBlock : Block
     }
 
     #endregion
-
-
 }

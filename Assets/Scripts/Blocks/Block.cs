@@ -4,12 +4,19 @@ using UnityEngine;
 
 public enum BlockType
 { 
-    Start   = 0, 
-    Goal    = 1, 
-    Empty   = 2, 
-    Wood    = 3, 
-    Stone   = 4, 
-    Chain   = 5 
+    Start       = 0, 
+    Goal        = 1, 
+    Empty       = 2, 
+    Wood        = 3, 
+    Stone       = 4, 
+    Chain       = 5,
+    Death       = 6,
+    Lock        = 7,
+    Key         = 8,
+    Respawn     = 9,
+    Charge      = 10,
+    Restoreable = 11,
+    Restore     = 12
 };
 
 public abstract class Block : MonoBehaviour
@@ -21,9 +28,6 @@ public abstract class Block : MonoBehaviour
     protected bool isTouchingPlayer = false;
     [SerializeField] public Texture destructionTexture;
     private Texture recoveryTexture;
-
-    [SerializeField]
-    protected Color blockColorGUI;
 
     #region Initialization / Destruction
     /// <summary>
@@ -38,10 +42,17 @@ public abstract class Block : MonoBehaviour
 
     protected virtual void DestroyBlock()
     {
-        //toDo add fancy destruction animations per Block
+        // Set block inactive
         this.gameObject.SetActive(false);
-        //recover texture
+
+        // Recover texture
         gameObject.GetComponent<Renderer>().material.mainTexture = recoveryTexture;
+    }
+
+    public void StartBlockDestructionCoroutine()
+    {
+        // Start destruction coroutine
+        StartCoroutine(StartBlockDestruction());
     }
 
     /// <summary>
