@@ -23,9 +23,9 @@ public class Gamemaster : Singleton<Gamemaster>
         return nextLevelType;
     }
 
-    public int GetLevelIndex()
+    public int GetLevelId()
     {
-        return nextLevelId - 1;
+        return nextLevelId;
     }
 
     /// <summary>

@@ -2970,5 +2970,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1954812462, guid: 092775c88c9c53d49b5680ac201a5fad, type: 3}
+      propertyPath: forceXboxDialogue
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 092775c88c9c53d49b5680ac201a5fad, type: 3}

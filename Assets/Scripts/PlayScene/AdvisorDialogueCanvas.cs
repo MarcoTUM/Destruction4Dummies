@@ -5,20 +5,21 @@ using UnityEngine.UI;
 
 public class AdvisorDialogueCanvas : MonoBehaviour
 {
+    [SerializeField] private bool forceXboxDialogue;
     [SerializeField] private RectTransform thinkingBubble;
     [SerializeField] private RectTransform speechBubble;
     [SerializeField] private Text dialogueText;
-
     [SerializeField] private RectTransform xboxSymbol, spaceBarSymbol;
-    private bool showXboxSymbol;
+    private bool isUsingXbox;
     private string fullDialogue, leftoverDialogue;
     private bool showTextSlowly = false;
     [SerializeField] private float cps = 40;//Characters per Second
+
     private void Start()
     {
+        this.isUsingXbox = forceXboxDialogue ? true : Gamemaster.Instance.GetPlayer().GetComponent<PlayerInputHandler>().IsUsingXbox;
         DisableInteractionBubble();
-        fullDialogue = AdvisorDialogues.GetDialogues(Gamemaster.Instance.GetLevelIndex());
-        showXboxSymbol = Gamemaster.Instance.GetPlayer().GetComponent<PlayerInputHandler>().IsUsingXbox;
+        fullDialogue = AdvisorDialogues.GetDialogues(Gamemaster.Instance.GetLevelId() * (isUsingXbox ? -1 : 1));
         if (fullDialogue == null)
             this.transform.parent.gameObject.SetActive(false);
     }
@@ -30,8 +31,8 @@ public class AdvisorDialogueCanvas : MonoBehaviour
     {
         speechBubble.gameObject.SetActive(false);
         thinkingBubble.gameObject.SetActive(true);
-        xboxSymbol.gameObject.SetActive(showXboxSymbol);
-        spaceBarSymbol.gameObject.SetActive(!showXboxSymbol);
+        xboxSymbol.gameObject.SetActive(isUsingXbox);
+        spaceBarSymbol.gameObject.SetActive(!isUsingXbox);
     }
 
     /// <summary>
@@ -93,7 +94,7 @@ public class AdvisorDialogueCanvas : MonoBehaviour
         {
             leftoverDialogue = leftoverDialogue.Substring(characterCount);
         }
-        string showText = dialogueText.text.Substring(0, characterCount).Trim(); ;
+        string showText = dialogueText.text.Substring(0, characterCount).Trim();
         showTextSlowly = true;
         StartCoroutine(ShowTextSlowly(showText));
     }
@@ -112,7 +113,7 @@ public class AdvisorDialogueCanvas : MonoBehaviour
             if (!showTextSlowly)
                 break;
             dialogueText.text = editedShowText.Insert(i, colorInsert);
-            yield return new WaitForSeconds(1/cps);
+            yield return new WaitForSeconds(1 / cps);
         }
         dialogueText.text = showText;
         showTextSlowly = false;
