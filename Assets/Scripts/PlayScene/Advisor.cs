@@ -30,7 +30,7 @@ public class Advisor : MonoBehaviour
             return;
         Vector2Int startPlatformCoord = Gamemaster.Instance.GetLevel().GetLevelData().StartPlatformCoordinates;
         Debug.Log(startPlatformCoord.y);
-        this.transform.position = new Vector3(startPlatformCoord.x - Block_Data.BlockSize, startPlatformCoord.y + Block_Data.BlockSize/2f, Block_Data.BlockSize);
+        this.transform.position = new Vector3(startPlatformCoord.x - 2 * Block_Data.BlockSize, startPlatformCoord.y + Block_Data.BlockSize/2f, 2*Block_Data.BlockSize);
     }
 
     /// <summary>

@@ -15,14 +15,13 @@ public class PlayAdditionalInput : MonoBehaviour
         playScene = this.GetComponent<PlayScene>();
         camControl = Camera.main.GetComponent<PlayCameraControl>();
         playUI = Gamemaster.Instance.GetPlaySceneUI();
-        if (Input.GetJoystickNames().Length > 0 && Input.GetJoystickNames()[0] != "")
+        bool IsUsingXbox = Gamemaster.Instance.GetPlayer().GetComponent<PlayerInputHandler>().IsUsingXbox;
+        if (IsUsingXbox)
         {
-            Debug.Log("Xbox input");
             input = this.GetComponent<XboxInput>();
         }
         else
         {
-            Debug.Log("Keybard input");
             input = this.GetComponent<MouseAndKeyboardInput>();
         }
     }
