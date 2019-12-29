@@ -1891,6 +1891,7 @@ MonoBehaviour:
   vertiRayMargin: 0.1
   vertiRayPadding: 0.1
   jumpToFallAnimationTime: 0.2
+  model: {fileID: 8296172667848665000}
   IsOnGoal: 0
 --- !u!54 &-5524203305601732335
 Rigidbody:
@@ -2701,7 +2702,7 @@ Transform:
   m_GameObject: {fileID: 8296172667848665000}
   m_LocalRotation: {x: -0, y: 0.76604444, z: -0, w: 0.64278764}
   m_LocalPosition: {x: 0.012789383, y: -0.495, z: 0.098497}
-  m_LocalScale: {x: 0.48743457, y: 0.47999996, z: 0.863937}
+  m_LocalScale: {x: 0.863937, y: 0.47999996, z: 0.863937}
   m_Children:
   - {fileID: 5357514018324747866}
   - {fileID: 5345838568456628042}
