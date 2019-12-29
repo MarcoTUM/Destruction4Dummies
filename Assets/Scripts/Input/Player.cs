@@ -32,14 +32,15 @@ public class Player : MonoBehaviour
     public float vertiRayPadding;
     private float width;
     private float height;
-    #endregion
 
     //animation
     private Animator animator;
     public float jumpToFallAnimationTime;
     private float lookRight = 100;
     private float lookLeft = 270;
+    private float lookAtCrowd = 185;
     private bool isLookingRight = true;
+    [SerializeField] private GameObject model;
 
     [HideInInspector] public bool IsOnGoal = false;
     private Renderer[] renderers;
@@ -47,6 +48,8 @@ public class Player : MonoBehaviour
     private Advisor advisor;
     public bool IsInteractingWithAdvisor = false;
     private int blockLayerMask;
+    #endregion
+
     #region Start, Update
 
     private void Awake()
@@ -182,7 +185,7 @@ public class Player : MonoBehaviour
             Physics.Raycast(transform.position - new Vector3(width / 2f + vertiRayPadding, 0, 0), new Vector3(0, -1, 0), height / 2 + vertiRayMargin, blockLayerMask) ||
             Physics.Raycast(transform.position + new Vector3(width / 2f - vertiRayPadding, 0, 0), new Vector3(0, -1, 0), height / 2 + vertiRayMargin, blockLayerMask)
             );
-        if (!result)
+        if (!result && !animator.GetBool("isFalling"))
             animator.SetBool("isFalling", true);
         return result;
     }
@@ -253,9 +256,9 @@ public class Player : MonoBehaviour
     private void SetModelRightDirection(bool right)
     {
         if(right)
-            transform.GetChild(0).transform.eulerAngles = new Vector3(0, lookRight, 0);
+            model.transform.eulerAngles = new Vector3(0, lookRight, 0);
         else
-            transform.GetChild(0).transform.eulerAngles = new Vector3(0, lookLeft, 0);
+            model.transform.eulerAngles = new Vector3(0, lookLeft, 0);
         isLookingRight = right;
     }
 
@@ -265,7 +268,7 @@ public class Player : MonoBehaviour
 
     public void SetStartPlatform(Vector3 startPlatformPosition)
     {
-        spawnPosition = startPlatformPosition + Vector3.up * (Block_Data.BlockSize + height) / 2f;
+        spawnPosition = startPlatformPosition + Vector3.up * (Block_Data.BlockSize + height * 1.2f) / 2f;
     }
 
     public void SpawnAtSpawnPlatform()
@@ -306,11 +309,13 @@ public class Player : MonoBehaviour
             }
             else
             {
-                Run(0);
-                JumpAction();
+                break;
             }
             yield return new WaitForEndOfFrame();
         }
+        Run(0);
+        model.transform.eulerAngles = new Vector3(0, lookAtCrowd, 0);
+        animator.SetBool("isDancing", true);
     }
 
     #endregion
