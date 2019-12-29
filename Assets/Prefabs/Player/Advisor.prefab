@@ -114,7 +114,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 8.9, y: 4.2}
-  m_SizeDelta: {x: 20, y: 20}
+  m_SizeDelta: {x: 25, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1083252809
 CanvasRenderer:
@@ -342,7 +342,7 @@ MonoBehaviour:
   thinkingBubble: {fileID: 1083252807}
   speechBubble: {fileID: 1730627231}
   dialogueText: {fileID: 583216997}
-  showTextDuration: 5
+  cps: 40
 --- !u!1 &222820012010387405
 GameObject:
   m_ObjectHideFlags: 0

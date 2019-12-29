@@ -9,13 +9,16 @@ public class AdvisorDialogueCanvas : MonoBehaviour
     [SerializeField] private RectTransform speechBubble;
     [SerializeField] private Text dialogueText;
 
+    [SerializeField] private RectTransform xboxSymbol, spaceBarSymbol;
+    private bool showXboxSymbol;
     private string fullDialogue, leftoverDialogue;
     private bool showTextSlowly = false;
-    [SerializeField] private float showTextDuration = 5f;
+    [SerializeField] private float cps = 40;//Characters per Second
     private void Start()
     {
         DisableInteractionBubble();
         fullDialogue = AdvisorDialogues.GetDialogues(Gamemaster.Instance.GetLevelIndex());
+        showXboxSymbol = Gamemaster.Instance.GetPlayer().GetComponent<PlayerInputHandler>().IsUsingXbox;
         if (fullDialogue == null)
             this.transform.parent.gameObject.SetActive(false);
     }
@@ -27,6 +30,8 @@ public class AdvisorDialogueCanvas : MonoBehaviour
     {
         speechBubble.gameObject.SetActive(false);
         thinkingBubble.gameObject.SetActive(true);
+        xboxSymbol.gameObject.SetActive(showXboxSymbol);
+        spaceBarSymbol.gameObject.SetActive(!showXboxSymbol);
     }
 
     /// <summary>
@@ -36,6 +41,7 @@ public class AdvisorDialogueCanvas : MonoBehaviour
     {
         thinkingBubble.gameObject.SetActive(false);
         speechBubble.gameObject.SetActive(false);
+        showTextSlowly = false;
     }
 
     /// <summary>
@@ -87,7 +93,7 @@ public class AdvisorDialogueCanvas : MonoBehaviour
         {
             leftoverDialogue = leftoverDialogue.Substring(characterCount);
         }
-        string showText = dialogueText.text.Substring(0, characterCount - 1);
+        string showText = dialogueText.text.Substring(0, characterCount).Trim(); ;
         showTextSlowly = true;
         StartCoroutine(ShowTextSlowly(showText));
     }
@@ -101,13 +107,12 @@ public class AdvisorDialogueCanvas : MonoBehaviour
     {
         string editedShowText = showText + "</color>";
         string colorInsert = "<color=#00000000>";
-        float timePerChar = showTextDuration / showText.Length;
         for (int i = 0; i < showText.Length; i++)
         {
             if (!showTextSlowly)
                 break;
             dialogueText.text = editedShowText.Insert(i, colorInsert);
-            yield return new WaitForSeconds(timePerChar);
+            yield return new WaitForSeconds(1/cps);
         }
         dialogueText.text = showText;
         showTextSlowly = false;

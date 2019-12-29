@@ -10,17 +10,19 @@ public class PlayerInputHandler : MonoBehaviour
 {
     private InputMethod input; //either Keyboard or XboxInput
     private Player player;
-
+    public bool IsUsingXbox;
     private void Awake()
     {
         if (Input.GetJoystickNames().Length > 0 && Input.GetJoystickNames()[0] != "")
         {
             Debug.Log("Xbox input");
+            IsUsingXbox = true;
             input = this.GetComponent<XboxInput>();
         }
         else
         {
             Debug.Log("Keybard input");
+            IsUsingXbox = false;
             input = this.GetComponent<MouseAndKeyboardInput>();
         }
 

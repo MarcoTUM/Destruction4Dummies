@@ -22,7 +22,7 @@ public class PlayScene : MonoBehaviour
         advisor = GameObject.FindObjectOfType<Advisor>();
 
         Gamemaster.Instance.CreatePlayLevel();
-        advisor.InitializePosition();
+        advisor?.InitializePosition();
         StartCoroutine(Gamemaster.Instance.GetCameraPlayControl().PlayLevelOpening(player));
         Vector2Int startCoord = level.GetLevelData().StartPlatformCoordinates;
         player.SetStartPlatform(new Vector3(startCoord.x, startCoord.y, 0));
@@ -46,7 +46,7 @@ public class PlayScene : MonoBehaviour
 
     private IEnumerator PlayerDeath()
     {
-        advisor.HandlePlayerDeath();
+        advisor?.HandlePlayerDeath();
         running = false;
         player.gameObject.SetActive(false);
         Instantiate(EffectManager.Instance.GetEffect(2),player.transform.position, Quaternion.identity);
