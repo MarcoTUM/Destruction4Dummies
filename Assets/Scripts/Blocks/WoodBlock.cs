@@ -31,6 +31,7 @@ public class WoodBlock : Block
     protected override void OnTouch(GameObject player)
     {
         base.OnTouch(player);
+        Instantiate(EffectManager.Instance.GetEffect(6), transform.position, Quaternion.identity);
     }
 
     protected override void OnTouchEnd(GameObject player)

@@ -36,7 +36,6 @@ public class StoneBlock : Block
     protected override void OnTouchEnd(GameObject player)
     {
         base.OnTouchEnd(player);
-        //Instantiate(EffectManager.Instance.GetEffect(4), transform.position, Quaternion.identity);
     }
 
     #endregion
