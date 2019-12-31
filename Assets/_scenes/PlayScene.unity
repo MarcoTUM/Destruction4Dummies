@@ -894,8 +894,9 @@ GameObject:
   m_Component:
   - component: {fileID: 864151985}
   - component: {fileID: 864151986}
+  - component: {fileID: 864151987}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: DialogueManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -930,6 +931,18 @@ MonoBehaviour:
   participants:
   - {fileID: 1767271069}
   - {fileID: 1031146827}
+--- !u!114 &864151987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864151984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b93230c5a15b62145a9e863c19e6aa8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &883570096
 GameObject:
   m_ObjectHideFlags: 0
@@ -1893,7 +1906,7 @@ MonoBehaviour:
   zoomOutTime: 1
   zoomInTime: 0.5
   smoothTime: 0.5
-  cameraDistance: 15
+  cameraDistance: 12
   openingDuration: 2
   openingMargin: {x: 5, y: 5}
 --- !u!1 &1527702463

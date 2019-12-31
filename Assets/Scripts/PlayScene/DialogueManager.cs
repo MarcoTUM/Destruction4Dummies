@@ -24,10 +24,24 @@ public class DialogueManager : MonoBehaviour
     private bool shouldStartDialogue = true;
     private bool hasMoreText;
     private PlayerInputHandler inputHandler;
+
     void Start()
     {
-        AdvisorDialogues.dialogues.TryGetValue(1, out lines);
+        if (Gamemaster.Instance.GetLevelType() == LevelType.Main)
+        {
+            Debug.Log(Gamemaster.Instance.GetLevelId());
+            lines = DialogueParser.GetDialogueLines(Gamemaster.Instance.GetLevelId());
+            if (lines == null)
+                DisableAdvisor();
+        }
+        else
+            DisableAdvisor();
         inputHandler = Gamemaster.Instance.GetPlayer().GetComponent<PlayerInputHandler>();
+    }
+
+    private void DisableAdvisor()
+    {
+        participants[1].gameObject.SetActive(false);
     }
 
     public void StartDialogue()
@@ -39,7 +53,6 @@ public class DialogueManager : MonoBehaviour
         currentLine = lines[dialogueIndex];
         participants[(int)currentLine.Speaker].StartLine(currentLine.Dialogue);
     }
-
 
     /// <summary>
     /// Handles when player presses interaction(currentyl jump) button 
@@ -70,7 +83,7 @@ public class DialogueManager : MonoBehaviour
         }
 
     }
-    
+
     public void ResetDialogue()
     {
         shouldStartDialogue = true;

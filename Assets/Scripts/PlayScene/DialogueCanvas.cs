@@ -9,7 +9,7 @@ public class DialogueCanvas : MonoBehaviour
     [SerializeField] private Text dialogueText;
     private string fullText, leftoverText;
     private bool showTextSlowly = false;
-    [SerializeField] private float cps = 40;//Characters per Second
+    private const float cps = 40;//Characters per Second
 
     protected virtual void Start()
     {
@@ -98,11 +98,39 @@ public class DialogueCanvas : MonoBehaviour
     {
         string editedShowText = showText + "</color>";
         string colorInsert = "<color=#00000000>";
+        //Prefix and suffix are for inclusion of other richtext commands(we can remove it if it is not necessary / causes errors)
+        string prefix = "";
+        string suffix = "";
+        Stack<int> prefixLength = new Stack<int>();
+        Stack<int> suffixLength = new Stack<int>();
         for (int i = 0; i < showText.Length; i++)
         {
             if (!showTextSlowly)
                 break;
-            dialogueText.text = editedShowText.Insert(i, colorInsert);
+            if (showText[i] == '<')
+            {
+               
+                int start = i;
+                i = showText.IndexOf(">", start);
+                string command = showText.Substring(start, i - start + 1);
+                if (command.Contains("/"))
+                {
+                    prefix = prefix.Substring(prefixLength.Pop());
+                    suffix = suffix.Substring(0, suffix.Length-suffixLength.Pop());
+                }
+                else
+                {
+                    suffix += command;
+                    suffixLength.Push(command.Length);
+                    string newPre = command.Insert(1, "/");
+                    if (command.Contains("="))
+                        newPre = newPre.Split('=')[0] + ">";
+                    prefix = newPre + prefix;
+                    prefixLength.Push(newPre.Length);
+                }
+                continue;
+            }
+            dialogueText.text = editedShowText.Insert(i, prefix+colorInsert+suffix);
             yield return new WaitForSeconds(1 / cps);
         }
         dialogueText.text = showText;
