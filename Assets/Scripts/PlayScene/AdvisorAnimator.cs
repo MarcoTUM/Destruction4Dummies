@@ -7,15 +7,13 @@ using UnityEngine;
 public class AdvisorAnimator : MonoBehaviour
 {
     #region AnimatorHashes
-    //States:
-    private static readonly int idleState = Animator.StringToHash("Idle");
-    private static readonly int talkState1 = Animator.StringToHash("Talking1");
-    private static readonly int talkState2 = Animator.StringToHash("Talking2");
-    private static readonly int disappointedState = Animator.StringToHash("Disappointed");
+    //Trigger:
+    private static readonly int[] talkingTriggers = new int[2] { Animator.StringToHash("TalkingTrigger1"), Animator.StringToHash("TalkingTrigger2") };
+    private static readonly int disappointedTrigger = Animator.StringToHash("DisappointedTrigger");
+    private static readonly int idleTrigger = Animator.StringToHash("IdleTrigger");
 
     //Params:
     private static readonly int talkingParam = Animator.StringToHash("Talking");
-
     #endregion
 
     private Animator animator;
@@ -24,20 +22,21 @@ public class AdvisorAnimator : MonoBehaviour
     {
         animator = this.GetComponent<Animator>();
     }
-    
+
     public void StartTalking()
     {
+        animator.SetTrigger(talkingTriggers[UnityEngine.Random.Range(0, 2)]);
         animator.SetBool(talkingParam, true);
-        animator.Play(talkState1);
     }
 
     public void StopTalking()
     {
+        animator.SetTrigger(idleTrigger);
         animator.SetBool(talkingParam, false);
     }
 
     public void BeDisappointed()
     {
-        animator.Play(disappointedState);
+        animator.SetTrigger(disappointedTrigger);
     }
 }

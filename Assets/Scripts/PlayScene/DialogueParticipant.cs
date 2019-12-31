@@ -11,12 +11,15 @@ public class DialogueParticipant : MonoBehaviour
         dialogueCanvas.PrintLine(line);
     }
 
-    public bool ContinueLine()
+    public virtual bool ContinueLine()
     {
-        return dialogueCanvas.NextPage();
+        bool hasNextPage = dialogueCanvas.NextPage();
+        if (!hasNextPage)
+            StopLine();
+        return hasNextPage;
     }
 
-    public void StopLine()
+    public virtual void StopLine()
     {
         dialogueCanvas.DisableOpenPanels();
     }

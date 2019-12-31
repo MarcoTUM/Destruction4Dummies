@@ -60,7 +60,6 @@ public class DialogueCanvas : MonoBehaviour
         }
         if (leftoverText == "")
         {
-            DisableOpenPanels();
             return false;
         }
         UpdateDialogueText();
