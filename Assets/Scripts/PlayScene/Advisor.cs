@@ -1,18 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(AdvisorAnimator))]
-public class Advisor : MonoBehaviour
+public class Advisor : DialogueParticipant
 {
     private AdvisorAnimator animator;
-    private AdvisorDialogueCanvas dialogueCanvas;
-    private bool isTalking = false;
+    [SerializeField] private DialogueManager dialogueManager;
+    private AdvisorDialogueCanvas advisorDialogueCanvas;
 
     private void Awake()
     {
         animator = this.GetComponent<AdvisorAnimator>();
-        dialogueCanvas = this.GetComponentInChildren<AdvisorDialogueCanvas>();
+        if (dialogueCanvas.GetType() != typeof(AdvisorDialogueCanvas))
+            throw new InvalidOperationException("DialogueCanvas does not have the type of AdvisorDialogueCanvas");
+        advisorDialogueCanvas = (AdvisorDialogueCanvas)dialogueCanvas;
     }
 
     private void Start()
@@ -40,31 +43,20 @@ public class Advisor : MonoBehaviour
         animator.BeDisappointed();
     }
 
-    /// <summary>
-    /// Handles when player presses interaction(currentyl jump) button 
-    /// Either starts talking to Advisor -> opening speechBubble
-    /// or progressing the dialogue with the next page/closing the speechBubble
-    /// </summary>
-    public void HandlePlayerInteraction()
+    public override void StartLine(string line)
     {
-        
-        if (!isTalking)
-        {
-            isTalking = true;
-            animator.StartTalking();
-            dialogueCanvas.ShowDialogue();
-        }
-        else
-        {
-            bool hadNextPage = dialogueCanvas.NextPage();
-            if (!hadNextPage)
-            {
-                dialogueCanvas.EnableToughtBubble();
-                animator.StopTalking();
-                isTalking = false;
-            }
-        }
+        base.StartLine(line);
+        advisorDialogueCanvas.DisableThoughtBubble();
+    }
 
+    public void EnableThoughtBubble()
+    {
+        advisorDialogueCanvas.EnableToughtBubble();
+    }
+
+    public void DisableThoughtBubble()
+    {
+        advisorDialogueCanvas.DisableThoughtBubble();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -72,7 +64,7 @@ public class Advisor : MonoBehaviour
         if (other.tag == TagDictionary.Player)
         {
             other.GetComponent<Player>().IsInteractingWithAdvisor = true;
-            dialogueCanvas.EnableToughtBubble();
+            advisorDialogueCanvas.EnableToughtBubble();
         }
     }
 
@@ -81,9 +73,8 @@ public class Advisor : MonoBehaviour
         if (other.tag == TagDictionary.Player)
         {
             other.GetComponent<Player>().IsInteractingWithAdvisor = false;
-            dialogueCanvas.DisableInteractionBubble();
+            advisorDialogueCanvas.DisableThoughtBubble();
             animator.StopTalking();
-            isTalking = false;
         }
     }
 }

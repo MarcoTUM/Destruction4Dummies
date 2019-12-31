@@ -10,12 +10,14 @@ public class PlayAdditionalInput : MonoBehaviour
     private PlayScene playScene;
     private PlayCameraControl camControl;
     private PlaySceneUI playUI;
+    private PlayerInputHandler playerInputHandler;
     void Start()
     {
         playScene = this.GetComponent<PlayScene>();
         camControl = Camera.main.GetComponent<PlayCameraControl>();
         playUI = Gamemaster.Instance.GetPlaySceneUI();
-        bool IsUsingXbox = Gamemaster.Instance.GetPlayer().GetComponent<PlayerInputHandler>().IsUsingXbox;
+        playerInputHandler = Gamemaster.Instance.GetPlayer().GetComponent<PlayerInputHandler>();
+        bool IsUsingXbox = playerInputHandler.IsUsingXbox;
         if (IsUsingXbox)
         {
             input = this.GetComponent<XboxInput>();
@@ -28,6 +30,9 @@ public class PlayAdditionalInput : MonoBehaviour
     
     void Update()
     {
+        if (playerInputHandler.IsInDialogue) //Prevent any additional inputs during dialogues
+            return;
+
         if (input.PressedZoomButton())
         {
             camControl.StartZoomOut();

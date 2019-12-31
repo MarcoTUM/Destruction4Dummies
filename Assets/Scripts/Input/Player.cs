@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Script controls player character behaviour
 /// </summary>
-public class Player : MonoBehaviour
+public class Player : DialogueParticipant
 {
     #region Fields
 
@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool IsOnGoal = false;
     private Renderer[] renderers;
     private Vector3 spawnPosition, goalPosition;
-    private Advisor advisor;
+    private DialogueManager dialogueManager;
     public bool IsInteractingWithAdvisor = false;
     private int blockLayerMask;
     #endregion
@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
         height = transform.localScale.y;
         width = transform.localScale.x;
         animator = GetComponentInChildren<Animator>();
-        advisor = GameObject.FindObjectOfType<Advisor>();
+        dialogueManager = GameObject.FindObjectOfType<DialogueManager>();
         blockLayerMask = LayerMask.GetMask(LayerDictionary.Block);
         Gamemaster.Instance.Register(this);
     }
@@ -319,10 +319,12 @@ public class Player : MonoBehaviour
     }
 
     #endregion
-    #region Interaction
+
+    #region Interaction/Dialogue
     public void Interact()
     {
-        advisor.HandlePlayerInteraction();
+        dialogueManager.HandlePlayerInteraction();
     }
+
     #endregion
 }
