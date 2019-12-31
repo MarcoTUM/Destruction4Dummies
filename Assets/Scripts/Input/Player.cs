@@ -35,6 +35,11 @@ public class Player : DialogueParticipant
 
     //animation
     private Animator animator;
+
+    private static readonly int[] talkingTriggers = new int[2] { Animator.StringToHash("TalkingTrigger1"), Animator.StringToHash("TalkingTrigger2") };
+    private static readonly int idleTrigger = Animator.StringToHash("IdleTrigger");
+    private static readonly int talkingParam = Animator.StringToHash("isTalking");
+
     public float jumpToFallAnimationTime;
     private float lookRight = 100;
     private float lookLeft = 270;
@@ -97,10 +102,10 @@ public class Player : DialogueParticipant
                 return;
             }
             //case: rising
-            if(yVelocity > 0 && jumpRising)
+            if (yVelocity > 0 && jumpRising)
                 yVelocity = yVelocity + riseAcceleration * Time.fixedDeltaTime;
             //case: falling
-            else 
+            else
                 yVelocity = yVelocity + fallAccelaration * Time.fixedDeltaTime;
             //clamp
             yVelocity = Mathf.Clamp(yVelocity, -fallVelocityLimit, jumpVelocity);
@@ -115,7 +120,7 @@ public class Player : DialogueParticipant
     /// <param name="direction"> The direction of the input axis, raw. -1 for left, 1 for right</param>
     public void Run(float direction)
     {
-        if(isSprinting)
+        if (isSprinting)
             xVelocity = direction * sprintVelocity;
         else
             xVelocity = direction * runningVelocity;
@@ -170,7 +175,7 @@ public class Player : DialogueParticipant
     {
         jumpRising = isRising;
     }
-    
+
     #endregion
 
     #region Ray cast collider detecion
@@ -255,7 +260,7 @@ public class Player : DialogueParticipant
 
     private void SetModelRightDirection(bool right)
     {
-        if(right)
+        if (right)
             model.transform.eulerAngles = new Vector3(0, lookRight, 0);
         else
             model.transform.eulerAngles = new Vector3(0, lookLeft, 0);
@@ -305,7 +310,7 @@ public class Player : DialogueParticipant
             xDistance = this.transform.position.x - goalPosition.x;
             if (Mathf.Abs(xDistance) > Mathf.Epsilon && Mathf.Sign(-xDistance) == sign)
             {
-                Run(sign/2f);
+                Run(sign / 2f);
             }
             else
             {
@@ -324,6 +329,32 @@ public class Player : DialogueParticipant
     public void Interact()
     {
         dialogueManager.HandlePlayerInteraction();
+    }
+
+    public override void StartLine(string line)
+    {
+        base.StartLine(line);
+        int random = UnityEngine.Random.Range(0, talkingTriggers.Length);
+        for (int i = 0; i < talkingTriggers.Length; i++)
+        {
+            if (i == random)
+                animator.SetTrigger(talkingTriggers[i]);
+            else
+                animator.ResetTrigger(talkingTriggers[i]);
+        }
+        animator.SetBool(talkingParam, true);
+    }
+
+    public override void StopLine()
+    {
+        base.StopLine();
+        animator.SetTrigger(idleTrigger);
+        animator.SetBool(talkingParam, false);
+    }
+
+    public void ResetAnimationState()
+    {
+        animator.Play("Idle");
     }
 
     #endregion

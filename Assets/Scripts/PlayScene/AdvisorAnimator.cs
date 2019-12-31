@@ -25,7 +25,14 @@ public class AdvisorAnimator : MonoBehaviour
 
     public void StartTalking()
     {
-        animator.SetTrigger(talkingTriggers[UnityEngine.Random.Range(0, 2)]);
+        int random = UnityEngine.Random.Range(0, talkingTriggers.Length);
+        for(int i=0; i<talkingTriggers.Length; i++)
+        {
+            if (i == random)
+                animator.SetTrigger(talkingTriggers[i]);
+            else
+                animator.ResetTrigger(talkingTriggers[i]);
+        }
         animator.SetBool(talkingParam, true);
     }
 

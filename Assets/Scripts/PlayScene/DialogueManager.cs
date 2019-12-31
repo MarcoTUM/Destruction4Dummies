@@ -18,6 +18,8 @@ public struct DialogueLine
 public class DialogueManager : MonoBehaviour
 {
     [SerializeField] private DialogueParticipant[] participants = new DialogueParticipant[2];//0=Player, 1=Advisor
+    private Player player;
+    private Advisor advisor;
     private int dialogueIndex = 0;
     private DialogueLine[] lines;
     private DialogueLine currentLine;
@@ -27,15 +29,23 @@ public class DialogueManager : MonoBehaviour
 
     void Start()
     {
+        player = (Player)participants[0];
+        advisor = (Advisor)participants[1];
         if (Gamemaster.Instance.GetLevelType() == LevelType.Main)
         {
             Debug.Log(Gamemaster.Instance.GetLevelId());
             lines = DialogueParser.GetDialogueLines(Gamemaster.Instance.GetLevelId());
             if (lines == null)
+            {
                 DisableAdvisor();
+                return;
+            }
         }
         else
+        {
             DisableAdvisor();
+            return;
+        }
         inputHandler = Gamemaster.Instance.GetPlayer().GetComponent<PlayerInputHandler>();
     }
 
@@ -44,14 +54,23 @@ public class DialogueManager : MonoBehaviour
         participants[1].gameObject.SetActive(false);
     }
 
-    public void StartDialogue()
+    private void StartDialogue()
     {
         shouldStartDialogue = false;
         inputHandler.IsInDialogue = true;
-        ((Advisor)participants[1]).DisableThoughtBubble();
+        advisor.LookAtOther(player);
+        player.LookAtOther(advisor);
+        advisor.DisableThoughtBubble();
         dialogueIndex = 0;
         currentLine = lines[dialogueIndex];
         participants[(int)currentLine.Speaker].StartLine(currentLine.Dialogue);
+    }
+
+    private void EndDialogue()
+    {
+        inputHandler.IsInDialogue = false;
+        advisor.LookAtOriginalDirection();
+        player.ResetAnimationState();
     }
 
     /// <summary>
@@ -77,7 +96,7 @@ public class DialogueManager : MonoBehaviour
                 }
                 else
                 {
-                    inputHandler.IsInDialogue = false;
+                    EndDialogue();
                 }
             }
         }

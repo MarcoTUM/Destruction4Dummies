@@ -180,17 +180,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2082205146}
-  m_LocalRotation: {x: 0, y: -0.7660445, z: 0, w: 0.64278764}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.09645766, y: 0.08680554, z: 1.1574919}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalScale: {x: 0.08333335, y: 0.04166665, z: 1}
   m_Children:
   - {fileID: 1993141265}
-  m_Father: {fileID: 5006512736691705275}
-  m_RootOrder: 2
+  m_Father: {fileID: 4839093188961784831}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: -100, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 2, y: 0}
+  m_AnchoredPosition: {x: 0.38, y: -0.43}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &2082205151
@@ -267,7 +267,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speechBubble: {fileID: 1993141265}
   dialogueText: {fileID: 61391544}
-  cps: 40
 --- !u!1 &664952014392271
 GameObject:
   m_ObjectHideFlags: 0
@@ -2037,6 +2036,7 @@ Transform:
   m_LocalScale: {x: 0.6, y: 1.2, z: 1}
   m_Children:
   - {fileID: 5006512736691705275}
+  - {fileID: 2082205147}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2150,6 +2150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueCanvas: {fileID: 2082205148}
+  myModel: {fileID: 5006512736691705275}
   runningVelocity: 3
   sprintVelocity: 4
   fallVelocityLimit: 10
@@ -2978,7 +2979,6 @@ Transform:
   m_Children:
   - {fileID: 5357514018324747866}
   - {fileID: 5345838568456628042}
-  - {fileID: 2082205147}
   m_Father: {fileID: 4839093188961784831}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 100, z: 0}
