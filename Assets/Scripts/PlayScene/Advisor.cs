@@ -46,7 +46,6 @@ public class Advisor : DialogueParticipant
     public override void StartLine(string line)
     {
         base.StartLine(line);
-        advisorDialogueCanvas.DisableThoughtBubble();
     }
 
     public void EnableThoughtBubble()
@@ -65,6 +64,7 @@ public class Advisor : DialogueParticipant
         {
             other.GetComponent<Player>().IsInteractingWithAdvisor = true;
             advisorDialogueCanvas.EnableToughtBubble();
+            dialogueManager.ResetDialogue();
         }
     }
 

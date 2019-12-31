@@ -32,7 +32,9 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue()
     {
+        shouldStartDialogue = false;
         inputHandler.IsInDialogue = true;
+        ((Advisor)participants[1]).DisableThoughtBubble();
         dialogueIndex = 0;
         currentLine = lines[dialogueIndex];
         participants[(int)currentLine.Speaker].StartLine(currentLine.Dialogue);
@@ -48,7 +50,6 @@ public class DialogueManager : MonoBehaviour
     {
         if (shouldStartDialogue)
         {
-            shouldStartDialogue = false;
             StartDialogue();
         }
         else

@@ -175,13 +175,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 583216995}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 1730627231}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 13}
@@ -321,7 +321,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1730627231
 RectTransform:
   m_ObjectHideFlags: 0
@@ -329,17 +329,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1730627230}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 583216996}
   m_Father: {fileID: 1954812458}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 14.8, y: 45.6}
+  m_AnchoredPosition: {x: -19.19, y: 45.6}
   m_SizeDelta: {x: 200, y: 116.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1730627233
@@ -390,7 +390,7 @@ GameObject:
   - component: {fileID: 1954812461}
   - component: {fileID: 1954812460}
   - component: {fileID: 1954812459}
-  - component: {fileID: 1954812462}
+  - component: {fileID: 2031174370}
   m_Layer: 0
   m_Name: AdvisorDialogueCanvas
   m_TagString: Untagged
@@ -479,7 +479,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &1954812462
+--- !u!114 &2031174370
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -488,15 +488,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1954812457}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec37030d3e90644ab600156116fcc52, type: 3}
+  m_Script: {fileID: 11500000, guid: 52a8b8c5cb6389447b9c135ef56953ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thinkingBubble: {fileID: 1083252807}
   speechBubble: {fileID: 1730627231}
   dialogueText: {fileID: 583216997}
+  cps: 40
+  thinkingBubble: {fileID: 1083252807}
+  forceXboxDialogue: 0
   xboxSymbol: {fileID: 408132627}
   spaceBarSymbol: {fileID: 166385977}
-  cps: 40
 --- !u!1 &222820012010387405
 GameObject:
   m_ObjectHideFlags: 0
@@ -1256,6 +1257,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ae1e167a270a654aaa2367533adf85f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueCanvas: {fileID: 2031174370}
+  dialogueManager: {fileID: 0}
 --- !u!114 &2715315218784800806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1279,7 +1282,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 1, z: 2}
+  m_Size: {x: 2, y: 1, z: 2}
   m_Center: {x: 0, y: 1, z: 1}
 --- !u!1 &2806966524816322750
 GameObject:
@@ -2806,18 +2809,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 807657650785845044, guid: 9dd37bc162d4890478732e0f3c2b497e,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 807657650785845044, guid: 9dd37bc162d4890478732e0f3c2b497e,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7697527339213501567, guid: 9dd37bc162d4890478732e0f3c2b497e, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9dd37bc162d4890478732e0f3c2b497e, type: 3}
 --- !u!4 &6753765028740709644 stripped
 Transform:

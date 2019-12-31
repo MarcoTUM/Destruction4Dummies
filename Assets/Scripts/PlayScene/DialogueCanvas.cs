@@ -40,6 +40,7 @@ public class DialogueCanvas : MonoBehaviour
     /// </summary>
     public void PrintText()
     {
+        this.transform.rotation = Quaternion.identity;
         speechBubble.gameObject.SetActive(true);
         leftoverText = fullText;
         UpdateDialogueText();
