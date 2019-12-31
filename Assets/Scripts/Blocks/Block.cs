@@ -97,11 +97,16 @@ public abstract class Block : MonoBehaviour
             lifeTime -= Time.deltaTime;
         }
         DestroyBlock();
-        Instantiate(EffectManager.Instance.GetEffect(0), transform.position, Quaternion.identity);
+        SpawnDestructionEffect();
     }
     #endregion
 
     #region Helper
+
+    protected virtual void SpawnDestructionEffect()
+    {
+        Instantiate(EffectManager.Instance.GetEffect(0), transform.position, Quaternion.identity);
+    }
 
     #endregion
 

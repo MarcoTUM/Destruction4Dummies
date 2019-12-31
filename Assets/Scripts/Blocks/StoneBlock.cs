@@ -39,4 +39,13 @@ public class StoneBlock : Block
     }
 
     #endregion
+
+    #region Helper
+
+    protected override void SpawnDestructionEffect()
+    {
+        Instantiate(EffectManager.Instance.GetEffect(5), transform.position, Quaternion.identity);
+    }
+
+    #endregion
 }
