@@ -5,7 +5,7 @@ using UnityEngine;
 public class BackgroundComposer : MonoBehaviour
 {
 
-    [SerializeField] private GameObject[] tiles;
+    [SerializeField] private GameObject tile;
     [SerializeField] private Texture2D[] replaceTextures;
     public float forgroundConstant;
     private List<int> usedXCoords = new List<int>(), usedYCoords = new List<int>();
@@ -16,12 +16,14 @@ public class BackgroundComposer : MonoBehaviour
     {
 
         //per tile
-        for (int i = 0; i < tiles.Length; i++)
+        for (int i = 0; i < replaceTextures.Length; i++)
         {
             Texture2D texture = replaceTextures[i];
-            tiles[i].GetComponent<MeshRenderer>().material.SetTexture("_MainTex", texture);
-            tiles[i].transform.localPosition = new Vector3(PickXPosition(), forgroundConstant, PickYPosition());
+            GameObject currentTile = Instantiate(tile, transform);
+            currentTile.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", texture);
+            currentTile.transform.localPosition = new Vector3(PickXPosition(), forgroundConstant, PickYPosition());
         }
+        tile.SetActive(false);
     }
 
     Texture2D PickTexture()
