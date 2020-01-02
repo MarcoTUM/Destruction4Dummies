@@ -73,7 +73,8 @@ public abstract class Block : MonoBehaviour
     protected virtual void OnTouch(GameObject player)
     {
         isTouchingPlayer = true;
-        StartCoroutine(StartBlockDestruction());
+        if(Gamemaster.Instance.GetPlayer().canDestroy)
+            StartCoroutine(StartBlockDestruction());
     }
 
     /// <summary>

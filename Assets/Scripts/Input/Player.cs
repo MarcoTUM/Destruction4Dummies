@@ -51,9 +51,13 @@ public class Player : DialogueParticipant
     [HideInInspector] public bool IsOnGoal = false;
     private Renderer[] renderers;
     private Vector3 spawnPosition, goalPosition;
+    //dialogue
     private DialogueManager dialogueManager;
     public bool IsInteractingWithAdvisor = false;
     private int blockLayerMask;
+
+    //charge block
+    public bool canDestroy { get; set; } = true;
     #endregion
 
     #region Start, Update
