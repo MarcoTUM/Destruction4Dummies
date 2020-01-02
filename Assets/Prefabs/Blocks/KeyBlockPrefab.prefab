@@ -106,5 +106,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 0.8
-  destructionTexture: {fileID: 2800000, guid: 89319984429733d4c89ea00888e8ffa4, type: 3}
+  destructionTexture: {fileID: 2800000, guid: 1c75feccae4712a41a5c27cb2cb9092b, type: 3}
   blockID: 0
