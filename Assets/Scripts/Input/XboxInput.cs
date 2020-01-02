@@ -20,7 +20,7 @@ public class XboxInput : InputMethod
 
     public override bool PressedSprintButton()
     {
-        return Input.GetKeyDown(InputDictionary.XboxYButton);//Not sure which button
+        return Input.GetKeyDown(InputDictionary.XboxBButton);//Not sure which button
     }
 
     public override bool PressedExitButton()

@@ -17,40 +17,40 @@ public class PlayAdditionalInput : MonoBehaviour
         playUI = Gamemaster.Instance.GetPlaySceneUI();
         if (Input.GetJoystickNames().Length > 0 && Input.GetJoystickNames()[0] != "")
         {
-            Debug.Log("Xbox input");
             input = this.GetComponent<XboxInput>();
         }
         else
         {
-            Debug.Log("Keybard input");
             input = this.GetComponent<MouseAndKeyboardInput>();
         }
     }
-    
+
     void Update()
     {
-        if (input.PressedZoomButton())
+        if (!playUI.IsOpen)
         {
-            camControl.StartZoomOut();
-        }
-        else if (input.ReleasedZoomButton())
-        {
-            camControl.StartZoomIn();
-        }
+            if (input.PressedZoomButton())
+            {
+                camControl.StartZoomOut();
+            }
+            else if (input.ReleasedZoomButton())
+            {
+                camControl.StartZoomIn();
+            }
 
-        if (input.PressedExitButton())
-        {
-            SceneManager.LoadScene(Gamemaster.Instance.GetLevelType() == LevelType.Test ? SceneDictionary.LevelEditor : SceneDictionary.MainMenu);
+            if (input.PressedExitButton())
+            {
+                SceneManager.LoadScene(Gamemaster.Instance.GetLevelType() == LevelType.Test ? SceneDictionary.LevelEditor : SceneDictionary.MainMenu);
+            }
+            else if (input.PressedRestartButton())
+            {
+                playScene.KillPlayer();
+            }
         }
-        else if (input.PressedRestartButton())
-        {
-            playScene.KillPlayer();
-        }
-
-        if(playUI.IsOpen && Gamemaster.Instance.GetLevelType() == LevelType.Main && input.PressedContinueButton())
+        if (playUI.IsOpen && Gamemaster.Instance.GetLevelType() == LevelType.Main && input.PressedContinueButton())
         {
             playUI.NextLevel();
         }
-        
+
     }
 }
