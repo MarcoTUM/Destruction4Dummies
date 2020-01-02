@@ -57,10 +57,10 @@ public class Player : DialogueParticipant
     private int blockLayerMask;
 
     //charge block
-    public bool canDestroy { get; set; } = true;
+    public bool canDestroy { get; private set; } = true;
     #endregion
 
-    #region Start, Update
+    #region Start, Update, onEnable
 
     private void Awake()
     {
@@ -71,6 +71,12 @@ public class Player : DialogueParticipant
         dialogueManager = GameObject.FindObjectOfType<DialogueManager>();
         blockLayerMask = LayerMask.GetMask(LayerDictionary.Block);
         Gamemaster.Instance.Register(this);
+    }
+
+    private void OnEnable()
+    {
+        StopCoroutine("ChargeBlock");
+        canDestroy = true;
     }
 
     #endregion
@@ -380,6 +386,22 @@ public class Player : DialogueParticipant
     public void ResetAnimationState()
     {
         animator.Play("Idle");
+    }
+
+    #endregion
+
+    #region ChargeBlock
+
+    public void InvokeChargeBlock(float time)
+    {
+        StartCoroutine(ChargeBlock(time));
+    }
+
+    private IEnumerator ChargeBlock(float time)
+    {
+        canDestroy = false;
+        yield return new WaitForSeconds(time);
+        canDestroy = true;
     }
 
     #endregion
