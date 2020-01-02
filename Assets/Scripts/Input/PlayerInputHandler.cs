@@ -10,17 +10,21 @@ public class PlayerInputHandler : MonoBehaviour
 {
     private InputMethod input; //either Keyboard or XboxInput
     private Player player;
+    public bool IsUsingXbox;
+    public bool IsInDialogue = false;
 
     private void Awake()
     {
         if (Input.GetJoystickNames().Length > 0 && Input.GetJoystickNames()[0] != "")
         {
             Debug.Log("Xbox input");
+            IsUsingXbox = true;
             input = this.GetComponent<XboxInput>();
         }
         else
         {
             Debug.Log("Keybard input");
+            IsUsingXbox = false;
             input = this.GetComponent<MouseAndKeyboardInput>();
         }
 
@@ -29,18 +33,35 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Update()
     {
-        if (!player.IsOnGoal)
+        if (!player.IsOnGoal && !IsInDialogue)
             HandlePlayerInput();
+        else if (IsInDialogue)
+            HandleDialogueInput();
     }
 
     private void HandlePlayerInput()
     {
         player.Run(input.GetHorizontalDirection());
+
         if (input.PressedJump())
-            player.JumpAction();
+        {
+            if (player.IsInteractingWithAdvisor)
+                player.Interact();
+            else
+                player.JumpAction();
+        }
+
         if (input.ReleasedJump())
             player.SetJumpRising(false);
-        if(input.PressedSprintButton())
+        if (input.PressedSprintButton())
             player.ToggleSprint();
+    }
+
+    private void HandleDialogueInput()
+    {
+        if (input.PressedJump())
+        {
+            player.Interact();
+        }
     }
 }

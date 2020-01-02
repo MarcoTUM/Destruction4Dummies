@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Script controls player character behaviour
 /// </summary>
-public class Player : MonoBehaviour
+public class Player : DialogueParticipant
 {
     #region Fields
 
@@ -35,6 +35,11 @@ public class Player : MonoBehaviour
 
     //animation
     private Animator animator;
+
+    private static readonly int[] talkingTriggers = new int[2] { Animator.StringToHash("TalkingTrigger1"), Animator.StringToHash("TalkingTrigger2") };
+    private static readonly int idleTrigger = Animator.StringToHash("IdleTrigger");
+    private static readonly int talkingParam = Animator.StringToHash("isTalking");
+
     public float jumpToFallAnimationTime;
     private float lookRight = 100;
     private float lookLeft = 270;
@@ -45,9 +50,10 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool IsOnGoal = false;
     private Renderer[] renderers;
     private Vector3 spawnPosition, goalPosition;
-
+    private DialogueManager dialogueManager;
+    public bool IsInteractingWithAdvisor = false;
+    private int blockLayerMask;
     #endregion
-
 
     #region Start, Update
 
@@ -57,6 +63,8 @@ public class Player : MonoBehaviour
         height = transform.localScale.y;
         width = transform.localScale.x;
         animator = GetComponentInChildren<Animator>();
+        dialogueManager = GameObject.FindObjectOfType<DialogueManager>();
+        blockLayerMask = LayerMask.GetMask(LayerDictionary.Block);
         Gamemaster.Instance.Register(this);
     }
 
@@ -94,10 +102,10 @@ public class Player : MonoBehaviour
                 return;
             }
             //case: rising
-            if(yVelocity > 0 && jumpRising)
+            if (yVelocity > 0 && jumpRising)
                 yVelocity = yVelocity + riseAcceleration * Time.fixedDeltaTime;
             //case: falling
-            else 
+            else
                 yVelocity = yVelocity + fallAccelaration * Time.fixedDeltaTime;
             //clamp
             yVelocity = Mathf.Clamp(yVelocity, -fallVelocityLimit, jumpVelocity);
@@ -112,7 +120,7 @@ public class Player : MonoBehaviour
     /// <param name="direction"> The direction of the input axis, raw. -1 for left, 1 for right</param>
     public void Run(float direction)
     {
-        if(isSprinting)
+        if (isSprinting)
             xVelocity = direction * sprintVelocity;
         else
             xVelocity = direction * runningVelocity;
@@ -167,7 +175,7 @@ public class Player : MonoBehaviour
     {
         jumpRising = isRising;
     }
-    
+
     #endregion
 
     #region Ray cast collider detecion
@@ -178,9 +186,9 @@ public class Player : MonoBehaviour
     private bool CheckGrounded()
     {
         bool result = (
-            Physics.Raycast(transform.position, new Vector3(0, -1, 0), height / 2 + vertiRayMargin) ||
-            Physics.Raycast(transform.position - new Vector3(width / 2f + vertiRayPadding, 0, 0), new Vector3(0, -1, 0), height / 2 + vertiRayMargin) ||
-            Physics.Raycast(transform.position + new Vector3(width / 2f - vertiRayPadding, 0, 0), new Vector3(0, -1, 0), height / 2 + vertiRayMargin)
+            Physics.Raycast(transform.position, new Vector3(0, -1, 0), height / 2 + vertiRayMargin, blockLayerMask) ||
+            Physics.Raycast(transform.position - new Vector3(width / 2f + vertiRayPadding, 0, 0), new Vector3(0, -1, 0), height / 2 + vertiRayMargin, blockLayerMask) ||
+            Physics.Raycast(transform.position + new Vector3(width / 2f - vertiRayPadding, 0, 0), new Vector3(0, -1, 0), height / 2 + vertiRayMargin, blockLayerMask)
             );
         if (!result && !animator.GetBool("isFalling"))
             animator.SetBool("isFalling", true);
@@ -200,7 +208,7 @@ public class Player : MonoBehaviour
         RaycastHit hit;
         for (int i = -1; i <= 1; i++)
         {
-            if (Physics.Raycast(transform.position + i * new Vector3(width / 2f - vertiRayPadding, 0, 0), new Vector3(0, direction, 0), out hit, height / 2f + vertiRayMargin))
+            if (Physics.Raycast(transform.position + i * new Vector3(width / 2f - vertiRayPadding, 0, 0), new Vector3(0, direction, 0), out hit, height / 2f + vertiRayMargin, blockLayerMask))
             {
                 if (yVelocity > 0)
                     cielingCollision = true;
@@ -227,7 +235,7 @@ public class Player : MonoBehaviour
         RaycastHit hit;
         for (int i = -1; i <= 1; i++)
         {
-            if (Physics.Raycast(transform.position + i * new Vector3(0, height / 2f - horizRayPadding, 0), new Vector3(direction, 0, 0), out hit, width / 2f + horizRayMargin))
+            if (Physics.Raycast(transform.position + i * new Vector3(0, height / 2f - horizRayPadding, 0), new Vector3(direction, 0, 0), out hit, width / 2f + horizRayMargin, blockLayerMask))
                 return (hit.distance - width / 2) * direction;
         }
         return xVelocity * Time.fixedDeltaTime;
@@ -252,7 +260,7 @@ public class Player : MonoBehaviour
 
     private void SetModelRightDirection(bool right)
     {
-        if(right)
+        if (right)
             model.transform.eulerAngles = new Vector3(0, lookRight, 0);
         else
             model.transform.eulerAngles = new Vector3(0, lookLeft, 0);
@@ -262,7 +270,7 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Start End Level
-    
+
     public void SetStartPlatform(Vector3 startPlatformPosition)
     {
         spawnPosition = startPlatformPosition + Vector3.up * (Block_Data.BlockSize + height * 1.2f) / 2f;
@@ -302,7 +310,7 @@ public class Player : MonoBehaviour
             xDistance = this.transform.position.x - goalPosition.x;
             if (Mathf.Abs(xDistance) > Mathf.Epsilon && Mathf.Sign(-xDistance) == sign)
             {
-                Run(sign/2f);
+                Run(sign / 2f);
             }
             else
             {
@@ -314,6 +322,40 @@ public class Player : MonoBehaviour
         model.transform.eulerAngles = new Vector3(0, lookAtCrowd, 0);
         animator.SetBool("isDancing", true);
     }
-    
+
+    #endregion
+
+    #region Interaction/Dialogue
+    public void Interact()
+    {
+        dialogueManager.HandlePlayerInteraction();
+    }
+
+    public override void StartLine(string line)
+    {
+        base.StartLine(line);
+        int random = UnityEngine.Random.Range(0, talkingTriggers.Length);
+        for (int i = 0; i < talkingTriggers.Length; i++)
+        {
+            if (i == random)
+                animator.SetTrigger(talkingTriggers[i]);
+            else
+                animator.ResetTrigger(talkingTriggers[i]);
+        }
+        animator.SetBool(talkingParam, true);
+    }
+
+    public override void StopLine()
+    {
+        base.StopLine();
+        animator.SetTrigger(idleTrigger);
+        animator.SetBool(talkingParam, false);
+    }
+
+    public void ResetAnimationState()
+    {
+        animator.Play("Idle");
+    }
+
     #endregion
 }
