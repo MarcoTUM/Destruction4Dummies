@@ -5,48 +5,68 @@ using UnityEngine;
 
 public class XboxInput : InputMethod
 {
+    private bool zoomPressed = false;
+
     public override float GetHorizontalDirection()
     {
-        throw new System.NotImplementedException();
+        float inputDir = Input.GetAxisRaw(InputDictionary.XboxLeftJoystickHorizontal);
+        if (inputDir > 0)
+            return 1f;
+        else if (inputDir < 0)
+            return -1f;
+        else
+            return 0f;
     }
 
     public override bool PressedSprintButton()
     {
-        throw new System.NotImplementedException();
+        return Input.GetKeyDown(InputDictionary.XboxYButton);//Not sure which button
     }
 
     public override bool PressedExitButton()
     {
-        throw new System.NotImplementedException();
+        return Input.GetKeyDown(InputDictionary.XboxStartButton);
     }
 
     public override bool PressedJump()
     {
-        throw new System.NotImplementedException();
+        return Input.GetKeyDown(InputDictionary.XboxAButton);
     }
 
     public override bool PressedRestartButton()
     {
-        throw new System.NotImplementedException();
+        return Input.GetKeyDown(InputDictionary.XboxBackButton);//Not sure if it would be better to switch restart and exit button;
     }
 
     public override bool ReleasedJump()
     {
-        throw new System.NotImplementedException();
+        return Input.GetKeyUp(InputDictionary.XboxAButton);
     }
 
     public override bool PressedZoomButton()
     {
-        throw new System.NotImplementedException();
+        if (zoomPressed)
+            return false;
+        if (Input.GetAxis(InputDictionary.XboxRightTrigger) > 0 || Input.GetAxis(InputDictionary.XboxLeftTrigger) > 0)
+        {
+            zoomPressed = true;
+            return true;
+        }
+        return false;
     }
 
     public override bool ReleasedZoomButton()
     {
-        throw new System.NotImplementedException();
+        if (zoomPressed && Input.GetAxis(InputDictionary.XboxRightTrigger) <= 0 && Input.GetAxis(InputDictionary.XboxLeftTrigger) <= 0)
+        {
+            zoomPressed = false;
+            return true;
+        }
+        return false;
     }
 
     public override bool PressedContinueButton()
     {
-        throw new System.NotImplementedException();
+        return Input.GetKeyDown(InputDictionary.XboxStartButton);
     }
 }
