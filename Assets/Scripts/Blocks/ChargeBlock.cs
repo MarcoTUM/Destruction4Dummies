@@ -43,9 +43,13 @@ public class ChargeBlock : Block
 
     protected override void OnTouch(GameObject player)
     {
-        GameObject.FindObjectOfType<PlayScene>().StartForceOutbreak(chargeTime, outbreakRadius, forceOutbreak);
-
         base.OnTouch(player);
+        if (Gamemaster.Instance.GetPlayer().canDestroy)
+        {
+            GameObject.FindObjectOfType<PlayScene>().StartForceOutbreak(chargeTime, outbreakRadius, forceOutbreak);
+            Gamemaster.Instance.GetPlayer().InvokeChargeBlock(chargeTime);
+        }
+        
     }
 
     protected override void OnTouchEnd(GameObject player)
