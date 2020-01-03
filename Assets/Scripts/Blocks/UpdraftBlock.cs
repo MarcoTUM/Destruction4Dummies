@@ -1,12 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 public class UpdraftBlock : Block
 {
     private Block_Data updraftBlockData;
+    private Collider blockCollider;
+    private VelocityOverLifetimeModule velModule;
+    private SizeOverLifetimeModule sizeModule;
+
     public override Block_Data BlockData { get => updraftBlockData; set => updraftBlockData = value; }
-    private const float updraftVelocity = 10f;
+    [SerializeField] private float updraftVelocity = 10f;
+    [SerializeField] private float particleVelocityMultiplier = 2f;
+    [SerializeField] private float particleSizeMultiplier = 1.5f;
+    protected override void Start()
+    {
+        base.Start();
+        blockCollider = this.GetComponent<Collider>();
+        ParticleSystem ps = this.GetComponentInChildren<ParticleSystem>();
+        velModule = ps.velocityOverLifetime;
+        sizeModule = ps.sizeOverLifetime;
+    }
 
     #region Initialization / Destruction
     public override void InitializeBlock(Block_Data data)
@@ -22,6 +37,9 @@ public class UpdraftBlock : Block
     public override void ResetBlock()
     {
         base.ResetBlock();
+        velModule.speedModifier = 1;
+        sizeModule.sizeMultiplier = 1;
+        blockCollider.enabled = true;
     }
 
     #endregion
@@ -31,9 +49,15 @@ public class UpdraftBlock : Block
     protected override void OnTouch(GameObject player)
     {
         base.OnTouch(player);
+        
         Player playerScript = player.GetComponent<Player>();
         playerScript.Updraft(updraftVelocity);
-        Instantiate(EffectManager.Instance.GetEffect(6), transform.position, Quaternion.identity);
+
+        blockCollider.enabled = false;
+        velModule.speedModifier = particleVelocityMultiplier;
+        sizeModule.sizeMultiplier = particleSizeMultiplier;
+
+
     }
 
     protected override void OnTouchEnd(GameObject player)
@@ -47,7 +71,6 @@ public class UpdraftBlock : Block
 
     protected override void SpawnDestructionEffect()
     {
-        Instantiate(EffectManager.Instance.GetEffect(3), transform.position, Quaternion.identity);
     }
 
     #endregion
