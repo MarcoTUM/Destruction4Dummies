@@ -87,7 +87,7 @@ public class PlayScene : MonoBehaviour
         StartCoroutine(forceOutbreakCoroutine);
     }
 
-    public void StopForceOutbreak(float chargeTime, float outbreakRadius, ParticleSystem forceOutbreak)
+    public void StopForceOutbreak()
     {
         StopCoroutine(forceOutbreakCoroutine);
     }

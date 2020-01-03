@@ -34,7 +34,7 @@ public class ChargeBlock : Block
 
     public override void ResetBlock()
     {
-        GameObject.FindObjectOfType<PlayScene>().StopForceOutbreak(chargeTime, outbreakRadius, forceOutbreak);
+        GameObject.FindObjectOfType<PlayScene>().StopForceOutbreak();
         base.ResetBlock();
     }
 
