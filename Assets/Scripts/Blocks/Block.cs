@@ -16,7 +16,8 @@ public enum BlockType
     Respawn     = 9,
     Charge      = 10,
     Restoreable = 11,
-    Restore     = 12
+    Restore     = 12,
+    Updraft     = 13
 };
 
 public abstract class Block : MonoBehaviour
