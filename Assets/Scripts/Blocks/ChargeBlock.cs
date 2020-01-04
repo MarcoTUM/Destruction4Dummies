@@ -54,4 +54,13 @@ public class ChargeBlock : Block
     }
 
     #endregion
+
+    #region helper
+
+    protected override void SpawnDestructionEffect()
+    {
+        Instantiate(EffectManager.Instance.GetEffect(9), transform.position, Quaternion.identity);
+    }
+
+    #endregion
 }
