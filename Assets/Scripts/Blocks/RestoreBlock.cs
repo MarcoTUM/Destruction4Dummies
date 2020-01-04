@@ -35,18 +35,32 @@ public class RestoreBlock : Block
 
     protected override void OnTouch(GameObject player)
     {
-        base.OnTouch(player);
+        // Have all restoreable blocks been restored?
+        bool allRestoreableBlocksAreRestored = true;
+
+        // Find all restoreable blocks int the scene
         GameObject[] blocks = GameObject.FindGameObjectsWithTag(TagDictionary.RestoreableBlock);
+
+        // Foreach restoreable block in the scene
         foreach (GameObject block in blocks)
         {
+            // Get the RestoreableBlock script
             RestoreableBlock blockScript = block.GetComponent<RestoreableBlock>();
+
+            // Get the block data
             RestoreableBlock_Data restoreableBlockData = (RestoreableBlock_Data)blockScript.BlockData;
 
+            // If the restoreable block and the restore block have the same ID
             if (restoreableBlockData.GetID() == ((RestoreBlock_Data)BlockData).GetID())
             {
-                blockScript.RestoreBlock();
+                // If the block didn't get restored
+                if (!blockScript.RestoreBlock())
+                    allRestoreableBlocksAreRestored = false; 
             }
         }
+
+        if(allRestoreableBlocksAreRestored)
+            base.OnTouch(player);
     }
 
     protected override void OnTouchEnd(GameObject player)
