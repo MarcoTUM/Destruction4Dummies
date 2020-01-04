@@ -2157,6 +2157,7 @@ MonoBehaviour:
   jumpVelocity: 6.5
   fallAccelaration: -20
   riseAcceleration: -10
+  updraftAcceleration: -10
   dropFromCielingVelocity: 2
   horizRayMargin: 0.1
   horizRayPadding: 0.1

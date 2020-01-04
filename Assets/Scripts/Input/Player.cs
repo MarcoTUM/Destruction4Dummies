@@ -14,14 +14,15 @@ public class Player : DialogueParticipant
     public float fallVelocityLimit;
     public float jumpVelocity;
 
-    public float fallAccelaration;
-    public float riseAcceleration;
-    private float yVelocity = 0f;
+    [SerializeField] private float fallAccelaration;
+    [SerializeField] private float riseAcceleration;
+    [SerializeField] private float updraftAcceleration;
+    private float yVelocity = 0f; //heightformula h = v_s^2 / (2*a) | v_s = startVelocity, a = negative acceleration
     private bool grounded = false;
     private bool cielingCollision = false;
     public float dropFromCielingVelocity;
     private bool jumpRising = false;
-
+    private bool isInUpdraft = false;
     private float xVelocity = 0f;
     private bool isSprinting = true;
 
@@ -101,8 +102,14 @@ public class Player : DialogueParticipant
                 AnimateJumpToFall();
                 return;
             }
+            //case: inUpdraft
+            if (yVelocity > 0 && isInUpdraft)
+            {
+                yVelocity = yVelocity + updraftAcceleration * Time.fixedDeltaTime;
+                return;
+            }
             //case: rising
-            if (yVelocity > 0 && jumpRising)
+            else if (yVelocity > 0 && jumpRising)
                 yVelocity = yVelocity + riseAcceleration * Time.fixedDeltaTime;
             //case: falling
             else
@@ -135,6 +142,7 @@ public class Player : DialogueParticipant
             SetModelRightDirection(false);
 
     }
+
     /// <summary>
     /// Jump
     /// </summary>
@@ -144,10 +152,22 @@ public class Player : DialogueParticipant
         {
             jumpRising = true;
             yVelocity += jumpVelocity;
-            StartCoroutine("AnimateJump");
+            StartCoroutine(AnimateJump());
             grounded = false;
         }
 
+    }
+    
+    /// <summary>
+    /// When Player touches Updraft Block their yVelocity will be set to a certain Amount
+    /// </summary>
+    /// <param name="updraftVelocity"></param>
+    public void Updraft(float updraftVelocity)
+    {
+        isInUpdraft = true;
+        StartCoroutine(AnimateJump());
+        yVelocity = updraftVelocity;
+        grounded = false;
     }
     #endregion
 
@@ -157,6 +177,7 @@ public class Player : DialogueParticipant
     /// </summary>
     private void Land()
     {
+        isInUpdraft = false;
         jumpRising = false;
         grounded = true;
         animator.SetBool("isFalling", false);
