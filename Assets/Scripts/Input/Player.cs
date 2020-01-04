@@ -51,12 +51,16 @@ public class Player : DialogueParticipant
     [HideInInspector] public bool IsOnGoal = false;
     private Renderer[] renderers;
     private Vector3 spawnPosition, goalPosition;
+    //dialogue
     private DialogueManager dialogueManager;
     public bool IsInteractingWithAdvisor = false;
     private int blockLayerMask;
+
+    //charge block
+    public bool canDestroy { get; private set; } = true;
     #endregion
 
-    #region Start, Update
+    #region Start, Update, onEnable
 
     private void Awake()
     {
@@ -67,6 +71,17 @@ public class Player : DialogueParticipant
         dialogueManager = GameObject.FindObjectOfType<DialogueManager>();
         blockLayerMask = LayerMask.GetMask(LayerDictionary.Block);
         Gamemaster.Instance.Register(this);
+    }
+
+    private void OnEnable()
+    {
+        canDestroy = true;
+        yVelocity = 0;
+    }
+
+    private void OnDisable()
+    {
+        StopCoroutine("ChargeBlock");
     }
 
     #endregion
@@ -376,6 +391,22 @@ public class Player : DialogueParticipant
     public void ResetAnimationState()
     {
         animator.Play("Idle");
+    }
+
+    #endregion
+
+    #region ChargeBlock
+
+    public void InvokeChargeBlock(float time)
+    {
+        StartCoroutine(ChargeBlock(time));
+    }
+
+    private IEnumerator ChargeBlock(float time)
+    {
+        canDestroy = false;
+        yield return new WaitForSeconds(time);
+        canDestroy = true;
     }
 
     #endregion

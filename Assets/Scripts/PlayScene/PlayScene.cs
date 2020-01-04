@@ -15,6 +15,8 @@ public class PlayScene : MonoBehaviour
     private Vector3 spawnPosition;
     private bool running = true;
 
+    private IEnumerator forceOutbreakCoroutine;
+
     private void Start()
     {
         player = Gamemaster.Instance.GetPlayer();
@@ -81,7 +83,17 @@ public class PlayScene : MonoBehaviour
     /// <param name="forceOutbreak">Force outbreak partcile system</param>
     public void StartForceOutbreak(float chargeTime, float outbreakRadius, ParticleSystem forceOutbreak)
     {
-        StartCoroutine(ForceOutbreak(chargeTime, outbreakRadius, forceOutbreak));
+        forceOutbreakCoroutine = ForceOutbreak(chargeTime, outbreakRadius, forceOutbreak);
+        StartCoroutine(forceOutbreakCoroutine);
+    }
+
+    public void StopForceOutbreak()
+    {
+        try
+        {
+            StopCoroutine(forceOutbreakCoroutine);
+        }
+        catch (NullReferenceException) { }
     }
 
     private IEnumerator ForceOutbreak(float chargeTime, float outbreakRadius, ParticleSystem forceOutbreak)
@@ -104,7 +116,7 @@ public class PlayScene : MonoBehaviour
             {
                 if (hitCollider.TryGetComponent<Block>(out Block block))
                 {
-                    block.StartBlockDestructionCoroutine();
+                    block.StartInstantBlockDestruction();
                 }
             }
         }

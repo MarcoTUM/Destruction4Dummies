@@ -37,6 +37,9 @@ public class ChainBlock : Block
     {
         //base.OnTouch(player);
 
+        if (!Gamemaster.Instance.GetPlayer().canDestroy)
+            return;
+
         GameObject[] chainBlocks = GameObject.FindGameObjectsWithTag("ChainBlock");
         foreach (GameObject chainBlock in chainBlocks)
         {
