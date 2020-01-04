@@ -89,7 +89,11 @@ public class PlayScene : MonoBehaviour
 
     public void StopForceOutbreak()
     {
-        StopCoroutine(forceOutbreakCoroutine);
+        try
+        {
+            StopCoroutine(forceOutbreakCoroutine);
+        }
+        catch (NullReferenceException) { }
     }
 
     private IEnumerator ForceOutbreak(float chargeTime, float outbreakRadius, ParticleSystem forceOutbreak)
@@ -112,7 +116,7 @@ public class PlayScene : MonoBehaviour
             {
                 if (hitCollider.TryGetComponent<Block>(out Block block))
                 {
-                    block.StartBlockDestructionCoroutine();
+                    block.StartInstantBlockDestruction();
                 }
             }
         }

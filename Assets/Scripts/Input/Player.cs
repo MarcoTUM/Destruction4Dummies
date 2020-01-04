@@ -74,8 +74,13 @@ public class Player : DialogueParticipant
 
     private void OnEnable()
     {
-        StopCoroutine("ChargeBlock");
         canDestroy = true;
+        yVelocity = 0;
+    }
+
+    private void OnDisable()
+    {
+        StopCoroutine("ChargeBlock");
     }
 
     #endregion

@@ -43,6 +43,7 @@ public abstract class Block : MonoBehaviour
     protected virtual void DestroyBlock()
     {
         // Set block inactive
+        SpawnDestructionEffect();
         this.gameObject.SetActive(false);
 
         // Recover texture
@@ -53,6 +54,11 @@ public abstract class Block : MonoBehaviour
     {
         // Start destruction coroutine
         StartCoroutine(StartBlockDestruction());
+    }
+
+    public void StartInstantBlockDestruction()
+    {
+        DestroyBlock();
     }
 
     /// <summary>
@@ -98,7 +104,6 @@ public abstract class Block : MonoBehaviour
             lifeTime -= Time.deltaTime;
         }
         DestroyBlock();
-        SpawnDestructionEffect();
     }
     #endregion
 
