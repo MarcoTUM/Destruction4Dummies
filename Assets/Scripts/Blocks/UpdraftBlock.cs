@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static UnityEngine.ParticleSystem;
 
 public class UpdraftBlock : Block
@@ -19,6 +20,11 @@ public class UpdraftBlock : Block
         base.Start();
         blockCollider = this.GetComponent<Collider>();
         ParticleSystem ps = this.GetComponentInChildren<ParticleSystem>();
+        if(SceneManager.GetActiveScene().name == SceneDictionary.LevelEditor)
+        {
+            ps.gameObject.SetActive(false);
+            this.GetComponent<Renderer>().enabled = true;
+        }
         velModule = ps.velocityOverLifetime;
         sizeModule = ps.sizeOverLifetime;
     }
