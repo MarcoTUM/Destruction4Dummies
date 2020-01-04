@@ -55,4 +55,13 @@ public class KeyBlock : Block
     }
 
     #endregion
+
+    #region helper
+
+    protected override void SpawnDestructionEffect()
+    {
+        Instantiate(EffectManager.Instance.GetEffect(7), transform.position, Quaternion.identity);
+    }
+
+    #endregion
 }

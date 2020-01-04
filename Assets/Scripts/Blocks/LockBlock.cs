@@ -69,4 +69,13 @@ public class LockBlock : Block
         gameObject.GetComponent<Renderer>().material = unlockMaterial;
         this.GetComponent<Renderer>().material.color = tempColor;
     }
+
+    #region helper
+
+    protected override void SpawnDestructionEffect()
+    {
+        Instantiate(EffectManager.Instance.GetEffect(7), transform.position, Quaternion.identity);
+    }
+
+    #endregion
 }
