@@ -59,4 +59,13 @@ public class ChainBlock : Block
     }
 
     #endregion
+
+    #region helper
+
+    protected override void SpawnDestructionEffect()
+    {
+        Instantiate(EffectManager.Instance.GetEffect(8), transform.position, Quaternion.identity);
+    }
+
+    #endregion
 }

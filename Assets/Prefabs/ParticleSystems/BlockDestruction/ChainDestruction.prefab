@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2332873758741114212}
   - component: {fileID: 834829750485446388}
   m_Layer: 0
-  m_Name: BlockDestruction
+  m_Name: ChainDestruction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -223,7 +223,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.8773585, g: 0.762063, b: 0.29383236, a: 1}
+      maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4718,7 +4718,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 8b9c943a563974641adc1499000c61ef, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
