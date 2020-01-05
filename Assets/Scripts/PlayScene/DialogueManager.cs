@@ -18,6 +18,7 @@ public struct DialogueLine
 public class DialogueManager : MonoBehaviour
 {
     [SerializeField] private DialogueParticipant[] participants = new DialogueParticipant[2];//0=Player, 1=Advisor
+    [SerializeField] private bool forceXboxDialogue = false;
     private Player player;
     private Advisor advisor;
     private int dialogueIndex = 0;
@@ -33,8 +34,8 @@ public class DialogueManager : MonoBehaviour
         advisor = (Advisor)participants[1];
         if (Gamemaster.Instance.GetLevelType() == LevelType.Main)
         {
-            Debug.Log(Gamemaster.Instance.GetLevelId());
-            lines = DialogueParser.GetDialogueLines(Gamemaster.Instance.GetLevelId());
+            bool usingXbox = forceXboxDialogue ? true : Gamemaster.Instance.GetPlayer().GetComponent<PlayerInputHandler>().IsUsingXbox;
+            lines = DialogueParser.GetDialogueLines(Gamemaster.Instance.GetLevelId() * (usingXbox ? -1 : 1));
             if (lines == null)
             {
                 DisableAdvisor();
