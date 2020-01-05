@@ -10,6 +10,14 @@ public class RestoreBlock : Block
     [SerializeField]
     private uint blockID = 0;
 
+    public AudioClip audioClip;
+    private AudioSource audioSource;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     #region Initialization / Destruction
     public override void InitializeBlock(Block_Data data)
     {
@@ -35,32 +43,39 @@ public class RestoreBlock : Block
 
     protected override void OnTouch(GameObject player)
     {
-        // Have all restoreable blocks been restored?
-        bool allRestoreableBlocksAreRestored = true;
-
-        // Find all restoreable blocks int the scene
-        GameObject[] blocks = GameObject.FindGameObjectsWithTag(TagDictionary.RestoreableBlock);
-
-        // Foreach restoreable block in the scene
-        foreach (GameObject block in blocks)
+        // If the player is able to destroy blocks
+        if (Gamemaster.Instance.GetPlayer().canDestroy)
         {
-            // Get the RestoreableBlock script
-            RestoreableBlock blockScript = block.GetComponent<RestoreableBlock>();
+            // Helper variable: Have all restoreable blocks been restored?
+            bool allRestoreableBlocksAreRestored = true;
 
-            // Get the block data
-            RestoreableBlock_Data restoreableBlockData = (RestoreableBlock_Data)blockScript.BlockData;
+            // Find all restoreable blocks int the scene
+            GameObject[] blocks = GameObject.FindGameObjectsWithTag(TagDictionary.RestoreableBlock);
 
-            // If the restoreable block and the restore block have the same ID
-            if (restoreableBlockData.GetID() == ((RestoreBlock_Data)BlockData).GetID())
+            // Foreach restoreable block in the scene
+            foreach (GameObject block in blocks)
             {
-                // If the block didn't get restored
-                if (!blockScript.RestoreBlock())
-                    allRestoreableBlocksAreRestored = false; 
+                // Get the RestoreableBlock script
+                RestoreableBlock blockScript = block.GetComponent<RestoreableBlock>();
+
+                // Get the block data
+                RestoreableBlock_Data restoreableBlockData = (RestoreableBlock_Data)blockScript.BlockData;
+
+                // If the restoreable block and the restore block have the same ID
+                if (restoreableBlockData.GetID() == ((RestoreBlock_Data)BlockData).GetID())
+                {
+                    // If the block didn't get restored
+                    if (!blockScript.RestoreBlock())
+                        allRestoreableBlocksAreRestored = false;
+                }
+            }
+
+            if (allRestoreableBlocksAreRestored)
+            {
+                audioSource.PlayOneShot(audioClip, Random.Range(0.5f, 1.5f));
+                base.OnTouch(player);
             }
         }
-
-        if(allRestoreableBlocksAreRestored)
-            base.OnTouch(player);
     }
 
     protected override void OnTouchEnd(GameObject player)

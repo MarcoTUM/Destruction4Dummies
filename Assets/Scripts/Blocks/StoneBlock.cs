@@ -7,6 +7,13 @@ public class StoneBlock : Block
     private Block_Data stoneBlockData = new StoneBlock_Data();
     public override Block_Data BlockData { get => stoneBlockData; set => stoneBlockData = value; }
 
+    public AudioClip audioClip;
+    private AudioSource audioSource;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     #region Initialization / Destruction
     public override void InitializeBlock(Block_Data data)
@@ -30,6 +37,10 @@ public class StoneBlock : Block
 
     protected override void OnTouch(GameObject player)
     {
+        if (Gamemaster.Instance.GetPlayer().canDestroy)
+        {
+            audioSource.PlayOneShot(audioClip, Random.Range(0.5f, 1.5f));
+        }
         base.OnTouch(player);
     }
 
