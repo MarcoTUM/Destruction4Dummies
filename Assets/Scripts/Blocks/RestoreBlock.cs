@@ -66,15 +66,18 @@ public class RestoreBlock : Block
                 {
                     // If the block didn't get restored
                     if (!blockScript.RestoreBlock())
+                    {
                         allRestoreableBlocksAreRestored = false;
+                        blockScript.StartInstantBlockDestruction();
+                    }
                 }
             }
 
-            if (allRestoreableBlocksAreRestored)
-            {
+            //if (allRestoreableBlocksAreRestored)
+            //{
                 audioSource.PlayOneShot(audioClip, Random.Range(0.5f, 1.5f));
                 base.OnTouch(player);
-            }
+            //}
         }
     }
 
