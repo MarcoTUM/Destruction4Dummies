@@ -10,6 +10,14 @@ public class RestoreBlock : Block
     [SerializeField]
     private uint blockID = 0;
 
+    public AudioClip audioClip;
+    private AudioSource audioSource;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     #region Initialization / Destruction
     public override void InitializeBlock(Block_Data data)
     {
@@ -35,17 +43,41 @@ public class RestoreBlock : Block
 
     protected override void OnTouch(GameObject player)
     {
-        base.OnTouch(player);
-        GameObject[] blocks = GameObject.FindGameObjectsWithTag(TagDictionary.RestoreableBlock);
-        foreach (GameObject block in blocks)
+        // If the player is able to destroy blocks
+        if (Gamemaster.Instance.GetPlayer().canDestroy)
         {
-            RestoreableBlock blockScript = block.GetComponent<RestoreableBlock>();
-            RestoreableBlock_Data restoreableBlockData = (RestoreableBlock_Data)blockScript.BlockData;
+            // Helper variable: Have all restoreable blocks been restored?
+            bool allRestoreableBlocksAreRestored = true;
 
-            if (restoreableBlockData.GetID() == ((RestoreBlock_Data)BlockData).GetID())
+            // Find all restoreable blocks int the scene
+            GameObject[] blocks = GameObject.FindGameObjectsWithTag(TagDictionary.RestoreableBlock);
+
+            // Foreach restoreable block in the scene
+            foreach (GameObject block in blocks)
             {
-                blockScript.RestoreBlock();
+                // Get the RestoreableBlock script
+                RestoreableBlock blockScript = block.GetComponent<RestoreableBlock>();
+
+                // Get the block data
+                RestoreableBlock_Data restoreableBlockData = (RestoreableBlock_Data)blockScript.BlockData;
+
+                // If the restoreable block and the restore block have the same ID
+                if (restoreableBlockData.GetID() == ((RestoreBlock_Data)BlockData).GetID())
+                {
+                    // If the block didn't get restored
+                    if (!blockScript.RestoreBlock())
+                    {
+                        allRestoreableBlocksAreRestored = false;
+                        blockScript.StartInstantBlockDestruction();
+                    }
+                }
             }
+
+            //if (allRestoreableBlocksAreRestored)
+            //{
+                audioSource.PlayOneShot(audioClip, Random.Range(0.5f, 1.5f));
+                base.OnTouch(player);
+            //}
         }
     }
 

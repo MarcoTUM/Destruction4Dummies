@@ -50,7 +50,6 @@ public class ChargeBlock : Block
             GameObject.FindObjectOfType<PlayScene>().StartForceOutbreak(chargeTime, outbreakRadius, forceOutbreak);
             Gamemaster.Instance.GetPlayer().InvokeChargeBlock(chargeTime);
         }
-        
     }
 
     protected override void OnTouchEnd(GameObject player)
