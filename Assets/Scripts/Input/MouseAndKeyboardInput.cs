@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class MouseAndKeyboardInput : InputMethod
 {
+    private enum PressedJumpButton { None, Space, W, Up };
+    private PressedJumpButton pressedJumpButton = PressedJumpButton.None;
 
     public override float GetHorizontalDirection()
     {
@@ -19,7 +21,24 @@ public class MouseAndKeyboardInput : InputMethod
 
     public override bool PressedJump()
     {
-        return Input.GetButtonDown(InputDictionary.Jump);
+        if (pressedJumpButton != PressedJumpButton.None)
+            return false;
+        if (Input.GetButtonDown(InputDictionary.Jump))
+        {
+            pressedJumpButton = PressedJumpButton.Space;
+            return true;
+        }
+        else if (Input.GetKeyDown(KeyCode.W))
+        {
+            pressedJumpButton = PressedJumpButton.W;
+            return true;
+        }
+        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            pressedJumpButton = PressedJumpButton.Up;
+            return true;
+        }
+        return false;
     }
 
     public override bool PressedRestartButton()
@@ -34,7 +53,24 @@ public class MouseAndKeyboardInput : InputMethod
 
     public override bool ReleasedJump()
     {
-        return Input.GetButtonUp(InputDictionary.Jump);
+        if (pressedJumpButton == PressedJumpButton.None)
+            return false;
+        if (pressedJumpButton == PressedJumpButton.Space && Input.GetButtonUp(InputDictionary.Jump))
+        {
+            pressedJumpButton = PressedJumpButton.None;
+            return true;
+        }
+        else if (pressedJumpButton == PressedJumpButton.W && Input.GetKeyUp(KeyCode.W))
+        {
+            pressedJumpButton = PressedJumpButton.None;
+            return true;
+        }
+        else if (pressedJumpButton == PressedJumpButton.Up && Input.GetKeyUp(KeyCode.UpArrow))
+        {
+            pressedJumpButton = PressedJumpButton.None;
+            return true;
+        }
+        return false;   
     }
 
     public override bool PressedZoomButton()
