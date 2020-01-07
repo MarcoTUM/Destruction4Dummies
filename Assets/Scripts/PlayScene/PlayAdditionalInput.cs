@@ -10,12 +10,15 @@ public class PlayAdditionalInput : MonoBehaviour
     private PlayScene playScene;
     private PlayCameraControl camControl;
     private PlaySceneUI playUI;
+    private PlayerInputHandler playerInputHandler;
     void Start()
     {
         playScene = this.GetComponent<PlayScene>();
         camControl = Camera.main.GetComponent<PlayCameraControl>();
         playUI = Gamemaster.Instance.GetPlaySceneUI();
-        if (Input.GetJoystickNames().Length > 0 && Input.GetJoystickNames()[0] != "")
+        playerInputHandler = Gamemaster.Instance.GetPlayer().GetComponent<PlayerInputHandler>();
+        bool IsUsingXbox = playerInputHandler.IsUsingXbox;
+        if (IsUsingXbox)
         {
             input = this.GetComponent<XboxInput>();
         }
@@ -27,26 +30,37 @@ public class PlayAdditionalInput : MonoBehaviour
 
     void Update()
     {
-        if (!playUI.IsOpen)
-        {
-            if (input.PressedZoomButton())
-            {
-                camControl.StartZoomOut();
-            }
-            else if (input.ReleasedZoomButton())
-            {
-                camControl.StartZoomIn();
-            }
+					
+        if (playerInputHandler.IsInDialogue) //Prevent any additional inputs during dialogues
+            return;
 
-            if (input.PressedExitButton())
-            {
-                SceneManager.LoadScene(Gamemaster.Instance.GetLevelType() == LevelType.Test ? SceneDictionary.LevelEditor : SceneDictionary.MainMenu);
-            }
-            else if (input.PressedRestartButton())
-            {
-                playScene.KillPlayer();
-            }
-        }
+        if (!playUI.IsOpen)
+		{
+			if (input.PressedZoomButton())
+			{
+				camControl.StartZoomOut();
+			}
+			else if (input.ReleasedZoomButton())
+			{
+				if (input.PressedZoomButton())
+				{
+					camControl.StartZoomOut();
+				}
+				else if (input.ReleasedZoomButton())
+				{
+					camControl.StartZoomIn();
+				}
+
+				if (input.PressedExitButton())
+				{
+					SceneManager.LoadScene(Gamemaster.Instance.GetLevelType() == LevelType.Test ? SceneDictionary.LevelEditor : SceneDictionary.MainMenu);
+				}
+				else if (input.PressedRestartButton())
+				{
+					playScene.KillPlayer();
+				}
+			}
+		}
         if (playUI.IsOpen && Gamemaster.Instance.GetLevelType() == LevelType.Main && input.PressedContinueButton())
         {
             playUI.NextLevel();

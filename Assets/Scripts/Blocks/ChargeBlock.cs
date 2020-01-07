@@ -34,6 +34,7 @@ public class ChargeBlock : Block
 
     public override void ResetBlock()
     {
+        GameObject.FindObjectOfType<PlayScene>().StopForceOutbreak();
         base.ResetBlock();
     }
 
@@ -43,14 +44,26 @@ public class ChargeBlock : Block
 
     protected override void OnTouch(GameObject player)
     {
-        GameObject.FindObjectOfType<PlayScene>().StartForceOutbreak(chargeTime, outbreakRadius, forceOutbreak);
-
         base.OnTouch(player);
+        if (Gamemaster.Instance.GetPlayer().canDestroy)
+        {
+            GameObject.FindObjectOfType<PlayScene>().StartForceOutbreak(chargeTime, outbreakRadius, forceOutbreak);
+            Gamemaster.Instance.GetPlayer().InvokeChargeBlock(chargeTime);
+        }
     }
 
     protected override void OnTouchEnd(GameObject player)
     {
         base.OnTouchEnd(player);
+    }
+
+    #endregion
+
+    #region helper
+
+    protected override void SpawnDestructionEffect()
+    {
+        Instantiate(EffectManager.Instance.GetEffect(9), transform.position, Quaternion.identity);
     }
 
     #endregion

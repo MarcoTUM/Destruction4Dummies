@@ -37,6 +37,9 @@ public class ChainBlock : Block
     {
         //base.OnTouch(player);
 
+        if (!Gamemaster.Instance.GetPlayer().canDestroy)
+            return;
+
         GameObject[] chainBlocks = GameObject.FindGameObjectsWithTag("ChainBlock");
         foreach (GameObject chainBlock in chainBlocks)
         {
@@ -53,6 +56,15 @@ public class ChainBlock : Block
     protected override void OnTouchEnd(GameObject player)
     {
         base.OnTouchEnd(player);
+    }
+
+    #endregion
+
+    #region helper
+
+    protected override void SpawnDestructionEffect()
+    {
+        Instantiate(EffectManager.Instance.GetEffect(8), transform.position, Quaternion.identity);
     }
 
     #endregion

@@ -17,7 +17,7 @@ public class LevelEditor : MonoBehaviour
     [SerializeField] private EditorInput editorInput;
     [SerializeField] private InputField levelNameInputField;
     [SerializeField] private LevelEditorMenu menu;
-    private Block_Data[] blockDatas = new Block_Data[13] {  new StartBlock_Data(),
+    private Block_Data[] blockDatas = new Block_Data[14] {  new StartBlock_Data(),
                                                             new GoalBlock_Data(),
                                                             new EmptyBlock_Data(),
                                                             new WoodBlock_Data(),
@@ -29,7 +29,8 @@ public class LevelEditor : MonoBehaviour
                                                             new RespawnBlock_Data(),
                                                             new ChargeBlock_Data(),
                                                             new RestoreableBlock_Data(),
-                                                            new RestoreBlock_Data()};
+                                                            new RestoreBlock_Data(),
+                                                            new UpdraftBlock_Data()};
 
     private Block_Data currentBlockData = new EmptyBlock_Data();
     private Level_Data data;
@@ -80,6 +81,10 @@ public class LevelEditor : MonoBehaviour
         if (blockType >= 0 && blockType < blockDatas.Length)
         {
             currentBlockData = blockDatas[blockType];
+        }
+        else
+        {
+            throw new InvalidDataException("BlockType not in range of prefab array! Length is: " + blockDatas.Length + ", but blockType is: " + blockType);
         }
     }
 

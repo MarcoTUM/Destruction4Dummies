@@ -30,7 +30,20 @@ public class RespawnBlock : Block
 
     public override void ResetBlock()
     {
-        base.ResetBlock();
+        bool respawnsOnPlayer = false;
+
+        Collider[] hitColliders = Physics.OverlapBox(transform.position, transform.localScale / 2.0f);
+
+        foreach (Collider hitCollider in hitColliders)
+        {
+            if (hitCollider.gameObject.tag.Equals("Player"))
+                respawnsOnPlayer = true;
+        }
+
+        if(!respawnsOnPlayer)
+            base.ResetBlock();
+        else
+            GameObject.FindObjectOfType<PlayScene>().RespawnRespawnBlocks(this, respawnTime);
     }
 
     #endregion

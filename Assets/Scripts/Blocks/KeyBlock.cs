@@ -10,6 +10,14 @@ public class KeyBlock : Block
     [SerializeField]
     private uint blockID = 0;
 
+    public AudioClip audioClip;
+    private AudioSource audioSource;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     #region Initialization / Destruction
     public override void InitializeBlock(Block_Data data)
     {
@@ -35,23 +43,39 @@ public class KeyBlock : Block
 
     protected override void OnTouch(GameObject player)
     {
-        GameObject[] blocks = GameObject.FindGameObjectsWithTag(TagDictionary.LockBlock);
-        foreach (GameObject block in blocks)
+        // If the player is able to destroy blocks
+        if (Gamemaster.Instance.GetPlayer().canDestroy)
         {
-            LockBlock blockScript = block.GetComponent<LockBlock>();
-            LockBlock_Data lockBlockData = (LockBlock_Data)blockScript.BlockData;
-
-            if (lockBlockData.GetID() == ((KeyBlock_Data)BlockData).GetID())
+            GameObject[] blocks = GameObject.FindGameObjectsWithTag(TagDictionary.LockBlock);
+            foreach (GameObject block in blocks)
             {
-                blockScript.UnlockBlock();
+                LockBlock blockScript = block.GetComponent<LockBlock>();
+                LockBlock_Data lockBlockData = (LockBlock_Data)blockScript.BlockData;
+
+                if (lockBlockData.GetID() == ((KeyBlock_Data)BlockData).GetID())
+                {
+                    blockScript.UnlockBlock();
+                }
             }
+
+            audioSource.PlayOneShot(audioClip, Random.Range(0.5f, 1.5f));
+
+            base.OnTouch(player);
         }
-        base.OnTouch(player);
     }
 
     protected override void OnTouchEnd(GameObject player)
     {
         base.OnTouchEnd(player);
+    }
+
+    #endregion
+
+    #region helper
+
+    protected override void SpawnDestructionEffect()
+    {
+        Instantiate(EffectManager.Instance.GetEffect(7), transform.position, Quaternion.identity);
     }
 
     #endregion

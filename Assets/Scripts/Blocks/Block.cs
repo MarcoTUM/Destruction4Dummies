@@ -16,7 +16,8 @@ public enum BlockType
     Respawn     = 9,
     Charge      = 10,
     Restoreable = 11,
-    Restore     = 12
+    Restore     = 12,
+    Updraft     = 13
 };
 
 public abstract class Block : MonoBehaviour
@@ -43,6 +44,7 @@ public abstract class Block : MonoBehaviour
     protected virtual void DestroyBlock()
     {
         // Set block inactive
+        SpawnDestructionEffect();
         this.gameObject.SetActive(false);
 
         // Recover texture
@@ -53,6 +55,11 @@ public abstract class Block : MonoBehaviour
     {
         // Start destruction coroutine
         StartCoroutine(StartBlockDestruction());
+    }
+
+    public void StartInstantBlockDestruction()
+    {
+        DestroyBlock();
     }
 
     /// <summary>
@@ -72,7 +79,8 @@ public abstract class Block : MonoBehaviour
     protected virtual void OnTouch(GameObject player)
     {
         isTouchingPlayer = true;
-        StartCoroutine(StartBlockDestruction());
+        if(Gamemaster.Instance.GetPlayer().canDestroy)
+            StartCoroutine(StartBlockDestruction());
     }
 
     /// <summary>
@@ -97,7 +105,6 @@ public abstract class Block : MonoBehaviour
             lifeTime -= Time.deltaTime;
         }
         DestroyBlock();
-        SpawnDestructionEffect();
     }
     #endregion
 

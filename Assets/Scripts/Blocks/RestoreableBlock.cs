@@ -60,9 +60,28 @@ public class RestoreableBlock : Block
 
     #endregion
 
-    public void RestoreBlock()
+    public bool RestoreBlock()
     {
-        gameObject.GetComponent<Renderer>().material = restoredMaterial;
-        gameObject.GetComponent<Collider>().enabled = true;
+        bool respawnsOnPlayer = false;
+
+        Collider[] hitColliders = Physics.OverlapBox(transform.position, transform.localScale / 2.0f);
+
+        foreach (Collider hitCollider in hitColliders)
+        {
+            if (hitCollider.gameObject.tag.Equals("Player"))
+                respawnsOnPlayer = true;
+        }
+
+        if (!respawnsOnPlayer)
+        {
+            gameObject.GetComponent<Renderer>().material = restoredMaterial;
+            gameObject.GetComponent<Collider>().enabled = true;
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
