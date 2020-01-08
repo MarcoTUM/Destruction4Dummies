@@ -119,7 +119,7 @@ public class PlayCameraControl : MonoBehaviour
 
     public void StartZoomIn()
     {
-        if (!cameraFollow)
+        if (!cameraFollow || zoomRoutine == null)
             return;
 
         StopCoroutine(zoomRoutine);

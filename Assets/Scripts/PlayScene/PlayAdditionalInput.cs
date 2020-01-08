@@ -50,17 +50,17 @@ public class PlayAdditionalInput : MonoBehaviour
 				{
 					camControl.StartZoomIn();
 				}
-
-				if (input.PressedExitButton())
-				{
-					SceneManager.LoadScene(Gamemaster.Instance.GetLevelType() == LevelType.Test ? SceneDictionary.LevelEditor : SceneDictionary.MainMenu);
-				}
-				else if (input.PressedRestartButton())
-				{
-					playScene.KillPlayer();
-				}
 			}
-		}
+            
+            if (input.PressedExitButton())
+            {
+                SceneManager.LoadScene(Gamemaster.Instance.GetLevelType() == LevelType.Test ? SceneDictionary.LevelEditor : SceneDictionary.MainMenu);
+            }
+            else if (input.PressedRestartButton())
+            {
+                playScene.KillPlayer();
+            }
+        }
         if (playUI.IsOpen && Gamemaster.Instance.GetLevelType() == LevelType.Main && input.PressedContinueButton())
         {
             playUI.NextLevel();
