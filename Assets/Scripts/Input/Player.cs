@@ -13,7 +13,7 @@ public class Player : DialogueParticipant
     public float sprintVelocity;
     public float fallVelocityLimit;
     public float jumpVelocity;
-
+    public Renderer ShoesRenderer;
     [SerializeField] private float fallAccelaration;
     [SerializeField] private float riseAcceleration;
     [SerializeField] private float updraftAcceleration;
