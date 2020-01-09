@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 946430ba5d246a741ad5eade5392e961, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeTime: 1.2
+  lifeTime: 1.5
   destructionTexture: {fileID: 2800000, guid: c7ec999327202354a86aa34da73b7a36, type: 3}
   audioClip: {fileID: 8300000, guid: e3ef82bdb27025046a710055ac9f6d32, type: 3}
 --- !u!82 &-341853126093334359
