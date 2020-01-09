@@ -54,6 +54,8 @@ public class UpdraftBlock : Block
 
     protected override void OnTouch(GameObject player)
     {
+        if (TouchedOnGoal())
+            return;
         base.OnTouch(player);
         
         Player playerScript = player.GetComponent<Player>();

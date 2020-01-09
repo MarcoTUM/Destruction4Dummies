@@ -11,7 +11,8 @@ public class StartBlock : Block
     
     protected override void OnTouch(GameObject player)
     {
-
+        if (TouchedOnGoal())
+            return;
     }
 
     protected override void OnTouchEnd(GameObject player)

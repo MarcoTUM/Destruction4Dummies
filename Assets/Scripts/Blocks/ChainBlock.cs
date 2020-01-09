@@ -36,7 +36,8 @@ public class ChainBlock : Block
     protected override void OnTouch(GameObject player)
     {
         //base.OnTouch(player);
-
+        if (TouchedOnGoal())
+            return;
         if (!Gamemaster.Instance.GetPlayer().canDestroy)
             return;
 

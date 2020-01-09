@@ -47,6 +47,8 @@ public class LockBlock : Block
 
     protected override void OnTouch(GameObject player)
     {
+        if (TouchedOnGoal())
+            return;
         // If the the lockBlock is unlocked
         if (!((LockBlock_Data)BlockData).GetLock())
         {

@@ -58,7 +58,7 @@ public abstract class Block : MonoBehaviour
         blockDestructionCoroutine = StartCoroutine(StartBlockDestruction());
     }
 
-    public void StartInstantBlockDestruction()
+    public void StartInstantBlockDestruction()//Why do we have this method?
     {
         DestroyBlock();
     }
@@ -85,6 +85,8 @@ public abstract class Block : MonoBehaviour
     protected virtual void OnTouch(GameObject player)
     {
         isTouchingPlayer = true;
+        if (TouchedOnGoal())
+            return;
         if(Gamemaster.Instance.GetPlayer().canDestroy)
             blockDestructionCoroutine = StartCoroutine(StartBlockDestruction());
     }
@@ -115,6 +117,16 @@ public abstract class Block : MonoBehaviour
     #endregion
 
     #region Helper
+
+    protected bool TouchedOnGoal()
+    {
+        if (Gamemaster.Instance.GetPlayer().IsOnGoal)
+        {
+            DestroyBlock();
+            return true;
+        }
+        return false;
+    }
 
     protected virtual void SpawnDestructionEffect()
     {

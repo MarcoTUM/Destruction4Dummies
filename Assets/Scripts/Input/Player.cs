@@ -324,7 +324,9 @@ public class Player : DialogueParticipant
     public void ReachGoalPlatform()
     {
         Vector2Int goalPlatformPosition = Gamemaster.Instance.GetLevel().GetLevelData().GoalPlatformCoordinates;
-        this.GetComponent<Collider>().enabled = false;
+        Vector3 colSize = this.GetComponent<BoxCollider>().size;
+        colSize.x *= 3;
+        this.GetComponent<BoxCollider>().size = colSize;
         IsOnGoal = true;
         goalPosition = new Vector3(goalPlatformPosition.x, goalPlatformPosition.y + (Block_Data.BlockSize + height) / 2f, 0);
         StartCoroutine(GoalAnimation());
