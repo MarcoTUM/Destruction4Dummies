@@ -224,7 +224,8 @@ public class Level : MonoBehaviour
     {
         for (int i = 0; i < platformWidth; i++)
         {
-            if (!levelData.BlockMap[Mathf.Clamp(x + i - platformWidth / 2, 0, width - 1), y].IsReplaceable)
+            Block_Data block = levelData.BlockMap[Mathf.Clamp(x + i - platformWidth / 2, 0, width - 1), y];
+            if (block.BlockType != BlockType.Goal && !block.IsReplaceable)
                 return false;
         }
         return true;
