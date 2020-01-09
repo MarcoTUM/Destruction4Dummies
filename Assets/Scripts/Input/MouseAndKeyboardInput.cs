@@ -9,6 +9,11 @@ public class MouseAndKeyboardInput : InputMethod
     private enum PressedJumpButton { None, Space, W, Up };
     private PressedJumpButton pressedJumpButton = PressedJumpButton.None;
 
+    private void OnDisable()
+    {
+        pressedJumpButton = PressedJumpButton.None;
+    }
+
     public override float GetHorizontalDirection()
     {
         return Input.GetAxisRaw(InputDictionary.Horizontal);
