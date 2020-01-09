@@ -8,6 +8,7 @@ using UnityEngine;
 public abstract class InputMethod : MonoBehaviour
 {
     public abstract float GetHorizontalDirection();
+    public abstract bool PressedInteract();
     public abstract bool PressedJump();
     public abstract bool ReleasedJump();
     public abstract bool PressedExitButton();

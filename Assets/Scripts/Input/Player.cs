@@ -363,6 +363,11 @@ public class Player : DialogueParticipant
     #endregion
 
     #region Interaction/Dialogue
+
+    public bool IsGrounded()
+    {
+        return grounded;
+    }
     public void Interact()
     {
         dialogueManager.HandlePlayerInteraction();

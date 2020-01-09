@@ -70,7 +70,7 @@ public class MouseAndKeyboardInput : InputMethod
             pressedJumpButton = PressedJumpButton.None;
             return true;
         }
-        return false;   
+        return false;
     }
 
     public override bool PressedZoomButton()
@@ -87,5 +87,11 @@ public class MouseAndKeyboardInput : InputMethod
     {
         return Input.GetKeyDown(KeyCode.Return);
     }
+
+    public override bool PressedInteract()
+    {
+        return Input.GetButtonDown(InputDictionary.Jump);
+    }
+
 }
 
