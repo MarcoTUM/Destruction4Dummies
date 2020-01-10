@@ -45,8 +45,11 @@ public class PlayerInputHandler : MonoBehaviour
 
         if (input.PressedJump())
         {
-            if (player.IsInteractingWithAdvisor)
+            if (player.IsInteractingWithAdvisor && player.IsGrounded())
+            {
                 player.Interact();
+                player.Run(0);
+            }
             else
                 player.JumpAction();
         }
@@ -59,7 +62,8 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void HandleDialogueInput()
     {
-        if (input.PressedJump())
+        input.ReleasedJump();
+        if (input.PressedInteract())
         {
             player.Interact();
         }

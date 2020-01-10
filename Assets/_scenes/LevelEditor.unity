@@ -202,7 +202,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 362844010}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.5
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2777,7 +2777,7 @@ MonoBehaviour:
   canvas: {fileID: 1507724821}
   menuBar: {fileID: 1022902141}
   blockSelection: {fileID: 1245070847}
-  keyboardSpeedMultiplier: 1.5
+  keyboardSpeedMultiplier: 1.8
   mouseSpeedMultiplier: 3
   zoomSpeed: 1
   minZoom: 5

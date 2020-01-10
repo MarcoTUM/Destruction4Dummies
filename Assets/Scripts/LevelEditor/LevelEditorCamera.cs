@@ -47,8 +47,8 @@ public class LevelEditorCamera : MonoBehaviour
 
         if (mouseScroll)
         {
-            horizontal = (Input.mousePosition.x - mouseScrollStart.x) / Screen.width * mouseSpeedMultiplier;
-            vertical = (Input.mousePosition.y - mouseScrollStart.y) / Screen.height * mouseSpeedMultiplier;
+            horizontal = -(Input.mousePosition.x - mouseScrollStart.x) / Screen.width * mouseSpeedMultiplier;
+            vertical = -(Input.mousePosition.y - mouseScrollStart.y) / Screen.height * mouseSpeedMultiplier;
         }
         else if(!nameInputField.isFocused)
         {

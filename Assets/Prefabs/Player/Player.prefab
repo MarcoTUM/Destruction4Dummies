@@ -2155,6 +2155,7 @@ MonoBehaviour:
   sprintVelocity: 4
   fallVelocityLimit: 10
   jumpVelocity: 6.5
+  ShoesRenderer: {fileID: 7947623378067440636}
   fallAccelaration: -20
   riseAcceleration: -10
   updraftAcceleration: -10

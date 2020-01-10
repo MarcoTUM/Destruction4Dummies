@@ -30,6 +30,7 @@ public abstract class Block : MonoBehaviour
     [SerializeField] public Texture destructionTexture;
     private Texture recoveryTexture;
 
+    private Coroutine blockDestructionCoroutine;
     #region Initialization / Destruction
     /// <summary>
     /// Sets the BlockData of a block and initializes the block (e.g. id for group blocks / timers for charge)
@@ -54,7 +55,7 @@ public abstract class Block : MonoBehaviour
     public void StartBlockDestructionCoroutine()
     {
         // Start destruction coroutine
-        StartCoroutine(StartBlockDestruction());
+        blockDestructionCoroutine = StartCoroutine(StartBlockDestruction());
     }
 
     public void StartInstantBlockDestruction()
@@ -67,6 +68,11 @@ public abstract class Block : MonoBehaviour
     /// </summary>
     public virtual void ResetBlock()
     {
+        if (blockDestructionCoroutine != null)
+        {
+            StopCoroutine(blockDestructionCoroutine);
+            gameObject.GetComponent<Renderer>().material.mainTexture = recoveryTexture;
+        }
         this.gameObject.SetActive(true);
         lifeTime = currentLifeTime;
     }
@@ -79,8 +85,10 @@ public abstract class Block : MonoBehaviour
     protected virtual void OnTouch(GameObject player)
     {
         isTouchingPlayer = true;
+        if (TouchedOnGoal())
+            return;
         if(Gamemaster.Instance.GetPlayer().canDestroy)
-            StartCoroutine(StartBlockDestruction());
+            blockDestructionCoroutine = StartCoroutine(StartBlockDestruction());
     }
 
     /// <summary>
@@ -109,6 +117,16 @@ public abstract class Block : MonoBehaviour
     #endregion
 
     #region Helper
+
+    protected bool TouchedOnGoal()
+    {
+        if (Gamemaster.Instance.GetPlayer().IsOnGoal)
+        {
+            DestroyBlock();
+            return true;
+        }
+        return false;
+    }
 
     protected virtual void SpawnDestructionEffect()
     {

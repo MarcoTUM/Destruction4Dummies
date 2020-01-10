@@ -69,4 +69,10 @@ public class XboxInput : InputMethod
     {
         return Input.GetKeyDown(InputDictionary.XboxStartButton);
     }
+
+    public override bool PressedInteract()
+    {
+        return Input.GetKeyDown(InputDictionary.XboxAButton);
+    }
+    
 }

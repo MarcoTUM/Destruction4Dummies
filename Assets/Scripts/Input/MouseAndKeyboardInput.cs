@@ -9,6 +9,11 @@ public class MouseAndKeyboardInput : InputMethod
     private enum PressedJumpButton { None, Space, W, Up };
     private PressedJumpButton pressedJumpButton = PressedJumpButton.None;
 
+    private void OnDisable()
+    {
+        pressedJumpButton = PressedJumpButton.None;
+    }
+
     public override float GetHorizontalDirection()
     {
         return Input.GetAxisRaw(InputDictionary.Horizontal);
@@ -70,7 +75,7 @@ public class MouseAndKeyboardInput : InputMethod
             pressedJumpButton = PressedJumpButton.None;
             return true;
         }
-        return false;   
+        return false;
     }
 
     public override bool PressedZoomButton()
@@ -87,5 +92,11 @@ public class MouseAndKeyboardInput : InputMethod
     {
         return Input.GetKeyDown(KeyCode.Return);
     }
+
+    public override bool PressedInteract()
+    {
+        return Input.GetButtonDown(InputDictionary.Jump);
+    }
+
 }
 

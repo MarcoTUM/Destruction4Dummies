@@ -43,6 +43,8 @@ public class RestoreBlock : Block
 
     protected override void OnTouch(GameObject player)
     {
+        if (TouchedOnGoal())
+            return;
         // If the player is able to destroy blocks
         if (Gamemaster.Instance.GetPlayer().canDestroy)
         {

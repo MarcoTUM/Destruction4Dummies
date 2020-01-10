@@ -44,6 +44,8 @@ public class ChargeBlock : Block
 
     protected override void OnTouch(GameObject player)
     {
+        if (TouchedOnGoal())
+            return;
         base.OnTouch(player);
         if (Gamemaster.Instance.GetPlayer().canDestroy)
         {

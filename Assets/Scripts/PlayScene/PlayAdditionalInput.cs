@@ -30,28 +30,29 @@ public class PlayAdditionalInput : MonoBehaviour
 
     void Update()
     {
-					
+
         if (playerInputHandler.IsInDialogue) //Prevent any additional inputs during dialogues
+        {
+            if (input.ReleasedZoomButton())
+            {
+                camControl.StartZoomIn();
+            }
             return;
+        }
+            
 
         if (!playUI.IsOpen)
-		{
-			if (input.PressedZoomButton())
-			{
-				camControl.StartZoomOut();
-			}
-			else if (input.ReleasedZoomButton())
-			{
-				if (input.PressedZoomButton())
-				{
-					camControl.StartZoomOut();
-				}
-				else if (input.ReleasedZoomButton())
-				{
-					camControl.StartZoomIn();
-				}
-			}
-            
+        {
+
+            if (input.PressedZoomButton())
+            {
+                camControl.StartZoomOut();
+            }
+            else if (input.ReleasedZoomButton())
+            {
+                camControl.StartZoomIn();
+            }
+
             if (input.PressedExitButton())
             {
                 SceneManager.LoadScene(Gamemaster.Instance.GetLevelType() == LevelType.Test ? SceneDictionary.LevelEditor : SceneDictionary.MainMenu);

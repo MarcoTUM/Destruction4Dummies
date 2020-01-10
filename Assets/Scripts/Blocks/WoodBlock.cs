@@ -38,6 +38,8 @@ public class WoodBlock : Block
 
     protected override void OnTouch(GameObject player)
     {
+        if (TouchedOnGoal())
+            return;
         if (Gamemaster.Instance.GetPlayer().canDestroy)
         {
             audioSource.PlayOneShot(audioClip, Random.Range(0.5f, 1.5f));

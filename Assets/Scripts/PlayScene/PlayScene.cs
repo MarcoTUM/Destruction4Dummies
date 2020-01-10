@@ -48,6 +48,7 @@ public class PlayScene : MonoBehaviour
 
     private IEnumerator PlayerDeath()
     {
+        StopForceOutbreak();
         advisor?.HandlePlayerDeath();
         running = false;
         player.gameObject.SetActive(false);
@@ -99,10 +100,11 @@ public class PlayScene : MonoBehaviour
     private IEnumerator ForceOutbreak(float chargeTime, float outbreakRadius, ParticleSystem forceOutbreak)
     {
         yield return new WaitForSeconds(chargeTime);
-
+        
         // Get the player
         Player player = Gamemaster.Instance.GetPlayer();
-
+        if (player.IsOnGoal)
+            yield break;
         // Get all colliders that overlap a sphere of radius = outbreakRadius
         Collider[] hitColliders = Physics.OverlapSphere(player.transform.position, outbreakRadius);
 

@@ -11,7 +11,16 @@ public class GoalBlock : Block
 
     protected override void OnTouch(GameObject player)
     {
-        if(player.transform.position.y > this.transform.position.y)
+        Player playerScript = player.GetComponent<Player>();
+        if (playerScript.IsOnGoal)
+            return;
+        float goalX = Gamemaster.Instance.GetLevel().GetLevelData().GoalPlatformCoordinates.x * Block_Data.BlockSize;
+        float goalMargin = 1.5f * Block_Data.BlockSize;
+        float modelXPos = playerScript.ShoesRenderer.bounds.center.x;
+        float modelOffset = playerScript.ShoesRenderer.bounds.extents.x / 2f;
+        if (player.transform.position.y > this.transform.position.y 
+            && modelXPos + modelOffset >= goalX - goalMargin 
+            && modelXPos - modelOffset <= goalX + goalMargin)
         {
             ReachedGoal();
         }
@@ -30,5 +39,14 @@ public class GoalBlock : Block
             Gamemaster.Instance.GetLevel().GetLevelData(). IsExportable = true;
     }
 
+    #endregion
+    #region ContinousHandling
+    protected void OnTriggerStay(Collider collider)
+    {
+        if (collider.gameObject.tag == TagDictionary.Player)
+        {
+            OnTouch(collider.gameObject);
+        }
+    }
     #endregion
 }

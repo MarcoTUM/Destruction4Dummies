@@ -49,6 +49,8 @@ public class RestoreableBlock : Block
 
     protected override void OnTouch(GameObject player)
     {
+        if (TouchedOnGoal())
+            return;
         // Destroy the lockBlock
         base.OnTouch(player);
     }
