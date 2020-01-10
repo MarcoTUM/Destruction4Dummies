@@ -58,7 +58,7 @@ public abstract class Block : MonoBehaviour
         blockDestructionCoroutine = StartCoroutine(StartBlockDestruction());
     }
 
-    public void StartInstantBlockDestruction()//Why do we have this method?
+    public void StartInstantBlockDestruction()
     {
         DestroyBlock();
     }
