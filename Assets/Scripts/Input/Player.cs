@@ -415,7 +415,7 @@ public class Player : DialogueParticipant
     private IEnumerator ChargeBlock(float time)
     {
         //charge effect
-        isChargingParticleEffect = Instantiate(EffectManager.Instance.GetEffect(10), model.transform, false);
+        isChargingParticleEffect = Instantiate(EffectManager.Instance.GetEffect(11), model.transform, false);
         isChargingParticleEffect.transform.Translate(0, 0.5f, 0);
         Debug.Log("Charge effect info:");
         Debug.Log("Position of model is: " + model.transform.position);
