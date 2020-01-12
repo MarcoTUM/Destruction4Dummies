@@ -11,6 +11,7 @@ public class PlaySceneUI : MonoBehaviour
     [SerializeField] private RectTransform mainLevelCompleteWindow;
     [SerializeField] private RectTransform customLevelCompleteWindow;
     [SerializeField] private RectTransform testLevelCompleteWindow;
+    [SerializeField] private RectTransform pausedWindow;
     [SerializeField] private GameObject exportedText;
     public bool IsOpen { private set; get; }
 
@@ -20,6 +21,16 @@ public class PlaySceneUI : MonoBehaviour
         Gamemaster.Instance.Register(this);
     }
 
+    public void OpenPauseWindow()
+    {
+        StartCoroutine(ResizeWindow(pausedWindow, Vector3.zero, Vector3.one));
+    }
+
+    public void ClosePauseWindow()
+    {
+
+        StartCoroutine(ResizeWindow(pausedWindow, Vector3.one, Vector3.zero));
+    }
     #region LevelCompleteWindow
     public void OpenLevelCompleteWindow()
     {
@@ -75,7 +86,7 @@ public class PlaySceneUI : MonoBehaviour
         while (timer < windowResizeTime)
         {
             yield return new WaitForEndOfFrame();
-            timer += Time.deltaTime;
+            timer += Time.unscaledDeltaTime;
             window.localScale = Vector3.Lerp(startScale, goalScale, timer / windowResizeTime);
         }
         EnDisableButtons(buttons, true);

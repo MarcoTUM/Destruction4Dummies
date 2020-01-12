@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(EventSystem))]
 public class MainMenuXboxInput : MonoBehaviour
 {
     private enum Tab { Main, Custom };
@@ -26,7 +25,7 @@ public class MainMenuXboxInput : MonoBehaviour
         isActive = Input.GetJoystickNames().Length > 0 && Input.GetJoystickNames()[0] != "";
         if (!isActive)
             return;
-        eventSystem = this.GetComponent<EventSystem>();
+        eventSystem = EventSystem.current;
         eventSystem.firstSelectedGameObject = firstSelected;
     }
 

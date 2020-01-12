@@ -11,6 +11,7 @@ public class PlayAdditionalInput : MonoBehaviour
     private PlayCameraControl camControl;
     private PlaySceneUI playUI;
     private PlayerInputHandler playerInputHandler;
+
     void Start()
     {
         playScene = this.GetComponent<PlayScene>();
@@ -31,12 +32,18 @@ public class PlayAdditionalInput : MonoBehaviour
     void Update()
     {
 
+        if (input.ReleasedZoomButton())
+        {
+            camControl.StartZoomIn();
+        }
+        if (playerInputHandler.IsPaused)
+        {
+            if (input.PressedExitButton())
+                UnPause();
+            return;
+        }
         if (playerInputHandler.IsInDialogue) //Prevent any additional inputs during dialogues
         {
-            if (input.ReleasedZoomButton())
-            {
-                camControl.StartZoomIn();
-            }
             return;
         }
             
@@ -48,14 +55,10 @@ public class PlayAdditionalInput : MonoBehaviour
             {
                 camControl.StartZoomOut();
             }
-            else if (input.ReleasedZoomButton())
-            {
-                camControl.StartZoomIn();
-            }
 
-            if (input.PressedExitButton())
+            if (input.PressedExitButton() && !playerInputHandler.IsPaused)
             {
-                SceneManager.LoadScene(Gamemaster.Instance.GetLevelType() == LevelType.Test ? SceneDictionary.LevelEditor : SceneDictionary.MainMenu);
+                Pause();
             }
             else if (input.PressedRestartButton())
             {
@@ -67,5 +70,26 @@ public class PlayAdditionalInput : MonoBehaviour
             playUI.NextLevel();
         }
 
+    }
+
+    private void Pause()
+    {
+        playerInputHandler.IsPaused = true;
+        Time.timeScale = 0;
+        playUI.OpenPauseWindow();
+        //SceneManager.LoadScene(Gamemaster.Instance.GetLevelType() == LevelType.Test ? SceneDictionary.LevelEditor : SceneDictionary.MainMenu);
+    }
+
+    public void UnPause()
+    {
+        playUI.ClosePauseWindow();
+        playerInputHandler.IsPaused = false;
+        Time.timeScale = 1;
+    }
+
+    public void BackToMenu()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneDictionary.MainMenu);
     }
 }
