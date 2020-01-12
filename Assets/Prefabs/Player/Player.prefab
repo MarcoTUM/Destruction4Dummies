@@ -2168,6 +2168,7 @@ MonoBehaviour:
   model: {fileID: 8296172667848665000}
   IsOnGoal: 0
   IsInteractingWithAdvisor: 0
+  liftChargeFX: 0.5
 --- !u!54 &-5524203305601732335
 Rigidbody:
   m_ObjectHideFlags: 0
