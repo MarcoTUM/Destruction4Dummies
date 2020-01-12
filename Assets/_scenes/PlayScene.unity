@@ -3103,7 +3103,7 @@ PrefabInstance:
     - target: {fileID: 1701020471681952452, guid: eed48c67c39bb6244bf1796548ea7547,
         type: 3}
       propertyPath: effects.Array.size
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1701020471681952452, guid: eed48c67c39bb6244bf1796548ea7547,
         type: 3}
@@ -3122,6 +3122,12 @@ PrefabInstance:
       propertyPath: effects.Array.data[9]
       value: 
       objectReference: {fileID: 2332873758741114213, guid: 47c5ead99f90d604cbef04114086cd27,
+        type: 3}
+    - target: {fileID: 1701020471681952452, guid: eed48c67c39bb6244bf1796548ea7547,
+        type: 3}
+      propertyPath: effects.Array.data[10]
+      value: 
+      objectReference: {fileID: 2332873758741114213, guid: 6b93fdb686d265d45bbd00ad782ed328,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eed48c67c39bb6244bf1796548ea7547, type: 3}
