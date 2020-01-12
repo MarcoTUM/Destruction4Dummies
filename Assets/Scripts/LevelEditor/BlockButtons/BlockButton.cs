@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Image), typeof(Toggle))]
-public class BlockButton : MonoBehaviour, IPointerEnterHandler
+public class BlockButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] protected int blockId; //only used when SetBlockType(id) is used
     [SerializeField] protected Texture2D tex;
@@ -41,10 +41,13 @@ public class BlockButton : MonoBehaviour, IPointerEnterHandler
     }
 
 
+
+
     #region BlockDescription
     protected virtual string BlockText()
     {
-        return "<b>"+ blockName + ":</b>\n" + blockDescription;
+        //Replace as workaround for unity bug where linebreaks in inspector do not work
+        return "<b>" + blockName + ":</b>\n" + blockDescription.Replace("<br>", "\n");
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -52,6 +55,9 @@ public class BlockButton : MonoBehaviour, IPointerEnterHandler
         descriptionText.text = BlockText();
     }
 
-   
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        descriptionText.text = defaultDescriptionText;
+    }
     #endregion
 }

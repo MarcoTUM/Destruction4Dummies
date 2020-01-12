@@ -264,9 +264,8 @@ MonoBehaviour:
   blockId: 0
   tex: {fileID: 2800000, guid: 319eabe7c0af5c7409445fc448266476, type: 3}
   blockName: Restorable Block
-  blockDescription: Restorable blocks hide in a different plane of existence. They
-    rely on the restore block to stabilize their pocket dimension. After destroying
-    the restore block they are forced back into your plane.
+  blockDescription: Restorable blocks hide in a different plane of existence.<br><br>Destroy
+    the restore block leading them to force them back into your plane.
   slider: {fileID: 6166930701922442975}
 --- !u!1 &355653246926244344
 GameObject:
@@ -525,9 +524,8 @@ MonoBehaviour:
   blockId: 10
   tex: {fileID: 2800000, guid: 57f168379d495e148a65b9116a3bbb03, type: 3}
   blockName: Charge Block
-  blockDescription: The charge block disables your destructive ability for a short
-    while. Gathering them within you and unleashing a devastating explosion that destroys
-    any kind of block. And I mean ANY KIND OF BLOCK!
+  blockDescription: 'The charge block disables your powers for a short while building
+    them up and unleashing an explosion destroying ANY kind of block in your proximity. '
 --- !u!114 &6626740681633628101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1382,11 +1380,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 9
-  tex: {fileID: 2800000, guid: 8fc6450388133754b9548c6b5a5833cc, type: 3}
+  tex: {fileID: 2800000, guid: 1e41cdd791e5b904cb7244949c9ce4a8, type: 3}
   blockName: Respawn Block
-  blockDescription: Respawn blocks can turn back time, allowing them to revive themselves
-    after being destroyed. Why they do not turn time farther back so they would not
-    be in this situation, no one knows.
+  blockDescription: 'Respawn blocks can turn back time, allowing them to revive themselves
+    after being destroyed. '
 --- !u!114 &4956790831832017519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2479,8 +2476,8 @@ MonoBehaviour:
   blockId: 4
   tex: {fileID: 2800000, guid: fada0d179bc91b84581b50fbe5da9dae, type: 3}
   blockName: Stone Block
-  blockDescription: Stone blocks are more durable than wood and take longer until
-    they fully disintegrate.
+  blockDescription: The stone block is more durable than the woodblock and needs more
+    time until they fully disintegrate.
 --- !u!114 &4814776323947364037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2999,8 +2996,8 @@ MonoBehaviour:
   blockId: 0
   tex: {fileID: 2800000, guid: e290084c0089dee418f030a67f3a48cd, type: 3}
   blockName: Start Platform
-  blockDescription: The player spawns on this platform. You cannot place any blocks
-    2 spaces up from the platform.
+  blockDescription: The start platform marks the beginning of a level.<br><br>No block
+    can be placed up to 2 spaces above this platform.
 --- !u!114 &4814776324983040401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3463,7 +3460,7 @@ MonoBehaviour:
   blockId: 3
   tex: {fileID: 2800000, guid: 56f5668bd17e667468319670759affe7, type: 3}
   blockName: Wood Block
-  blockDescription: Wood blocks get destroyed very easily.
+  blockDescription: Wood blocks are common blocks that get destroyed very easily.
 --- !u!114 &4814776325220440808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3801,8 +3798,8 @@ MonoBehaviour:
   blockId: 0
   tex: {fileID: 2800000, guid: 3da1cf2de3956c84a85feba2a0a697e1, type: 3}
   blockName: Chain Block
-  blockDescription: Block with a divine connection. When one block of the group vanishes,
-    so do the others.
+  blockDescription: Chain blocks share a divine connection. When one block of the
+    group vanishes, so do the others.
   slider: {fileID: 4814776323841080262}
 --- !u!114 &4814776325503698129
 MonoBehaviour:
@@ -4168,7 +4165,8 @@ MonoBehaviour:
   blockId: 1
   tex: {fileID: 2800000, guid: c53cca4ea3d239842951423e276909cb, type: 3}
   blockName: Goal Platform
-  blockDescription: Reach the goal to complete the level.
+  blockDescription: Reach this goal platform to complete the level. <br><br>It only
+    works if you stand on it.
 --- !u!114 &4814776325787822545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4960,10 +4958,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 0
-  tex: {fileID: 2800000, guid: 5259f405b967cfc48a2d806b25ea4c45, type: 3}
+  tex: {fileID: 2800000, guid: 2dd3e8a645973dc4fb155b424bbc6081, type: 3}
   blockName: Restore block
-  blockDescription: A powerful block with the ability to create a pocket dimension.
-    They let restorable blocks of the same group hide in those dimensions.
+  blockDescription: The restore block leads a group restorable blocks hiding them
+    in a pocket dimension.<br><br>Destroy them to reveal the restorables.
   slider: {fileID: 7649163222627230945}
 --- !u!1 &5986317847970758338
 GameObject:
@@ -5222,10 +5220,10 @@ RectTransform:
   m_Father: {fileID: 2887459072950429727}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1250, y: -50}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8538571497022637218
 CanvasRenderer:
@@ -6381,7 +6379,7 @@ MonoBehaviour:
   tex: {fileID: 2800000, guid: 8f427d9335ee12d4caf1b25e1e9b22bb, type: 3}
   blockName: Key Block
   blockDescription: The divine key holds mystical powers, which allows it to protects
-    lock blocks of the same kind, but conveniently not themselves.
+    lock blocks of the same kind, but unfortunately not themselves.
   slider: {fileID: 1149984629510271183}
 --- !u!1 &8371590848004946525
 GameObject:
@@ -6621,7 +6619,8 @@ MonoBehaviour:
   blockId: 6
   tex: {fileID: 2800000, guid: db3d8c614588efe4aa85a67cd5faad91, type: 3}
   blockName: Death Block
-  blockDescription: A cursed block reversing your godly powers and destroy you instead.
+  blockDescription: A cursed block reversing your godly powers touching it causes
+    your powers to destroy yourself.
 --- !u!114 &3152533988447177869
 MonoBehaviour:
   m_ObjectHideFlags: 0
