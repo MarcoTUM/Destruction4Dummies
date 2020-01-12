@@ -61,4 +61,13 @@ public class RespawnBlock : Block
     }
 
     #endregion
+
+    #region Helper
+
+    protected override void SpawnDestructionEffect()
+    {
+        Instantiate(EffectManager.Instance.GetEffect(10), transform.position, Quaternion.identity);
+    }
+
+    #endregion
 }
