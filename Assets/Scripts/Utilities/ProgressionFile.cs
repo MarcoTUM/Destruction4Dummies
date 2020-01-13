@@ -11,7 +11,6 @@ public class ProgressionFile
     
     public ProgressionFile()
     {
-        Debug.Log("Pro");
         string folder = FilePaths.ProgressionFolder;
         if (!Directory.Exists(folder)) 
             Directory.CreateDirectory(folder);

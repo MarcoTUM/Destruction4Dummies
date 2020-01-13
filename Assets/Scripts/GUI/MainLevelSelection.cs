@@ -10,24 +10,29 @@ using UnityEngine.UI;
 [RequireComponent(typeof(GridLayoutGroup), typeof(RectTransform))]
 public class MainLevelSelection : LevelButtonGroup
 {
+    private string[] fileNames;
     protected override void Awake()
     {
         if (buttonPrefab.GetComponent<MainLevelButton>() == null)
             throw new InvalidOperationException($"ButtonPrefab does not have {nameof(MainLevelButton)}");
         TestDirectory(FilePaths.MainLevelFolder);
-        string[] fileNames = Directory.GetFiles(FilePaths.MainLevelFolder).
+        fileNames = Directory.GetFiles(FilePaths.MainLevelFolder).
             Where(filePath => filePath.EndsWith(".dat")). //ignore meta files
             Select(filePath => ConvertFilePathToName(filePath)). //cut filePath to fileName
             OrderBy(fileName => GetLevelId(fileName)).ToArray<string>(); // sort fileNames by id 
 
         levelCount = fileNames.Length;
         SetHeight();
-        SpawnButtons(fileNames);
+    }
 
+    private void Start()
+    {
+        SpawnButtons(fileNames);
     }
 
     protected override void SpawnButtons(string[] fileNames)
     {
+        levelCount = Mathf.Min(levelCount, Gamemaster.Instance.GetProgress()+1);
         for (int i = 0; i < levelCount; i++)
         {
             GameObject buttonObject = InstantiateButtonAsChild();
