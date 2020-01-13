@@ -26,7 +26,6 @@ public class LevelEditorMenu : LevelButtonGroup
             OrderBy(filePath => new FileInfo(filePath).CreationTime). // sort fileNames by id 
             Select(filePath => ConvertFilePathToName(filePath)).ToList<string>(); //cut filePath to fileName
 
-
         levelCount = fileNames.Count;
         SetHeight();
         SpawnButtons(fileNames.ToArray());
@@ -39,6 +38,12 @@ public class LevelEditorMenu : LevelButtonGroup
             Gamemaster.Instance.SetDefaultLevelToLoad();
             ContinueEdit();
         }
+    }
+
+    private void OnEnable()
+    {
+        levelCount = fileNames.Count;
+        SetHeight();
     }
 
     protected override void SpawnButtons(string[] fileNames)
