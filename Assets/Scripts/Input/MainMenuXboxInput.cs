@@ -33,14 +33,14 @@ public class MainMenuXboxInput : MonoBehaviour
     {
         if (!isActive)
             return;
-        
+
         //Mouse should not remove focus from selection
-        if(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2))
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2))
         {
             eventSystem.SetSelectedGameObject(lastSelection);
         }
         else if (eventSystem.currentSelectedGameObject != null)
-                lastSelection = eventSystem.currentSelectedGameObject;
+            lastSelection = eventSystem.currentSelectedGameObject;
 
         //Levelselection Inputs
         if (isInLevelSelection)
@@ -70,18 +70,24 @@ public class MainMenuXboxInput : MonoBehaviour
 
     public void GoToMainTab()
     {
+        if (!isActive)
+            return;
         currentTab = Tab.Main;
         eventSystem.SetSelectedGameObject(mainLevels.GetChild(0).gameObject);
     }
 
     public void GoToCustomTab()
     {
+        if (!isActive)
+            return;
         currentTab = Tab.Custom;
         eventSystem.SetSelectedGameObject(customLevels.GetChild(0).gameObject);
     }
 
     public void CloseLevelSelection()
     {
+        if (!isActive)
+            return;
         eventSystem.SetSelectedGameObject(levelSelectionButton);
         isInLevelSelection = false;
     }
@@ -99,10 +105,10 @@ public class MainMenuXboxInput : MonoBehaviour
         }
         isInLevelSelection = true;
 
-        
-        if(currentTab == Tab.Main)
+
+        if (currentTab == Tab.Main)
             eventSystem.SetSelectedGameObject(mainLevels.GetChild(0).gameObject);
-        else if(currentTab == Tab.Custom)
+        else if (currentTab == Tab.Custom)
             eventSystem.SetSelectedGameObject(customLevels.GetChild(0).gameObject);
     }
 
