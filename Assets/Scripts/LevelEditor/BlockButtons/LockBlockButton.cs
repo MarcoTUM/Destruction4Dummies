@@ -24,7 +24,7 @@ public class LockBlockButton : BlockButton
         if ((uint)value == lockID)
             return;
         lockID = (uint)value;
-        this.GetComponent<Image>().color = LockBlock_Data.LockBlockColors[lockID];
+        this.GetComponent<Image>().color = LockBlock_Data.BlockColors[lockID];
         this.GetComponent<Toggle>().SetIsOnWithoutNotify(true);
         OnValueChanged(true);
     }

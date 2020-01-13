@@ -24,7 +24,7 @@ public class KeyBlockButton : BlockButton
         if ((uint)value == keyID)
             return;
         keyID = (uint)value;
-        this.GetComponent<Image>().color = KeyBlock_Data.KeyBlockColors[keyID];
+        this.GetComponent<Image>().color = KeyBlock_Data.BlockColors[keyID];
         this.GetComponent<Toggle>().SetIsOnWithoutNotify(true);
         OnValueChanged(true);
     }

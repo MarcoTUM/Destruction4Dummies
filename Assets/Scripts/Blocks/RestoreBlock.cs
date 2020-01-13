@@ -23,7 +23,7 @@ public class RestoreBlock : Block
     {
         base.InitializeBlock(data);
         this.blockID = ((RestoreBlock_Data)data).GetID();
-        this.GetComponent<Renderer>().material.color = RestoreBlock_Data.RestoreBlockColors[this.blockID - 1];
+        this.GetComponent<Renderer>().material.color = RestoreBlock_Data.BlockColors[this.blockID - 1];
     }
 
     protected override void DestroyBlock()

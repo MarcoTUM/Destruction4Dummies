@@ -23,7 +23,7 @@ public class RestoreableBlock : Block
 
         base.InitializeBlock(data);
         this.blockID = ((RestoreableBlock_Data)data).GetID();
-        this.GetComponent<Renderer>().material.color = RestoreableBlock_Data.RestoreableBlockColors[this.blockID - 1];
+        this.GetComponent<Renderer>().material.color = RestoreableBlock_Data.BlockColors[this.blockID - 1];
 
         // Save current material for later reset
         restoreableMaterial = gameObject.GetComponent<Renderer>().material;
