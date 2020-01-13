@@ -150,6 +150,13 @@ public class Gamemaster : Singleton<Gamemaster>
     #endregion
 
     #region Progression
+
+    public void SetProgress(int levels)
+    {
+        completedLevels = levels;
+        progress.SetProgress(completedLevels);
+    }
+
     public void UpdateProgress()
     {
         if (nextLevelType != LevelType.Main)
