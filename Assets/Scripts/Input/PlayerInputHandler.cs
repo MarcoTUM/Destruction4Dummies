@@ -12,6 +12,7 @@ public class PlayerInputHandler : MonoBehaviour
     private Player player;
     public bool IsUsingXbox;
     public bool IsInDialogue = false;
+    public bool IsPaused;
 
     private void Awake()
     {
@@ -33,6 +34,8 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Update()
     {
+        if (IsPaused)
+            return;
         if (!player.IsOnGoal && !IsInDialogue)
             HandlePlayerInput();
         else if (IsInDialogue)
