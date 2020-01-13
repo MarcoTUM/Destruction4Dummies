@@ -15,13 +15,20 @@ public class PlaySceneXboxInputWindow : MonoBehaviour
     {
         isActive = Input.GetJoystickNames().Length > 0 && Input.GetJoystickNames()[0] != "";
         if (!isActive)
+        {
             return;
+        }
+            
         eventSystem = EventSystem.current;
         eventSystem.SetSelectedGameObject(firstSelection);
     }
 
     private void Update()
     {
+        if (!isActive)
+        {
+            return;
+        }
         //Mouse should not remove focus from selection
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2))
         {

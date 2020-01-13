@@ -34,7 +34,7 @@ public abstract class LevelButtonGroup : MonoBehaviour
     protected void SetHeight()
     {
         GridLayoutGroup grid = this.GetComponent<GridLayoutGroup>();
-        int rows = (levelCount / LevelsPerRow);
+        int rows = ((levelCount - 1) / LevelsPerRow) + 1;
         float height = grid.padding.top + (grid.spacing.y + grid.cellSize.y) * rows;
         height = Mathf.Max(minHeight, height);
         this.GetComponent<RectTransform>().sizeDelta = new Vector2(0, height);
