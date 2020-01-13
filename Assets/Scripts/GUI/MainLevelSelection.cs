@@ -20,19 +20,18 @@ public class MainLevelSelection : LevelButtonGroup
             Where(filePath => filePath.EndsWith(".dat")). //ignore meta files
             Select(filePath => ConvertFilePathToName(filePath)). //cut filePath to fileName
             OrderBy(fileName => GetLevelId(fileName)).ToArray<string>(); // sort fileNames by id 
-
-        levelCount = fileNames.Length;
-        SetHeight();
+        
     }
 
     private void Start()
     {
         SpawnButtons(fileNames);
+        SetHeight();
     }
 
     protected override void SpawnButtons(string[] fileNames)
     {
-        levelCount = Mathf.Min(levelCount, Gamemaster.Instance.GetProgress()+1);
+        levelCount = Mathf.Min(fileNames.Length, Gamemaster.Instance.GetProgress()+1);
         for (int i = 0; i < levelCount; i++)
         {
             GameObject buttonObject = InstantiateButtonAsChild();

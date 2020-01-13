@@ -733,6 +733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d322ffb1139b1144e92cb9e6c6c43905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlockValue: 0
   blockId: 2
   tex: {fileID: 0}
   blockName: Delete Block
@@ -7160,6 +7161,36 @@ PrefabInstance:
     - target: {fileID: 7359337173522225662, guid: 6a7a07a9f6e773f4da563195d627318c,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 652356749626653564, guid: 6a7a07a9f6e773f4da563195d627318c,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 652356749626653564, guid: 6a7a07a9f6e773f4da563195d627318c,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 652356749626653564, guid: 6a7a07a9f6e773f4da563195d627318c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 652356749626653564, guid: 6a7a07a9f6e773f4da563195d627318c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 652356749626653564, guid: 6a7a07a9f6e773f4da563195d627318c,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 652356749626653564, guid: 6a7a07a9f6e773f4da563195d627318c,
+        type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
