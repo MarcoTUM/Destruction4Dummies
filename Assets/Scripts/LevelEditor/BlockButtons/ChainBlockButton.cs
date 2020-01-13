@@ -23,7 +23,7 @@ public class ChainBlockButton : BlockButton
         if ((uint)value == chainID)
             return;
         chainID = (uint)value;
-        this.GetComponent<Image>().color = ChainBlock_Data.ChainBlockColors[chainID];
+        this.GetComponent<Image>().color = ChainBlock_Data.BlockColors[chainID];
         this.GetComponent<Toggle>().SetIsOnWithoutNotify(true);
         OnValueChanged(true);
     }

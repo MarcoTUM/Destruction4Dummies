@@ -24,7 +24,7 @@ public class RestoreableBlockButton : BlockButton
         if ((uint)value == lockID)
             return;
         lockID = (uint)value;
-        this.GetComponent<Image>().color = RestoreableBlock_Data.RestoreableBlockColors[lockID];
+        this.GetComponent<Image>().color = RestoreableBlock_Data.BlockColors[lockID];
         this.GetComponent<Toggle>().SetIsOnWithoutNotify(true);
         OnValueChanged(true);
     }
