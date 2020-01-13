@@ -9,6 +9,9 @@ public class BlockButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 {
     [SerializeField] protected int blockId; //only used when SetBlockType(id) is used
     [SerializeField] protected Texture2D tex;
+    [SerializeField] protected string blockName;
+    [SerializeField] protected string blockDescription;
+
     protected Text descriptionText;
     protected static string defaultDescriptionText = null;
     protected virtual void Start()
@@ -38,14 +41,13 @@ public class BlockButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
 
 
+
+
     #region BlockDescription
-    /// <summary>
-    /// Override with blockSpecific InformationText
-    /// </summary>
-    /// <returns></returns>
     protected virtual string BlockText()
     {
-        return "<b>Block:</b>\nI am a block!";
+        //Replace as workaround for unity bug where linebreaks in inspector do not work
+        return "<b>" + blockName + ":</b>\n" + blockDescription.Replace("<br>", "\n");
     }
 
     public void OnPointerEnter(PointerEventData eventData)

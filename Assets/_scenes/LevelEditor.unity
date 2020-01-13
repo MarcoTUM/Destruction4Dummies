@@ -201,8 +201,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 362844011}
   m_HandleRect: {fileID: 362844010}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.5
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -735,6 +735,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockId: 2
   tex: {fileID: 0}
+  blockName: Delete Block
+  blockDescription: The delete block removes any block from the grid using similar
+    destructive powers as you.
 --- !u!114 &150662126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1058,7 +1061,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 168.75}
-  m_SizeDelta: {x: 300, y: 275}
+  m_SizeDelta: {x: 300, y: 368.8}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &403088987
 MonoBehaviour:
@@ -1579,7 +1582,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2066129976}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.99999994
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3590,7 +3593,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 349.50488}
+  m_AnchoredPosition: {x: 0, y: 349.74622}
   m_SizeDelta: {x: 0, y: 500}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1172189798
@@ -4184,9 +4187,9 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 40
+    m_FontSize: 32
     m_FontStyle: 0
-    m_BestFit: 1
+    m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 40
     m_Alignment: 0
@@ -4195,9 +4198,15 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Use WASD to move camera
+  m_Text: '<b>Controls:</b>
 
-    Use mousewheel to zoom'
+    Use the WASD-keys to move the camera
+
+
+    Use the mouse wheel to zoom in/out
+
+
+    Build a level, test it out, reach the goal and then export it.'
 --- !u!222 &1483359253
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4672,7 +4681,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1629060003
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4688,10 +4697,10 @@ RectTransform:
   m_Father: {fileID: 1022902141}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 150, y: -295}
+  m_SizeDelta: {x: 250, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1629060004
 MonoBehaviour:
@@ -7153,45 +7162,5 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 652356749626653564, guid: 6a7a07a9f6e773f4da563195d627318c,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 652356749626653564, guid: 6a7a07a9f6e773f4da563195d627318c,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 652356749626653564, guid: 6a7a07a9f6e773f4da563195d627318c,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 652356749626653564, guid: 6a7a07a9f6e773f4da563195d627318c,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 652356749626653564, guid: 6a7a07a9f6e773f4da563195d627318c,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 652356749626653564, guid: 6a7a07a9f6e773f4da563195d627318c,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7614526526645379586, guid: 6a7a07a9f6e773f4da563195d627318c,
-        type: 3}
-      propertyPath: tex
-      value: 
-      objectReference: {fileID: 2800000, guid: 1e41cdd791e5b904cb7244949c9ce4a8, type: 3}
-    - target: {fileID: 1760206923651905512, guid: 6a7a07a9f6e773f4da563195d627318c,
-        type: 3}
-      propertyPath: tex
-      value: 
-      objectReference: {fileID: 2800000, guid: 2dd3e8a645973dc4fb155b424bbc6081, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a7a07a9f6e773f4da563195d627318c, type: 3}

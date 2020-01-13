@@ -263,6 +263,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockId: 0
   tex: {fileID: 2800000, guid: 319eabe7c0af5c7409445fc448266476, type: 3}
+  blockName: Restorable Block
+  blockDescription: Restorable blocks hide in a different plane of existence.<br><br>Destroy
+    the restore block leading them to force them back into your plane.
   slider: {fileID: 6166930701922442975}
 --- !u!1 &355653246926244344
 GameObject:
@@ -520,6 +523,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockId: 10
   tex: {fileID: 2800000, guid: 57f168379d495e148a65b9116a3bbb03, type: 3}
+  blockName: Charge Block
+  blockDescription: 'The charge block disables your powers for a short while building
+    them up and unleashing an explosion destroying ANY kind of block in your proximity. '
 --- !u!114 &6626740681633628101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -608,6 +614,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3434019042997523384}
+  - {fileID: 652356749626653564}
   m_Father: {fileID: 4814776325512348713}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -965,6 +972,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockId: 13
   tex: {fileID: 2800000, guid: eea1799e40457bb4d9dffa316e8a3f03, type: 3}
+  blockName: Updraft Block
+  blockDescription: A mysterious block that launches you upwards. How can there be
+    wind in space? How is it a block? Very mysterious indeed.
 --- !u!114 &8285723829704653868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1370,7 +1380,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 9
-  tex: {fileID: 2800000, guid: 8fc6450388133754b9548c6b5a5833cc, type: 3}
+  tex: {fileID: 2800000, guid: 1e41cdd791e5b904cb7244949c9ce4a8, type: 3}
+  blockName: Respawn Block
+  blockDescription: 'Respawn blocks can turn back time, allowing them to revive themselves
+    after being destroyed. '
 --- !u!114 &4956790831832017519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2329,7 +2342,7 @@ RectTransform:
   m_Children:
   - {fileID: 4814776325503698128}
   m_Father: {fileID: 4814776325512348713}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2462,6 +2475,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockId: 4
   tex: {fileID: 2800000, guid: fada0d179bc91b84581b50fbe5da9dae, type: 3}
+  blockName: Stone Block
+  blockDescription: The stone block is more durable than the woodblock and needs more
+    time until they fully disintegrate.
 --- !u!114 &4814776323947364037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2979,6 +2995,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockId: 0
   tex: {fileID: 2800000, guid: e290084c0089dee418f030a67f3a48cd, type: 3}
+  blockName: Start Platform
+  blockDescription: The start platform marks the beginning of a level.<br><br>No block
+    can be placed up to 2 spaces above this platform.
 --- !u!114 &4814776324983040401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3440,6 +3459,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockId: 3
   tex: {fileID: 2800000, guid: 56f5668bd17e667468319670759affe7, type: 3}
+  blockName: Wood Block
+  blockDescription: Wood blocks are common blocks that get destroyed very easily.
 --- !u!114 &4814776325220440808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3776,6 +3797,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockId: 0
   tex: {fileID: 2800000, guid: 3da1cf2de3956c84a85feba2a0a697e1, type: 3}
+  blockName: Chain Block
+  blockDescription: Chain blocks share a divine connection. When one block of the
+    group vanishes, so do the others.
   slider: {fileID: 4814776323841080262}
 --- !u!114 &4814776325503698129
 MonoBehaviour:
@@ -3872,14 +3896,13 @@ RectTransform:
   - {fileID: 4814776325192968631}
   - {fileID: 4814776325854257405}
   - {fileID: 2887459072950429727}
-  - {fileID: 4814776323915883597}
   - {fileID: 4265497834314266025}
   - {fileID: 6367985180963081417}
+  - {fileID: 4814776323915883597}
   - {fileID: 6903449899292800668}
-  - {fileID: 664585042071059310}
   - {fileID: 879887254684682288}
   - {fileID: 2620910890576438800}
-  - {fileID: 652356749626653564}
+  - {fileID: 664585042071059310}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4141,6 +4164,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockId: 1
   tex: {fileID: 2800000, guid: c53cca4ea3d239842951423e276909cb, type: 3}
+  blockName: Goal Platform
+  blockDescription: Reach this goal platform to complete the level. <br><br>It only
+    works if you stand on it.
 --- !u!114 &4814776325787822545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4579,7 +4605,7 @@ RectTransform:
   m_Children:
   - {fileID: 7446494399604212777}
   m_Father: {fileID: 4814776325512348713}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4932,7 +4958,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 0
-  tex: {fileID: 2800000, guid: 5259f405b967cfc48a2d806b25ea4c45, type: 3}
+  tex: {fileID: 2800000, guid: 2dd3e8a645973dc4fb155b424bbc6081, type: 3}
+  blockName: Restore block
+  blockDescription: The restore block leads a group restorable blocks hiding them
+    in a pocket dimension.<br><br>Destroy them to reveal the restorables.
   slider: {fileID: 7649163222627230945}
 --- !u!1 &5986317847970758338
 GameObject:
@@ -5188,8 +5217,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8871792363481181385}
-  m_Father: {fileID: 4814776325512348713}
-  m_RootOrder: 12
+  m_Father: {fileID: 2887459072950429727}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5465,7 +5494,7 @@ RectTransform:
   m_Children:
   - {fileID: 3079893669670138341}
   m_Father: {fileID: 4814776325512348713}
-  m_RootOrder: 9
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5705,7 +5734,7 @@ RectTransform:
   m_Children:
   - {fileID: 2591454642046940186}
   m_Father: {fileID: 4814776325512348713}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -6084,6 +6113,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockId: 0
   tex: {fileID: 2800000, guid: 1fe8b33d7df71e3439e97b9a48541e70, type: 3}
+  blockName: Lock Block
+  blockDescription: Through the protection of the divine key block, lock blocks cannot
+    be destroyed until the key they follow is destroyed.
   slider: {fileID: 1772688222431103934}
 --- !u!1 &7798675546609346504
 GameObject:
@@ -6152,7 +6184,7 @@ RectTransform:
   m_Children:
   - {fileID: 2792091996705534329}
   m_Father: {fileID: 4814776325512348713}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -6345,6 +6377,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockId: 0
   tex: {fileID: 2800000, guid: 8f427d9335ee12d4caf1b25e1e9b22bb, type: 3}
+  blockName: Key Block
+  blockDescription: The divine key holds mystical powers, which allows it to protects
+    lock blocks of the same kind, but unfortunately not themselves.
   slider: {fileID: 1149984629510271183}
 --- !u!1 &8371590848004946525
 GameObject:
@@ -6377,7 +6412,7 @@ RectTransform:
   m_Children:
   - {fileID: 3557381275511917379}
   m_Father: {fileID: 4814776325512348713}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -6583,6 +6618,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockId: 6
   tex: {fileID: 2800000, guid: db3d8c614588efe4aa85a67cd5faad91, type: 3}
+  blockName: Death Block
+  blockDescription: A cursed block reversing your godly powers touching it causes
+    your powers to destroy yourself.
 --- !u!114 &3152533988447177869
 MonoBehaviour:
   m_ObjectHideFlags: 0
