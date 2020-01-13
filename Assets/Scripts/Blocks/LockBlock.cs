@@ -15,7 +15,14 @@ public class LockBlock : Block
 
     private Material lockMaterial;
 
+    public AudioClip audioClip;
+    private AudioSource audioSource;
+
     #region Initialization / Destruction
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     public override void InitializeBlock(Block_Data data)
     {
         base.InitializeBlock(data);
@@ -52,6 +59,9 @@ public class LockBlock : Block
         // If the the lockBlock is unlocked
         if (!((LockBlock_Data)BlockData).GetLock())
         {
+            // Play sound effect
+            audioSource.PlayOneShot(audioClip, Random.Range(0.5f, 1.5f));
+
             // Destroy the lockBlock
             base.OnTouch(player);
         }

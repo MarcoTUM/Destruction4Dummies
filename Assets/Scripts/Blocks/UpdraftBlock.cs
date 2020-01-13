@@ -29,7 +29,14 @@ public class UpdraftBlock : Block
         sizeModule = ps.sizeOverLifetime;
     }
 
+    public AudioClip audioClip;
+    private AudioSource audioSource;
+
     #region Initialization / Destruction
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     public override void InitializeBlock(Block_Data data)
     {
         base.InitializeBlock(data);
@@ -65,7 +72,7 @@ public class UpdraftBlock : Block
         velModule.speedModifier = particleVelocityMultiplier;
         sizeModule.sizeMultiplier = particleSizeMultiplier;
 
-
+        audioSource.PlayOneShot(audioClip, Random.Range(0.5f, 1.5f));
     }
 
     protected override void OnTouchEnd(GameObject player)

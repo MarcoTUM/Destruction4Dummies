@@ -16,7 +16,14 @@ public class RestoreableBlock : Block
 
     private Material restoreableMaterial;
 
+    public AudioClip audioClip;
+    private AudioSource audioSource;
+
     #region Initialization / Destruction
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     public override void InitializeBlock(Block_Data data)
     {
         gameObject.GetComponent<Collider>().enabled = SceneManager.GetActiveScene().name != SceneDictionary.Play;
@@ -51,6 +58,10 @@ public class RestoreableBlock : Block
     {
         if (TouchedOnGoal())
             return;
+
+        // Play the sound effect
+        audioSource.PlayOneShot(audioClip, Random.Range(0.5f, 1.5f));
+
         // Destroy the lockBlock
         base.OnTouch(player);
     }
