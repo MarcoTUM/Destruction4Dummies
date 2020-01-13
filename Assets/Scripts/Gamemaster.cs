@@ -16,6 +16,19 @@ public class Gamemaster : Singleton<Gamemaster>
     private string nextLevelName;
     private int nextLevelId = 1;
 
+    private ProgressionFile progress;
+    private int completedLevels = 0;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        if (instance != this)
+        {
+            return;
+        }
+        progress = new ProgressionFile();
+        completedLevels = progress.GetProgress();
+    }
 
     #region Level
     public LevelType GetLevelType()
@@ -134,6 +147,22 @@ public class Gamemaster : Singleton<Gamemaster>
         return this.player;
     }
 
+    #endregion
+
+    #region Progression
+    public void UpdateProgress(int level)
+    {
+        if(level > completedLevels)
+        {
+            completedLevels = level;
+            progress.SetProgress(level);
+        }
+    }
+
+    public int GetProgress()
+    {
+        return completedLevels;
+    }
     #endregion
 
 }
