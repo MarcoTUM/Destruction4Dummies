@@ -46,7 +46,8 @@ public class CustomLevelButton : MonoBehaviour, ISelectHandler
 
     public void OnSelect(BaseEventData eventData)
     {
-        selection.SelectButton(levelId);
+        if (Gamemaster.Instance.IsUsingXbox)
+            selection.SelectButton(levelId);
     }
 
 }

@@ -22,7 +22,7 @@ public class MainMenuXboxInput : MonoBehaviour
 
     private void Start()
     {
-        isActive = Input.GetJoystickNames().Length > 0 && Input.GetJoystickNames()[0] != "";
+        Gamemaster.Instance.IsUsingXbox = isActive = Input.GetJoystickNames().Length > 0 && Input.GetJoystickNames()[0] != "";
         if (!isActive)
             return;
         eventSystem = EventSystem.current;

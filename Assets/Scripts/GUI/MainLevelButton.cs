@@ -28,7 +28,8 @@ public class MainLevelButton : MonoBehaviour, ISelectHandler
 
     public void OnSelect(BaseEventData eventData)
     {
-        mainLevelSelection.SelectButton(levelId);
+        if(Gamemaster.Instance.IsUsingXbox)
+            mainLevelSelection.SelectButton(levelId);
     }
 
 }

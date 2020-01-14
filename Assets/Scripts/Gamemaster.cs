@@ -14,6 +14,7 @@ public class Gamemaster : Singleton<Gamemaster>
     private LevelEditor editor;
     private Player player;
 
+    public bool IsUsingXbox { get; set; }
     private LevelType nextLevelType = LevelType.Main;
     private string nextLevelName;
     private int nextLevelId = 1;
@@ -146,5 +147,6 @@ public class Gamemaster : Singleton<Gamemaster>
     }
 
     #endregion
+
 
 }
