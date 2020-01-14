@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MainLevelButton : MonoBehaviour
+public class MainLevelButton : MonoBehaviour, ISelectHandler
 {
     private int levelId;
-
+    private MainLevelSelection mainLevelSelection;
     public void SetLevelId(int id)
     {
         this.levelId = id;
@@ -19,4 +20,15 @@ public class MainLevelButton : MonoBehaviour
         Gamemaster.Instance.SetNextMainLevelToLoad(levelId);
         SceneManager.LoadScene(SceneDictionary.Play);
     }
+
+    public void SetSelection(MainLevelSelection selection)
+    {
+        mainLevelSelection = selection;
+    }
+
+    public void OnSelect(BaseEventData eventData)
+    {
+        mainLevelSelection.SelectButton(levelId);
+    }
+
 }

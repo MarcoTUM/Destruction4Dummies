@@ -310,6 +310,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonPrefab: {fileID: 7297629855884574591, guid: 0f0cb336c7662b2489cb20daa88fe2ea,
     type: 3}
+  scrollbar: {fileID: 456245540}
 --- !u!1 &207011254
 GameObject:
   m_ObjectHideFlags: 0
@@ -2341,6 +2342,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonPrefab: {fileID: 7297629855884574591, guid: 0951ad765db46224baeae04a4afb85db,
     type: 3}
+  scrollbar: {fileID: 2051898082}
   deleteButtonPrefab: {fileID: 4731307468488488778, guid: 3d235d52d064dfb47a4a5d55008845fc,
     type: 3}
 --- !u!114 &1041345723

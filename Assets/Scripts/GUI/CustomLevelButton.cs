@@ -1,16 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class CustomLevelButton : MonoBehaviour
+public class CustomLevelButton : MonoBehaviour, ISelectHandler
 {
     private string levelName;
+    private int levelId;
     private bool deleteMode = false;
     private CustomLevelSelection selection;
-    public void SetLevelName(string name)
+    public void SetLevelNameAndId(string name, int id)
     {
+        this.levelId = id;
         this.levelName = name;
         this.GetComponentInChildren<Text>().text = name;
     }
@@ -40,4 +43,10 @@ public class CustomLevelButton : MonoBehaviour
             SceneManager.LoadScene(SceneDictionary.Play);
         }
     }
+
+    public void OnSelect(BaseEventData eventData)
+    {
+        selection.SelectButton(levelId);
+    }
+
 }
