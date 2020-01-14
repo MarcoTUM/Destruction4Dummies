@@ -11,7 +11,14 @@ public class RespawnBlock : Block
     [SerializeField]
     private float respawnTime;
 
+    public AudioClip audioClip;
+    private AudioSource audioSource;
+
     #region Initialization / Destruction
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     public override void InitializeBlock(Block_Data data)
     {
         // Negative respawnTime makes no sence
@@ -52,6 +59,7 @@ public class RespawnBlock : Block
 
     protected override void OnTouch(GameObject player)
     {
+        audioSource.PlayOneShot(audioClip, UnityEngine.Random.Range(0.5f, 1.5f));
         base.OnTouch(player);
     }
 

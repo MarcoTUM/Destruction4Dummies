@@ -13,12 +13,12 @@ public class RestoreBlock : Block
     public AudioClip audioClip;
     private AudioSource audioSource;
 
+    #region Initialization / Destruction
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
     }
 
-    #region Initialization / Destruction
     public override void InitializeBlock(Block_Data data)
     {
         base.InitializeBlock(data);
