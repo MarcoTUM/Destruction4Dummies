@@ -7,11 +7,13 @@ using UnityEngine.UI;
 
 public class PlaySceneUI : MonoBehaviour
 {
-    [SerializeField] private float windowResizeTime = 1f;
+    [SerializeField] private float windowResizeTime = 0.4f;
+    [SerializeField] private float pauseWindowResizeTime = 0.2f;
     [SerializeField] private RectTransform mainLevelCompleteWindow;
     [SerializeField] private RectTransform customLevelCompleteWindow;
     [SerializeField] private RectTransform testLevelCompleteWindow;
     [SerializeField] private RectTransform pausedWindow;
+    [SerializeField] private RectTransform pausedEditorWindow;
     [SerializeField] private GameObject exportedText;
     public bool IsOpen { private set; get; }
 
@@ -23,13 +25,18 @@ public class PlaySceneUI : MonoBehaviour
 
     public void OpenPauseWindow()
     {
-        StartCoroutine(ResizeWindow(pausedWindow, Vector3.zero, Vector3.one));
+        if(Gamemaster.Instance.GetLevelType() == LevelType.Test)
+            StartCoroutine(ResizeWindow(pausedEditorWindow, Vector3.zero, Vector3.one, pauseWindowResizeTime));
+        else
+            StartCoroutine(ResizeWindow(pausedWindow, Vector3.zero, Vector3.one, pauseWindowResizeTime));
     }
 
     public void ClosePauseWindow()
     {
-
-        StartCoroutine(ResizeWindow(pausedWindow, Vector3.one, Vector3.zero));
+         if(Gamemaster.Instance.GetLevelType() == LevelType.Test)
+            StartCoroutine(ResizeWindow(pausedEditorWindow, Vector3.one, Vector3.zero, pauseWindowResizeTime));
+        else
+            StartCoroutine(ResizeWindow(pausedWindow, Vector3.one, Vector3.zero, pauseWindowResizeTime));
     }
     #region LevelCompleteWindow
     public void OpenLevelCompleteWindow()
@@ -38,13 +45,16 @@ public class PlaySceneUI : MonoBehaviour
         switch (type)
         {
             case LevelType.Main:
-                StartCoroutine(ResizeWindow(mainLevelCompleteWindow, Vector3.zero, Vector3.one));
+                if(Gamemaster.Instance.HasNextLevel())
+                    StartCoroutine(ResizeWindow(mainLevelCompleteWindow, Vector3.zero, Vector3.one, windowResizeTime));
+                else
+                    StartCoroutine(ResizeWindow(customLevelCompleteWindow, Vector3.zero, Vector3.one, windowResizeTime));
                 break;
             case LevelType.Custom:
-                StartCoroutine(ResizeWindow(customLevelCompleteWindow, Vector3.zero, Vector3.one));
+                StartCoroutine(ResizeWindow(customLevelCompleteWindow, Vector3.zero, Vector3.one, windowResizeTime));
                 break;
             case LevelType.Test:
-                StartCoroutine(ResizeWindow(testLevelCompleteWindow, Vector3.zero, Vector3.one));
+                StartCoroutine(ResizeWindow(testLevelCompleteWindow, Vector3.zero, Vector3.one, windowResizeTime));
                 break;
             default:
                 throw new InvalidOperationException("Leveltype case not defined for: " + type);
@@ -53,6 +63,7 @@ public class PlaySceneUI : MonoBehaviour
 
     public void BackToMenu()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneDictionary.MainMenu);
     }
 
@@ -64,7 +75,8 @@ public class PlaySceneUI : MonoBehaviour
 
     public void BackToEditor()
     {
-        SceneManager.LoadScene(SceneDictionary.LevelEditor);
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneDictionary.LevelEditor); 
     }
 
     public void ExportLevel()
@@ -76,18 +88,18 @@ public class PlaySceneUI : MonoBehaviour
     #endregion
 
     #region Helper
-    private IEnumerator ResizeWindow(RectTransform window, Vector3 startScale, Vector3 goalScale)
+    private IEnumerator ResizeWindow(RectTransform window, Vector3 startScale, Vector3 goalScale, float resizeTime)
     {
         Button[] buttons = window.GetComponentsInChildren<Button>();
         EnDisableButtons(buttons, false);
         window.gameObject.SetActive(true);
         float timer = 0;
         window.localScale = startScale;
-        while (timer < windowResizeTime)
+        while (timer < resizeTime)
         {
             yield return new WaitForEndOfFrame();
             timer += Time.unscaledDeltaTime;
-            window.localScale = Vector3.Lerp(startScale, goalScale, timer / windowResizeTime);
+            window.localScale = Vector3.Lerp(startScale, goalScale, timer / resizeTime);
         }
         EnDisableButtons(buttons, true);
         window.localScale = goalScale;
