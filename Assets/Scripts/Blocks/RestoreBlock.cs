@@ -13,17 +13,17 @@ public class RestoreBlock : Block
     public AudioClip audioClip;
     private AudioSource audioSource;
 
+    #region Initialization / Destruction
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
     }
 
-    #region Initialization / Destruction
     public override void InitializeBlock(Block_Data data)
     {
         base.InitializeBlock(data);
         this.blockID = ((RestoreBlock_Data)data).GetID();
-        this.GetComponent<Renderer>().material.color = RestoreBlock_Data.RestoreBlockColors[this.blockID - 1];
+        this.GetComponent<Renderer>().material.color = RestoreBlock_Data.BlockColors[this.blockID - 1];
     }
 
     protected override void DestroyBlock()

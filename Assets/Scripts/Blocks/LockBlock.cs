@@ -15,12 +15,20 @@ public class LockBlock : Block
 
     private Material lockMaterial;
 
+    public AudioClip audioClip;
+    private AudioSource audioSource;
+
     #region Initialization / Destruction
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     public override void InitializeBlock(Block_Data data)
     {
         base.InitializeBlock(data);
         this.blockID = ((LockBlock_Data)data).GetID();
-        this.GetComponent<Renderer>().material.color = LockBlock_Data.LockBlockColors[this.blockID - 1];
+        ((LockBlock_Data)BlockData).SetLock(true);
+        this.GetComponent<Renderer>().material.color = LockBlock_Data.BlockColors[this.blockID - 1];
 
         // Save current material for later reset
         lockMaterial = gameObject.GetComponent<Renderer>().material;
@@ -52,6 +60,9 @@ public class LockBlock : Block
         // If the the lockBlock is unlocked
         if (!((LockBlock_Data)BlockData).GetLock())
         {
+            // Play sound effect
+            audioSource.PlayOneShot(audioClip, Random.Range(0.5f, 1.5f));
+
             // Destroy the lockBlock
             base.OnTouch(player);
         }

@@ -13,10 +13,11 @@ using UnityEngine.UI;
 public abstract class LevelButtonGroup : MonoBehaviour
 {
     [SerializeField] protected GameObject buttonPrefab;
+    [SerializeField] protected Scrollbar scrollbar;
     protected int levelCount;
     protected const float minHeight = 500f;
     protected const int LevelsPerRow = 5;
-
+    protected int rows;
     protected abstract void Awake();
     /// <summary>
     /// Spawn buttons and initializes them
@@ -34,7 +35,7 @@ public abstract class LevelButtonGroup : MonoBehaviour
     protected void SetHeight()
     {
         GridLayoutGroup grid = this.GetComponent<GridLayoutGroup>();
-        int rows = ((levelCount - 1) / LevelsPerRow) + 1;
+        rows = ((levelCount - 1) / LevelsPerRow) + 1;
         float height = grid.padding.top + (grid.spacing.y + grid.cellSize.y) * rows;
         height = Mathf.Max(minHeight, height);
         this.GetComponent<RectTransform>().sizeDelta = new Vector2(0, height);
@@ -52,6 +53,13 @@ public abstract class LevelButtonGroup : MonoBehaviour
         buttonObject.transform.SetParent(this.transform);
         buttonObject.transform.localScale = Vector3.one;
         return buttonObject;
+    }
+
+    public void SelectButton(int id)
+    {
+        if (rows <= 1)
+            return;
+        scrollbar.value = 1f - 1f * ((id - 1) / LevelsPerRow) / (rows - 1);
     }
     #endregion
 }

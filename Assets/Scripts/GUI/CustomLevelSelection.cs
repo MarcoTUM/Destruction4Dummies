@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(GridLayoutGroup), typeof(RectTransform))]
 public class CustomLevelSelection : LevelButtonGroup
@@ -34,7 +35,7 @@ public class CustomLevelSelection : LevelButtonGroup
         {
             GameObject buttonObject = InstantiateButtonAsChild();
             CustomLevelButton button = buttonObject.GetComponent<CustomLevelButton>();
-            button.SetLevelName(fileNames[i]);
+            button.SetLevelNameAndId(fileNames[i], i + 1);
             button.SetLevelSelection(this);
             buttons.Add(button);
         }
@@ -65,6 +66,8 @@ public class CustomLevelSelection : LevelButtonGroup
         buttons.Remove(button);
         if (buttons.Count == 0)
             deleteButton.SetActive(false);
+        else
+            EventSystem.current.SetSelectedGameObject(deleteButton);
     }
 
 }

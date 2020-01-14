@@ -10,12 +10,19 @@ public class ChainBlock : Block
     [SerializeField]
     private uint blockID = 0;
 
+    public AudioClip audioClip;
+    private AudioSource audioSource;
+
     #region Initialization / Destruction
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     public override void InitializeBlock(Block_Data data)
     {
         base.InitializeBlock(data);
         this.blockID = ((ChainBlock_Data)data).GetChainID();
-        this.GetComponent<Renderer>().material.color = ChainBlock_Data.ChainBlockColors[this.blockID - 1];
+        this.GetComponent<Renderer>().material.color = ChainBlock_Data.BlockColors[this.blockID - 1];
     }
 
     protected override void DestroyBlock()
@@ -51,7 +58,8 @@ public class ChainBlock : Block
                 chainBlockScript.StartCoroutine("StartBlockDestruction");
             }
         }
-        
+
+        audioSource.PlayOneShot(audioClip, Random.Range(0.5f, 1.5f));
     }
 
     protected override void OnTouchEnd(GameObject player)

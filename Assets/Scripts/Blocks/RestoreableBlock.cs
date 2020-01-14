@@ -16,14 +16,21 @@ public class RestoreableBlock : Block
 
     private Material restoreableMaterial;
 
+    public AudioClip audioClip;
+    private AudioSource audioSource;
+
     #region Initialization / Destruction
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     public override void InitializeBlock(Block_Data data)
     {
         gameObject.GetComponent<Collider>().enabled = SceneManager.GetActiveScene().name != SceneDictionary.Play;
 
         base.InitializeBlock(data);
         this.blockID = ((RestoreableBlock_Data)data).GetID();
-        this.GetComponent<Renderer>().material.color = RestoreableBlock_Data.RestoreableBlockColors[this.blockID - 1];
+        this.GetComponent<Renderer>().material.color = RestoreableBlock_Data.BlockColors[this.blockID - 1];
 
         // Save current material for later reset
         restoreableMaterial = gameObject.GetComponent<Renderer>().material;
@@ -51,6 +58,10 @@ public class RestoreableBlock : Block
     {
         if (TouchedOnGoal())
             return;
+
+        // Play the sound effect
+        audioSource.PlayOneShot(audioClip, Random.Range(0.5f, 1.5f));
+
         // Destroy the lockBlock
         base.OnTouch(player);
     }

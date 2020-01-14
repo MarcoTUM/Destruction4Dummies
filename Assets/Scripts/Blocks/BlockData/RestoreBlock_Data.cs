@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class RestoreBlock_Data : Block_Data
+public class RestoreBlock_Data : Colorable_Block_Data
 {
-    public static Color[] RestoreBlockColors = new Color[5] { Color.white, Color.red, Color.green, Color.magenta, Color.blue };
     public override BlockType BlockType => BlockType.Restore;
     private uint blockID = 0;
     public RestoreBlock_Data()

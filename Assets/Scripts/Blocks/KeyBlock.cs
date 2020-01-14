@@ -23,7 +23,7 @@ public class KeyBlock : Block
     {
         base.InitializeBlock(data);
         this.blockID = ((KeyBlock_Data)data).GetID();
-        this.GetComponent<Renderer>().material.color = KeyBlock_Data.KeyBlockColors[this.blockID - 1];
+        this.GetComponent<Renderer>().material.color = KeyBlock_Data.BlockColors[this.blockID - 1];
     }
 
     protected override void DestroyBlock()

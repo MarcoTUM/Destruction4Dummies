@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class Gamemaster : Singleton<Gamemaster>
@@ -12,13 +14,14 @@ public class Gamemaster : Singleton<Gamemaster>
     private LevelEditor editor;
     private Player player;
 
+    public bool IsUsingXbox { get; set; }
     private LevelType nextLevelType = LevelType.Main;
     private string nextLevelName;
     private int nextLevelId = 1;
-
     private ProgressionFile progress;
     private int completedLevels = 0;
-
+    private int numberOfMainLevels = -1;
+    
     protected override void Awake()
     {
         base.Awake();
@@ -34,6 +37,15 @@ public class Gamemaster : Singleton<Gamemaster>
     public LevelType GetLevelType()
     {
         return nextLevelType;
+    }
+
+    public bool HasNextLevel()
+    {
+        if(numberOfMainLevels == -1)
+        {
+            numberOfMainLevels = Directory.GetFiles(FilePaths.MainLevelFolder).Where(filePath => filePath.EndsWith(".dat")).Count();
+        }
+        return nextLevelId < numberOfMainLevels;
     }
 
     public int GetLevelId()

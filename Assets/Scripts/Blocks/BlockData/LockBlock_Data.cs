@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class LockBlock_Data : Block_Data
+public class LockBlock_Data : Colorable_Block_Data
 {
-    public static Color[] LockBlockColors = new Color[5] { Color.white, Color.red, Color.green, Color.magenta, Color.blue };
     public override BlockType BlockType => BlockType.Lock;
     private uint blockID = 0;
 

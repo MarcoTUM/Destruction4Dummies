@@ -36,6 +36,7 @@ public class MainLevelSelection : LevelButtonGroup
         {
             GameObject buttonObject = InstantiateButtonAsChild();
             buttonObject.GetComponent<MainLevelButton>().SetLevelId(GetLevelId(fileNames[i]));
+            buttonObject.GetComponent<MainLevelButton>().SetSelection(this);
         }
     }
 
