@@ -86,10 +86,4 @@ public class PlayAdditionalInput : MonoBehaviour
         playerInputHandler.IsPaused = false;
         Time.timeScale = 1;
     }
-
-    public void BackToMenu()
-    {
-        Time.timeScale = 1;
-        SceneManager.LoadScene(SceneDictionary.MainMenu);
-    }
 }
