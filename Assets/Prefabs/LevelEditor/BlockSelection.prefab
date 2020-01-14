@@ -261,6 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78c37bec1e2780446ad3c5cb74ad8f55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlockValue: 5
   blockId: 0
   tex: {fileID: 2800000, guid: 319eabe7c0af5c7409445fc448266476, type: 3}
   blockName: Restorable Block
@@ -521,6 +522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d322ffb1139b1144e92cb9e6c6c43905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlockValue: 5
   blockId: 10
   tex: {fileID: 2800000, guid: 57f168379d495e148a65b9116a3bbb03, type: 3}
   blockName: Charge Block
@@ -614,7 +616,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3434019042997523384}
-  - {fileID: 652356749626653564}
   m_Father: {fileID: 4814776325512348713}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -970,6 +971,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d322ffb1139b1144e92cb9e6c6c43905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlockValue: 2
   blockId: 13
   tex: {fileID: 2800000, guid: eea1799e40457bb4d9dffa316e8a3f03, type: 3}
   blockName: Updraft Block
@@ -1379,6 +1381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d322ffb1139b1144e92cb9e6c6c43905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlockValue: 5
   blockId: 9
   tex: {fileID: 2800000, guid: 1e41cdd791e5b904cb7244949c9ce4a8, type: 3}
   blockName: Respawn Block
@@ -2342,7 +2345,7 @@ RectTransform:
   m_Children:
   - {fileID: 4814776325503698128}
   m_Father: {fileID: 4814776325512348713}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2473,6 +2476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d322ffb1139b1144e92cb9e6c6c43905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlockValue: 0
   blockId: 4
   tex: {fileID: 2800000, guid: fada0d179bc91b84581b50fbe5da9dae, type: 3}
   blockName: Stone Block
@@ -2993,6 +2997,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d322ffb1139b1144e92cb9e6c6c43905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlockValue: 0
   blockId: 0
   tex: {fileID: 2800000, guid: e290084c0089dee418f030a67f3a48cd, type: 3}
   blockName: Start Platform
@@ -3457,6 +3462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d322ffb1139b1144e92cb9e6c6c43905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlockValue: 0
   blockId: 3
   tex: {fileID: 2800000, guid: 56f5668bd17e667468319670759affe7, type: 3}
   blockName: Wood Block
@@ -3795,6 +3801,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e08ef1d30e433654490dc489516fe0d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlockValue: 5
   blockId: 0
   tex: {fileID: 2800000, guid: 3da1cf2de3956c84a85feba2a0a697e1, type: 3}
   blockName: Chain Block
@@ -3896,6 +3903,7 @@ RectTransform:
   - {fileID: 4814776325192968631}
   - {fileID: 4814776325854257405}
   - {fileID: 2887459072950429727}
+  - {fileID: 652356749626653564}
   - {fileID: 4265497834314266025}
   - {fileID: 6367985180963081417}
   - {fileID: 4814776323915883597}
@@ -4162,6 +4170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d322ffb1139b1144e92cb9e6c6c43905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlockValue: 0
   blockId: 1
   tex: {fileID: 2800000, guid: c53cca4ea3d239842951423e276909cb, type: 3}
   blockName: Goal Platform
@@ -4605,7 +4614,7 @@ RectTransform:
   m_Children:
   - {fileID: 7446494399604212777}
   m_Father: {fileID: 4814776325512348713}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4957,6 +4966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87a4886ff806c8c49916a769bf7a0ab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlockValue: 5
   blockId: 0
   tex: {fileID: 2800000, guid: 2dd3e8a645973dc4fb155b424bbc6081, type: 3}
   blockName: Restore block
@@ -5144,7 +5154,7 @@ RectTransform:
   m_Children:
   - {fileID: 4203310072175783223}
   m_Father: {fileID: 4814776325512348713}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5217,8 +5227,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8871792363481181385}
-  m_Father: {fileID: 2887459072950429727}
-  m_RootOrder: 1
+  m_Father: {fileID: 4814776325512348713}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5494,7 +5504,7 @@ RectTransform:
   m_Children:
   - {fileID: 3079893669670138341}
   m_Father: {fileID: 4814776325512348713}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5734,7 +5744,7 @@ RectTransform:
   m_Children:
   - {fileID: 2591454642046940186}
   m_Father: {fileID: 4814776325512348713}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -6111,6 +6121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c00c54cf8548ca149bb6a518618cb3e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlockValue: 4
   blockId: 0
   tex: {fileID: 2800000, guid: 1fe8b33d7df71e3439e97b9a48541e70, type: 3}
   blockName: Lock Block
@@ -6184,7 +6195,7 @@ RectTransform:
   m_Children:
   - {fileID: 2792091996705534329}
   m_Father: {fileID: 4814776325512348713}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -6375,6 +6386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a516cef35088ad24492e73459e325356, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlockValue: 4
   blockId: 0
   tex: {fileID: 2800000, guid: 8f427d9335ee12d4caf1b25e1e9b22bb, type: 3}
   blockName: Key Block
@@ -6412,7 +6424,7 @@ RectTransform:
   m_Children:
   - {fileID: 3557381275511917379}
   m_Father: {fileID: 4814776325512348713}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -6616,6 +6628,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d322ffb1139b1144e92cb9e6c6c43905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlockValue: 0
   blockId: 6
   tex: {fileID: 2800000, guid: db3d8c614588efe4aa85a67cd5faad91, type: 3}
   blockName: Death Block

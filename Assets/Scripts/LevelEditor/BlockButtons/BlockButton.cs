@@ -7,6 +7,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Image), typeof(Toggle))]
 public class BlockButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    [SerializeField] protected int unlockValue;//=number of levels completed!
     [SerializeField] protected int blockId; //only used when SetBlockType(id) is used
     [SerializeField] protected Texture2D tex;
     [SerializeField] protected string blockName;
@@ -40,9 +41,20 @@ public class BlockButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         Gamemaster.Instance.GetLevelEditor().SetBlockType(blockId);
     }
 
-
-
-
+    /// <summary>
+    /// Unlocks button if enough levels are completed
+    /// </summary>
+    /// <returns>if unlocking was successful or not</returns>
+    public bool UnlockButton()
+    {
+        if(Gamemaster.Instance.GetProgress() < unlockValue)
+        {
+            this.transform.parent.gameObject.SetActive(false);
+            return false;
+        }
+        //Unlocking = do nothing
+        return true;
+    }
     #region BlockDescription
     protected virtual string BlockText()
     {

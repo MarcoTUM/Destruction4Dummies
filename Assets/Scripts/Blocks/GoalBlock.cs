@@ -18,8 +18,8 @@ public class GoalBlock : Block
         float goalMargin = 1.5f * Block_Data.BlockSize;
         float modelXPos = playerScript.ShoesRenderer.bounds.center.x;
         float modelOffset = playerScript.ShoesRenderer.bounds.extents.x / 2f;
-        if (player.transform.position.y > this.transform.position.y 
-            && modelXPos + modelOffset >= goalX - goalMargin 
+        if (player.transform.position.y > this.transform.position.y
+            && modelXPos + modelOffset >= goalX - goalMargin
             && modelXPos - modelOffset <= goalX + goalMargin)
         {
             ReachedGoal();
@@ -35,8 +35,9 @@ public class GoalBlock : Block
     {
         Gamemaster.Instance.GetPlayer().ReachGoalPlatform();
         Gamemaster.Instance.GetPlaySceneUI().OpenLevelCompleteWindow();
+        Gamemaster.Instance.UpdateProgress();
         if (Gamemaster.Instance.GetLevelType() == LevelType.Test)
-            Gamemaster.Instance.GetLevel().GetLevelData(). IsExportable = true;
+            Gamemaster.Instance.GetLevel().GetLevelData().IsExportable = true;
     }
 
     #endregion

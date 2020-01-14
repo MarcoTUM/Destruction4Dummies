@@ -9,12 +9,14 @@ public class BlockSelection : MonoBehaviour
 {
     [SerializeField] private Toggle startBlock;
 
+    int childCount = 0;
     /// <summary>
     /// Initializes the Rect for the scroll view + selects initial Block 
     /// </summary>
     void Start()
     {
-        int childCount = this.transform.childCount;
+        UnlockButtons();
+        Debug.Log("Unlocked Buttons: " + childCount);
         GridLayoutGroup grid = this.GetComponent<GridLayoutGroup>();
         float padding = grid.padding.left + grid.padding.right;
         float spacePerBlock = grid.cellSize.x + grid.spacing.x;
@@ -33,4 +35,15 @@ public class BlockSelection : MonoBehaviour
         startBlock.Select();
         this.GetComponent<ToggleGroup>().allowSwitchOff = false;
     }
+
+    private void UnlockButtons()
+    {
+        BlockButton[] buttons = GetComponentsInChildren<BlockButton>();
+        foreach (BlockButton button in buttons)
+        {
+            if (button.UnlockButton())
+                childCount++;
+        }
+    }
+
 }
