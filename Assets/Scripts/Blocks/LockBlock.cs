@@ -27,6 +27,7 @@ public class LockBlock : Block
     {
         base.InitializeBlock(data);
         this.blockID = ((LockBlock_Data)data).GetID();
+        ((LockBlock_Data)BlockData).SetLock(true);
         this.GetComponent<Renderer>().material.color = LockBlock_Data.BlockColors[this.blockID - 1];
 
         // Save current material for later reset
