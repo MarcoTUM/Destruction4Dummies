@@ -1,5 +1,15 @@
 1:
-Da'at: Welcome, young one. To the trials of destruction
+Da'at: Welcome, young one. To the trials of destruction! Use WASD / Arrow keys to walk, and space to jump.
+Balagan: ...Young one? Really? You are looking at the future god of destruction!
+Da'at: Don't get sassy with me, kid. You might have been born a god, but you will not remain one lest you prove yourself on this day.
+Balagan: Alright, I get it, chill.
+Da'at: I find your lightheadedness deeply concerning. You will have to pass all trials by reaching the designated goal, after which the next trial will begin, and so on, and so forth.
+Balagan: ..Continuing the cycle of who cares... So I just have to stand on the goal? Is that it?
+Da'at: I have protected the Start and the goal of each trial.
+Balagan: Cool. Wait, what?
+
+-1:
+Da'at: Welcome, young one. To the trials of destruction! Use Left stick / D-pad to walk, and A to jump.
 Balagan: ...Young one? Really? You are looking at the future god of destruction!
 Da'at: Don't get sassy with me, kid. You might have been born a god, but you will not remain one lest you prove yourself on this day.
 Balagan: Alright, I get it, chill.
@@ -13,4 +23,150 @@ Da'at: Well done.
 Balagan: I have <b>several</b> questions!
 Da'at: No time for questions, young one. Much trials to be had, yes?
 Balagan: I think my power is broken, I'm destroying everything I touch-
-Balagan: Son of a-
+Da'at: Did you know that you can zoom out using the F key?
+Balagan: Key?
+Da'at: Also you can self destruct by pressing R to restart the trial, and preserve a small amount of dignity when failing.
+Balagan: But I-
+Da'at: Off you go!
+
+-2:
+Da'at: Well done.
+Balagan: I have <b>several</b> questions!
+Da'at: No time for questions, young one. Much trials to be had, yes?
+Balagan: I think my power is broken, I'm destroying everything I touch-
+Da'at: Did you know that you can zoom out using LT?
+Balagan: Key?
+Da'at: Also you can self destruct by pressing RT to restart the trial, and preserve a small amount of dignity when failing.
+Balagan: But I-
+Da'at: Off you go!
+
+3:
+Balagan: Ah, finally someething that won't burn when I touch it.
+Da'at: Oh, no... no young one. The stones won't burn. Have no fear.
+Balagan: Good.
+Da'at: No... no... they will crumble.
+Balagan: Ah... Sweet...
+
+4:
+Balagan: The stones take longer to crumble then the wood takes to burn!
+Da'at: Very perceptive, kid!
+Balagan: I feel like I have learned a valuable lesson about destruction!
+Da'at: Great!
+Balagan: Yay! Can I leave now?
+Da'at: Absolutely not!
+Balagan: Arrrggghh...
+
+5:
+Balagan: Remind me how these trials qualify anyone to be a god of destruction again?
+Da'at: The trials are all about restraint of your destructive powers. You can't just go arround destroying stuff all willy nilly, you have to do it responsibly.
+Balagan: But I just want to demolish everything I see and charge in like a bull.
+Da'at: Well, let's see how far that approach will get you, shall we?
+
+6:
+Da'at: That was very good, Balagan! I wish your father would have been around to see it.
+Balagan: My dad is gone?!
+Da'at: Ah, shoot. I was supposed to tell you after you were done.
+Balagan: When? How?! I thought we were immortal...
+Da'at: Immortality is a fancy word for not dying of age, son. Your kind can still very much get destroyed. Like in this trial.
+Balagan: What did you do?
+Da'at: Oh, nothing...
+Balagan: Da'at... what did you do?
+Da'at: Don't touch the skully ones, 'kay?
+
+7:
+Balagan: Skulls kill... That's next level symbol usage man.
+Da'at: Thanks, made 'em myself.
+Balagan: So how did my father... depart?
+Da'at: Tragic workplace accident. He slipped and destroyed himself. By the time the rest of us got there, there was nothing that the god of medical assistance could have done.
+Balagan:...That's horrible. What was he working on before the accident?
+Da'at: He was destroying childrens' dreams of becomming rich and famous.
+Balagan: Ha! Haha! Ah, the old man did have a talent for this job.
+Da'at: Yes, he did son, hehe...
+Balagan: This next trial is for him!
+Da'at: Godspeed, kid!
+
+8:
+Da'at: Destrucion is a necessary part of creation, Balagan.
+Balagan: Is it though?
+Da'at: Positively, yes. Don't believe me? Destroy the wind blocks to create a gust of wind that carries your godliness sky high.
+Balagan: Ohh... looks fancy.
+
+9:
+Balagan: Wow, Da'at, you really enjoy just sitting there and watching me fall on my face all this time!
+Da'at: It's kind of great! I wish I had some popcorn to go with it.
+Balagan: You are the worst.
+Da'at: Silence! *Imitates popcorn consumption sounds* Trials! Now!
+
+10:
+Da'at: Alright, enough sillyness. This trial introduces some next level elements.
+Balagan: Bring it.
+Da'at: This is a lock. And it will remain locked until the coresponding key is destroyed.
+Balagan: That's not how keys work...
+Da'at: It will be up to you to choose if you must destroy or preserve the locks! Destroy too much, and you are doomed. Destroy too little, and you remain trapped!
+Balagan: Which is different from doomed, how?
+Da'at: I... You... Just get on with it, smartass
+
+11:
+Da'at: Kiss your speedrunning goodbye with this one, child. This lock and key maze will test your mind!
+Balagan: Laaaammmeeeeeee
+Da'at: Let the mind bending... BEGIN!
+
+12:
+Da'at: Do you like chains, Balagan?
+Balagan: Chains? What the fudge?
+Da'at: You know, the cahins are bound together. A tear in a single link will cause the chain to break down.
+Balagan: That's your weakest element introduction so far.
+Da'at: How dare you!
+
+13:
+Balagan: Where do you come up with the designs for these trials?!
+Da'at: All in a day's work. Plus the editor makes it really simple.
+Balagan: What was that?
+Da'at: Oh, nothing!
+
+14:
+Balagan: Say Da'ay, there was something I have been meaning to ask you.
+Da'at: Out with it.
+Balagan: Are you a god too?
+Da'at: Oh, come now. Don't be silly.
+Balagan: Silly because you are or because you aren't?
+Da'at: If I were a god, would I have been able to manipulate your powers of destruction?
+Balagan: ...Yes?
+
+15:
+Da'at: It is important to know, that some things are never permanently destroyed.
+Balagan: Like love?
+Da'at: ...I was referring to the hourglass elements over there, but yes, love counts too. Happy now?
+Balagan: Yes.
+
+16:
+Da'at: I am not seen, yet I guide your way. What am I?
+Balagan: You are that wierd new element that I spy over there.
+Da'at: You are no fun.
+
+17:
+Da'at: Hey, Balagan! This particular trial will be X-tremely difficult! you will have to be X-tra careful!
+Balagan: Please, stop.
+Da'at: I don't know what you were X-pecting!
+Balagan: Your sense of humor has X-pired, move on!
+
+18:
+Balagan: Oh god, more shadow-ey ghost elements.
+Da'at: I kind of overbooked them, so... you know... have fun!
+
+//there is more dialogues herre for when the lvl order has been restored
+
+charge block intro lvl:
+Balagan: I can't get over this chain bridge without falling.
+Da'at: Yes, wise call!
+Balagan: And that is the only way out of this...
+Da'at: Don't overlook that lighting marked element at the bridge's foot. It is <b>magical</b>!
+
+lvl with updraft and skulls:
+Da'at: Just a hop, skip, and a death defying leap.
+Balagan: Speaking of... are we in space?
+Da'at: What?
+Balagan: Are we, both of us, and the trials, in space?
+Da'at: Mm... yes.
+Balagan: How?
+Da'at: Everything is in space. So yeah. All of this is as well.
