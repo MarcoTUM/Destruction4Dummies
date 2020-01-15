@@ -5,17 +5,17 @@ Da'at: Don't get sassy with me, kid. You might have been born a god, but you wil
 Balagan: Alright, I get it, chill.
 Da'at: I find your lightheadedness deeply concerning. You will have to pass all trials by reaching the designated goal, after which the next trial will begin, and so on, and so forth.
 Balagan: ..Continuing the cycle of who cares... So I just have to stand on the goal? Is that it?
-Da'at: I have protected the Start and the goal of each trial.
+Da'at: I have protected the Start and the Goal of each trial.
 Balagan: Cool. Wait, what?
 
 -1:
-Da'at: Welcome, young one. To the trials of destruction! Use Left stick / D-pad to walk, and A to jump.
+Da'at: Welcome, young one. To the trials of destruction! Use Left stick to walk, and A to jump.
 Balagan: ...Young one? Really? You are looking at the future god of destruction!
 Da'at: Don't get sassy with me, kid. You might have been born a god, but you will not remain one lest you prove yourself on this day.
 Balagan: Alright, I get it, chill.
 Da'at: I find your lightheadedness deeply concerning. You will have to pass all trials by reaching the designated goal, after which the next trial will begin, and so on, and so forth.
 Balagan: ..Continuing the cycle of who cares... So I just have to stand on the goal? Is that it?
-Da'at: I have protected the Start and the goal of each trial.
+Da'at: I have protected the Start and the Goal of each trial.
 Balagan: Cool. Wait, what?
 
 2:
@@ -34,9 +34,9 @@ Da'at: Well done.
 Balagan: I have <b>several</b> questions!
 Da'at: No time for questions, young one. Much trials to be had, yes?
 Balagan: I think my power is broken, I'm destroying everything I touch-
-Da'at: Did you know that you can zoom out using LT?
-Balagan: Key?
-Da'at: Also you can self destruct by pressing RT to restart the trial, and preserve a small amount of dignity when failing.
+Da'at: Did you know that you can zoom out using the Triggerbuttons?
+Balagan: Buttons?
+Da'at: Also you can self destruct by pressing Select to restart the trial, and preserve a small amount of dignity when failing.
 Balagan: But I-
 Da'at: Off you go!
 
@@ -114,7 +114,7 @@ Da'at: Let the mind bending... BEGIN!
 12:
 Da'at: Do you like chains, Balagan?
 Balagan: Chains? What the fudge?
-Da'at: You know, the cahins are bound together. A tear in a single link will cause the chain to break down.
+Da'at: You know, the chains are bound together. A tear in a single link will cause the chain to break down.
 Balagan: That's your weakest element introduction so far.
 Da'at: How dare you!
 
@@ -125,7 +125,7 @@ Balagan: What was that?
 Da'at: Oh, nothing!
 
 14:
-Balagan: Say Da'ay, there was something I have been meaning to ask you.
+Balagan: Say Da'at, there was something I have been meaning to ask you.
 Da'at: Out with it.
 Balagan: Are you a god too?
 Da'at: Oh, come now. Don't be silly.
@@ -141,11 +141,11 @@ Balagan: Yes.
 
 16:
 Da'at: I am not seen, yet I guide your way. What am I?
-Balagan: You are that wierd new element that I spy over there.
+Balagan: You are that weird new element that I spy over there.
 Da'at: You are no fun.
 
 17:
-Da'at: Hey, Balagan! This particular trial will be X-tremely difficult! you will have to be X-tra careful!
+Da'at: Hey, Balagan! This particular trial will be X-tremely difficult! You will have to be X-tra careful!
 Balagan: Please, stop.
 Da'at: I don't know what you were X-pecting!
 Balagan: Your sense of humor has X-pired, move on!
@@ -154,15 +154,13 @@ Balagan: Your sense of humor has X-pired, move on!
 Balagan: Oh god, more shadow-ey ghost elements.
 Da'at: I kind of overbooked them, so... you know... have fun!
 
-//there is more dialogues herre for when the lvl order has been restored
-
-charge block intro lvl:
+20:
 Balagan: I can't get over this chain bridge without falling.
 Da'at: Yes, wise call!
 Balagan: And that is the only way out of this...
 Da'at: Don't overlook that lighting marked element at the bridge's foot. It is <b>magical</b>!
 
-lvl with updraft and skulls:
+19:
 Da'at: Just a hop, skip, and a death defying leap.
 Balagan: Speaking of... are we in space?
 Da'at: What?
