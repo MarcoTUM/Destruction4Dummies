@@ -74,7 +74,14 @@ public class DialogueParser : MonoBehaviour
         }
         else
         {
-            return null;
+            if (dialogues.TryGetValue(-1*id, out lines))
+            {
+                return lines;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
