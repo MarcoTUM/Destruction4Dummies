@@ -75,6 +75,17 @@ public class DialogueManager : MonoBehaviour
     }
 
     /// <summary>
+    /// When canceling the dialogue it opens pause menu because IsInDialogue is set to false 
+    /// Because I am lazy I wait 1 frame to prevent that
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator EndDialogueOneFrameLater()
+    {
+        yield return new WaitForEndOfFrame();
+        EndDialogue();
+    }
+
+    /// <summary>
     /// Handles when player presses interaction(currentyl jump) button 
     /// Either starts talking to Advisor -> opening speechBubble
     /// or progressing the dialogue with the next page/closing the speechBubble
@@ -102,6 +113,16 @@ public class DialogueManager : MonoBehaviour
             }
         }
 
+    }
+
+    public void Cancel()
+    {
+        do
+        {
+            hasMoreText = participants[(int)currentLine.Speaker].ContinueLine();
+        } while (hasMoreText);
+
+        StartCoroutine(EndDialogueOneFrameLater());
     }
 
     public void ResetDialogue()
