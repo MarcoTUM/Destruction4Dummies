@@ -2475,8 +2475,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d55946539c730944c8092674d517b393, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoomOutTime: 1
-  zoomInTime: 0.5
+  zoomOutTime: 0.7
+  zoomInTime: 0.3
   smoothTime: 0.5
   cameraDistance: 12
   openingDuration: 2
@@ -4276,11 +4276,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Advisor
       objectReference: {fileID: 0}
-    - target: {fileID: 2715315218784800809, guid: 092775c88c9c53d49b5680ac201a5fad,
-        type: 3}
-      propertyPath: dialogueManager
-      value: 
-      objectReference: {fileID: 864151986}
     - target: {fileID: 1438307542751486516, guid: 092775c88c9c53d49b5680ac201a5fad,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4336,6 +4331,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2715315218784800809, guid: 092775c88c9c53d49b5680ac201a5fad,
+        type: 3}
+      propertyPath: dialogueManager
+      value: 
+      objectReference: {fileID: 864151986}
     - target: {fileID: 6753765028740709640, guid: 092775c88c9c53d49b5680ac201a5fad,
         type: 3}
       propertyPath: m_TagString
