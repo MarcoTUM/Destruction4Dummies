@@ -70,5 +70,9 @@ public class PlayerInputHandler : MonoBehaviour
         {
             player.Interact();
         }
+        else if (input.PressedExitButton())
+        {
+            player.CancelDialogue();
+        }
     }
 }

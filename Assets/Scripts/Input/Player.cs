@@ -373,9 +373,15 @@ public class Player : DialogueParticipant
     {
         return grounded;
     }
+
     public void Interact()
     {
         dialogueManager.HandlePlayerInteraction();
+    }
+
+    public void CancelDialogue()
+    {
+        dialogueManager.Cancel();
     }
 
     public override void StartLine(string line)

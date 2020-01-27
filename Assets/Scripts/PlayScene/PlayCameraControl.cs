@@ -18,7 +18,8 @@ public class PlayCameraControl : MonoBehaviour
     private float maxZoomDistance;
     private float currentZoomDistance;
     private Coroutine zoomRoutine;
-
+    private bool isZoomingOut = false;
+    private Vector3 levelCenter;
     private void Awake()
     {
         camera = this.GetComponent<Camera>();
@@ -28,12 +29,21 @@ public class PlayCameraControl : MonoBehaviour
     private void Start()
     {
         player = Gamemaster.Instance.GetPlayer();
+        float x = Gamemaster.Instance.GetLevel().GetWorldWidth()/2f;
+        float y = Gamemaster.Instance.GetLevel().GetWorldHeight() / 2f;
+        float z = 0;
+        levelCenter = new Vector3(x, y, z);
     }
 
     private void Update()
     {
         if (cameraFollow)
-            SmoothDampToPosition(player.transform.position - (cameraDistance + currentZoomDistance) * Vector3.forward);
+        {
+            if(isZoomingOut && StartBlock.PlayerIsOnStart())
+                SmoothDampToPosition(levelCenter - (cameraDistance + currentZoomDistance) * Vector3.forward);
+            else
+                SmoothDampToPosition(player.transform.position - (cameraDistance + currentZoomDistance / 2f) * Vector3.forward);
+        }
     }
 
     /// <summary>
@@ -99,7 +109,7 @@ public class PlayCameraControl : MonoBehaviour
             return;
         if (zoomRoutine != null)
             StopCoroutine(zoomRoutine);
-
+        isZoomingOut = true;
         zoomRoutine = StartCoroutine(ZoomOut());
     }
 
@@ -112,7 +122,7 @@ public class PlayCameraControl : MonoBehaviour
         {
             currentZoomDistance = Mathf.Lerp(0, maxZoomDistance, timer / zoomOutTime);
             yield return new WaitForEndOfFrame();
-            timer += Time.deltaTime;
+            timer += Time.deltaTime * (StartBlock.PlayerIsOnStart() ? 1 : 2);
         }
         currentZoomDistance = maxZoomDistance;
     }
@@ -123,6 +133,7 @@ public class PlayCameraControl : MonoBehaviour
             return;
 
         StopCoroutine(zoomRoutine);
+        isZoomingOut = false;
         zoomRoutine = StartCoroutine(ZoomIn());
     }
 
@@ -135,7 +146,7 @@ public class PlayCameraControl : MonoBehaviour
         {
             currentZoomDistance = Mathf.Lerp(0, maxZoomDistance, timer / zoomInTime);
             yield return new WaitForEndOfFrame();
-            timer -= Time.deltaTime;
+            timer -= Time.deltaTime  * (StartBlock.PlayerIsOnStart() ? 1 : 2);
         }
         currentZoomDistance = 0;
     }
