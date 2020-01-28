@@ -44,7 +44,7 @@ public class Player : DialogueParticipant
     public float jumpToFallAnimationTime;
     private float lookRight = 0;
     private float lookLeft = 170;
-    private float lookAtCrowd = 185;
+    private float lookAtCrowd = 90;
     private bool isLookingRight = true;
     [SerializeField] private GameObject model;
 
