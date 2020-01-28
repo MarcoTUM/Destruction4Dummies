@@ -139,26 +139,22 @@ Balagan: Like love?
 Da'at: ...I was referring to the hourglass elements over there, but yes, love counts too. Happy now?
 Balagan: Yes.
 
-16:
-Da'at: I am not seen, yet I guide your way. What am I?
-Balagan: You are that weird new element that I spy over there.
-Da'at: You are no fun.
 
-17:
+16:
 Da'at: Hey, Balagan! This particular trial will be X-tremely difficult! You will have to be X-tra careful!
 Balagan: Please, stop.
 Da'at: I don't know what you were X-pecting!
 Balagan: Your sense of humor has X-pired, move on!
 
+
+17:
+Da'at: I am not seen, yet I guide your way. What am I?
+Balagan: You are that weird new element that I spy over there.
+Da'at: You are no fun.
+
 18:
 Balagan: Oh god, more shadow-ey ghost elements.
 Da'at: I kind of overbooked them, so... you know... have fun!
-
-20:
-Balagan: I can't get over this chain bridge without falling.
-Da'at: Yes, wise call!
-Balagan: And that is the only way out of this...
-Da'at: Don't overlook that lighting marked element at the bridge's foot. It is <b>magical</b>!
 
 19:
 Da'at: Just a hop, skip, and a death defying leap.
@@ -167,4 +163,14 @@ Da'at: What?
 Balagan: Are we, both of us, and the trials, in space?
 Da'at: Mm... yes.
 Balagan: How?
-Da'at: Everything is in space. So yeah. All of this is as well.
+Da'at: What do you mean? Everything is in space.
+
+20:
+Balagan: I can't get over this chain bridge without falling.
+Da'at: Yes, wise call! Use the lighting marked block over there.
+Balagan: What does it do?
+Da'at: Once broken, it will restrain your powers for a short while, making you unable to destroy anything. After that short while, however...
+Balagan: Yes?
+Da'at: You will kind of... Explode?
+Balagan: WHAT?!
+Da'at: Don't worry, I'm sure you will be fine. Any blocks caught in the explosion though will be annihilated on the spot. Have fun!
