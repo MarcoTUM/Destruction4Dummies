@@ -42,8 +42,8 @@ public class Player : DialogueParticipant
     private static readonly int talkingParam = Animator.StringToHash("isTalking");
 
     public float jumpToFallAnimationTime;
-    private float lookRight = 100;
-    private float lookLeft = 270;
+    private float lookRight = 0;
+    private float lookLeft = 170;
     private float lookAtCrowd = 185;
     private bool isLookingRight = true;
     [SerializeField] private GameObject model;
