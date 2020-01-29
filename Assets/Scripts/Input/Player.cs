@@ -42,9 +42,9 @@ public class Player : DialogueParticipant
     private static readonly int talkingParam = Animator.StringToHash("isTalking");
 
     public float jumpToFallAnimationTime;
-    private float lookRight = 100;
-    private float lookLeft = 270;
-    private float lookAtCrowd = 185;
+    private float lookRight = 0;
+    private float lookLeft = 170;
+    private float lookAtCrowd = 90;
     private bool isLookingRight = true;
     [SerializeField] private GameObject model;
 
@@ -59,7 +59,6 @@ public class Player : DialogueParticipant
     //charge block
     public bool canDestroy { get; private set; } = true;
     private GameObject isChargingParticleEffect;
-    [SerializeField] private float liftChargeFX;
     #endregion
 
     #region Start, Update, onEnable
@@ -410,6 +409,12 @@ public class Player : DialogueParticipant
         animator.Play("Idle");
     }
 
+    public override void LookAtOther(DialogueParticipant otherPart)
+    {
+        base.LookAtOther(otherPart);
+        myModel.Rotate(-100 * Vector3.up);
+    }
+
     #endregion
 
     #region ChargeBlock
@@ -422,12 +427,8 @@ public class Player : DialogueParticipant
     private IEnumerator ChargeBlock(float time)
     {
         //charge effect
-        isChargingParticleEffect = Instantiate(EffectManager.Instance.GetEffect(11), model.transform, false);
-        isChargingParticleEffect.transform.Translate(0, liftChargeFX, 0);
-        Debug.Log("Charge effect info:");
-        Debug.Log("Position of model is: " + model.transform.position);
-        Debug.Log("Position of fx is: " + isChargingParticleEffect.transform.position);
-
+        isChargingParticleEffect = Instantiate(EffectManager.Instance.GetEffect(11), model.transform.position, new Quaternion(0,90,0,0), model.transform);
+        
         canDestroy = false;
         yield return new WaitForSeconds(time);
         canDestroy = true;
