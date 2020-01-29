@@ -2182,7 +2182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueCanvas: {fileID: 2082205148}
-  myModel: {fileID: 5006512736691705275}
+  myModel: {fileID: 1370749033330340325}
   runningVelocity: 3
   sprintVelocity: 4
   fallVelocityLimit: 10

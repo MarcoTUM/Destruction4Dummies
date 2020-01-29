@@ -409,6 +409,12 @@ public class Player : DialogueParticipant
         animator.Play("Idle");
     }
 
+    public override void LookAtOther(DialogueParticipant otherPart)
+    {
+        base.LookAtOther(otherPart);
+        myModel.Rotate(-100 * Vector3.up);
+    }
+
     #endregion
 
     #region ChargeBlock
