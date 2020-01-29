@@ -34,8 +34,8 @@ Da'at: Well done.
 Balagan: I have <b>several</b> questions!
 Da'at: No time for questions, young one. Much trials to be had, yes?
 Balagan: I think my power is broken, I'm destroying everything I touch-
-Da'at: Did you know that you can zoom out using the Triggerbuttons?
-Balagan: Buttons?
+Da'at: Did you know that you can zoom out using the Triggers?
+Balagan: Triggers?
 Da'at: Also you can self destruct by pressing Select to restart the trial, and preserve a small amount of dignity when failing.
 Balagan: But I-
 Da'at: Off you go!
@@ -58,7 +58,7 @@ Balagan: Arrrggghh...
 
 5:
 Balagan: Remind me how these trials qualify anyone to be a god of destruction again?
-Da'at: The trials are all about restraint of your destructive powers. You can't just go arround destroying stuff all willy nilly, you have to do it responsibly.
+Da'at: The trials are all about restraint of your destructive powers. You can't just go around destroying stuff all wily nilly, you have to do it responsibly.
 Balagan: But I just want to demolish everything I see and charge in like a bull.
 Da'at: Well, let's see how far that approach will get you, shall we?
 
@@ -79,14 +79,14 @@ Da'at: Thanks, made 'em myself.
 Balagan: So how did my father... depart?
 Da'at: Tragic workplace accident. He slipped and destroyed himself. By the time the rest of us got there, there was nothing that the god of medical assistance could have done.
 Balagan:...That's horrible. What was he working on before the accident?
-Da'at: He was destroying childrens' dreams of becomming rich and famous.
+Da'at: He was destroying children's' dreams of becoming rich and famous.
 Balagan: Ha! Haha! Ah, the old man did have a talent for this job.
 Da'at: Yes, he did son, hehe...
 Balagan: This next trial is for him!
 Da'at: Godspeed, kid!
 
 8:
-Da'at: Destrucion is a necessary part of creation, Balagan.
+Da'at: Destruction is a necessary part of creation, Balagan.
 Balagan: Is it though?
 Da'at: Positively, yes. Don't believe me? Destroy the wind blocks to create a gust of wind that carries your godliness sky high.
 Balagan: Ohh... looks fancy.
@@ -98,13 +98,13 @@ Balagan: You are the worst.
 Da'at: Silence! *Imitates popcorn consumption sounds* Trials! Now!
 
 10:
-Da'at: Alright, enough sillyness. This trial introduces some next level elements.
+Da'at: Alright, enough silliness. This trial introduces some next level elements.
 Balagan: Bring it.
-Da'at: This is a lock. And it will remain locked until the coresponding key is destroyed.
+Da'at: This is a lock. And it will remain locked until the corresponding key is destroyed.
 Balagan: That's not how keys work...
 Da'at: It will be up to you to choose if you must destroy or preserve the locks! Destroy too much, and you are doomed. Destroy too little, and you remain trapped!
 Balagan: Which is different from doomed, how?
-Da'at: I... You... Just get on with it, smartass
+Da'at: I... You... Just get on with it, smartass.
 
 11:
 Da'at: Kiss your speedrunning goodbye with this one, child. This lock and key maze will test your mind!
