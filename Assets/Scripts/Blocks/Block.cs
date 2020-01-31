@@ -47,7 +47,7 @@ public abstract class Block : MonoBehaviour
         // Set block inactive
         SpawnDestructionEffect();
         this.gameObject.SetActive(false);
-
+        blockDestructionCoroutine = null;
         // Recover texture
         gameObject.GetComponent<Renderer>().material.mainTexture = recoveryTexture;
     }
@@ -55,7 +55,8 @@ public abstract class Block : MonoBehaviour
     public void StartBlockDestructionCoroutine()
     {
         // Start destruction coroutine
-        blockDestructionCoroutine = StartCoroutine(StartBlockDestruction());
+        if(blockDestructionCoroutine == null)
+            blockDestructionCoroutine = StartCoroutine(StartBlockDestruction());
     }
 
     public void StartInstantBlockDestruction()
@@ -87,7 +88,7 @@ public abstract class Block : MonoBehaviour
         isTouchingPlayer = true;
         if (TouchedOnGoal())
             return;
-        if(Gamemaster.Instance.GetPlayer().canDestroy)
+        if(Gamemaster.Instance.GetPlayer().canDestroy && blockDestructionCoroutine == null)
             blockDestructionCoroutine = StartCoroutine(StartBlockDestruction());
     }
 
