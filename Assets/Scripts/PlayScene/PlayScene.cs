@@ -59,6 +59,7 @@ public class PlayScene : MonoBehaviour
         player.SpawnAtSpawnPlatform();
         StartCoroutine(Gamemaster.Instance.GetCameraPlayControl().FocusCameraOnPlayer(respawnDuration));
         yield return new WaitForSeconds(respawnDuration);
+        Instantiate(EffectManager.Instance.GetEffect(13), player.transform.position, Quaternion.identity);
         player.gameObject.SetActive(true);
         running = true;
     }
