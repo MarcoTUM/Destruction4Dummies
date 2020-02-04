@@ -97,4 +97,11 @@ public class RestoreableBlock : Block
             return false;
         }
     }
+
+    #region helper
+    protected override void SpawnDestructionEffect()
+    {
+        Instantiate(EffectManager.Instance.GetEffect(12), transform.position, Quaternion.identity);
+    }
+    #endregion
 }

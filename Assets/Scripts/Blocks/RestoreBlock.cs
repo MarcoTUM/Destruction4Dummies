@@ -89,4 +89,11 @@ public class RestoreBlock : Block
     }
 
     #endregion
+
+    #region helper
+    protected override void SpawnDestructionEffect()
+    {
+        Instantiate(EffectManager.Instance.GetEffect(12), transform.position, Quaternion.identity);
+    }
+    #endregion
 }
