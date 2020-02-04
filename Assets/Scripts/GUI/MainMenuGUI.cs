@@ -10,8 +10,10 @@ public class MainMenuGUI : MonoBehaviour
     public static MainMenuWindow CurrentActiveWindow = MainMenuWindow.Main;
     [SerializeField] private GameObject mainWindow, levelSelectionWindow;
 
+    
     private void Start()
     {
+        Gamemaster.Instance.StopTimer();
         if (CurrentActiveWindow == MainMenuWindow.Main)
             SwitchToMain();
         else if (CurrentActiveWindow == MainMenuWindow.LevelSelection)
@@ -32,6 +34,7 @@ public class MainMenuGUI : MonoBehaviour
 
     public void StartGame()
     {
+        Gamemaster.Instance.StartTimer();
         Gamemaster.Instance.SetNextMainLevelToLoad(1);
         LoadScene(SceneDictionary.Play);
     }

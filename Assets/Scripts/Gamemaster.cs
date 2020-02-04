@@ -21,7 +21,8 @@ public class Gamemaster : Singleton<Gamemaster>
     private ProgressionFile progress;
     private int completedLevels = 0;
     private int numberOfMainLevels = -1;
-    
+    private float time;
+    private bool shouldShowTime;
     protected override void Awake()
     {
         base.Awake();
@@ -186,4 +187,31 @@ public class Gamemaster : Singleton<Gamemaster>
     }
     #endregion
 
+    #region Timer
+    
+    public bool ShowTimer()
+    {
+        return shouldShowTime;
+    }
+
+    public void StartTimer()
+    {
+        shouldShowTime = true;
+        time = 0;
+    }
+
+    public void StopTimer()
+    {
+        shouldShowTime = false;
+    }
+    public void UpdateTime()
+    {
+        time += Time.deltaTime;
+    }
+
+    public float GetTime()
+    {
+        return time;
+    }
+    #endregion
 }
