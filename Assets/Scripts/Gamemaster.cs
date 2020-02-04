@@ -206,7 +206,8 @@ public class Gamemaster : Singleton<Gamemaster>
     }
     public void UpdateTime()
     {
-        time += Time.deltaTime;
+        if(!playSceneUI.IsOpen)
+            time += Time.deltaTime;
     }
 
     public float GetTime()
