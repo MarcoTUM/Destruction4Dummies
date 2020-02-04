@@ -121,7 +121,7 @@ public class DialogueManager : MonoBehaviour
         {
             hasMoreText = participants[(int)currentLine.Speaker].ContinueLine();
         } while (hasMoreText);
-
+        dialogueIndex = lines.Length - 1;
         StartCoroutine(EndDialogueOneFrameLater());
     }
 

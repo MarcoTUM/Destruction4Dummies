@@ -47,6 +47,7 @@ public class Player : DialogueParticipant
     private float lookAtCrowd = 90;
     private bool isLookingRight = true;
     [SerializeField] private GameObject model;
+    [SerializeField] private GameObject forceChargeCollider;
 
     [HideInInspector] public bool IsOnGoal = false;
     private Renderer[] renderers;
@@ -85,6 +86,7 @@ public class Player : DialogueParticipant
     {
         StopCoroutine("ChargeBlock");
         Destroy(isChargingParticleEffect);
+        forceChargeCollider.SetActive(false);
     }
 
     #endregion
@@ -428,9 +430,10 @@ public class Player : DialogueParticipant
     {
         //charge effect
         isChargingParticleEffect = Instantiate(EffectManager.Instance.GetEffect(11), model.transform.position, new Quaternion(0,90,0,0), model.transform);
-        
+        forceChargeCollider.SetActive(true);
         canDestroy = false;
         yield return new WaitForSeconds(time);
+        forceChargeCollider.SetActive(false);
         canDestroy = true;
     }
 

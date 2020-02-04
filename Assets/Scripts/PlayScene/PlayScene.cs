@@ -8,8 +8,8 @@ public class PlayScene : MonoBehaviour
     [SerializeField] private float gameOverDuration = 1f;
     [SerializeField] private float respawnDuration = 1f;
     [SerializeField] private float gameOverDistance = 5;
-
-    public Advisor advisor;
+    [SerializeField] private StartCollider startCollider;
+    [HideInInspector] public Advisor advisor;
     private Player player;
     private Level level;
     private Vector3 spawnPosition;
@@ -28,6 +28,7 @@ public class PlayScene : MonoBehaviour
         StartCoroutine(Gamemaster.Instance.GetCameraPlayControl().PlayLevelOpening(player));
         Vector2Int startCoord = level.GetLevelData().StartPlatformCoordinates;
         player.SetStartPlatform(new Vector3(startCoord.x, startCoord.y, 0));
+        startCollider.SetPosition(new Vector3(startCoord.x, startCoord.y, 0));
         player.SpawnAtSpawnPlatform();
     }
 
