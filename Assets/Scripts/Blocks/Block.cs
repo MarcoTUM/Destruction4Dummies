@@ -72,6 +72,7 @@ public abstract class Block : MonoBehaviour
         if (blockDestructionCoroutine != null)
         {
             StopCoroutine(blockDestructionCoroutine);
+            blockDestructionCoroutine = null;
             gameObject.GetComponent<Renderer>().material.mainTexture = recoveryTexture;
         }
         this.gameObject.SetActive(true);
