@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - ChainBlock
+  - Block
+  - PlayScene
+  - LockBlock
+  - RestoreableBlock
+  - BlockDescriptionText
   layers:
   - Default
   - TransparentFX
@@ -14,9 +19,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - Player
+  - Ignore Player Collision
+  - Block
   - 
   - 
   - 

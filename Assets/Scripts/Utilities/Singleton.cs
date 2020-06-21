@@ -3,7 +3,7 @@
 [DisallowMultipleComponent]
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    private static T instance;
+    protected static T instance;
     protected static bool IsApplicationQuitting { get; private set; } = false;
     private static object lockObj = new object();
 
@@ -19,11 +19,14 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
             instance = GetComponent<T>();
             if (!gameObject.name.EndsWith(NAME_SUFFIX))
                 gameObject.name += NAME_SUFFIX;
-            if (dontDestroyOnLoad)
-                DontDestroyOnLoad(gameObject);
         }
         else if (instance != this)
+        {
             DestroyImmediate(gameObject);
+            return;
+        }
+        if (dontDestroyOnLoad)
+            DontDestroyOnLoad(gameObject);
     }
 
     virtual protected void OnApplicationQuit() => IsApplicationQuitting = true;

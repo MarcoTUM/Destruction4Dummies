@@ -7,5 +7,8 @@ using UnityEngine;
 /// </summary>
 public static class SceneDictionary
 {
-    
+    public const string Play = "PlayScene";
+    public const string LevelEditor = "LevelEditor";
+    public const string MainMenu = "MainMenu";
+
 }
